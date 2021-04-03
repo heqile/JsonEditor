@@ -1,5 +1,5 @@
 ﻿
-namespace JsoEditor
+namespace JsonEditor
 {
     partial class Editor
     {

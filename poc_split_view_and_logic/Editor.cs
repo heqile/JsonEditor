@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace JsoEditor
+namespace JsonEditor
 {
     public partial class Editor : Form
     {
@@ -27,7 +27,7 @@ namespace JsoEditor
 
         private void TextComponent_TextChanged(object sender, EventArgs e)
         {
-            Model.content = TextComponent.Text;
+            Model.Content = TextComponent.Text;
         }
     }
 }
