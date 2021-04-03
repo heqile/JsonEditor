@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JsonEditor;
 using System.Text.Json;
 
-namespace JsonEditorUniTest
+namespace JsonEditorUnitTest
 {
     [TestClass]
     public class EditorModelUnitTest

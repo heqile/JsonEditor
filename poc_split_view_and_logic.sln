@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonEditor", "poc_split_view_and_logic\JsonEditor.csproj", "{E2392708-81FE-4758-9A26-A1213A0AA45C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonEditorUniTest", "JsonEditorUniTest\JsonEditorUniTest.csproj", "{C888DA32-0C18-43BA-99A3-E1DE2657B7C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonEditorUnitTest", "JsonEditorUniTest\JsonEditorUnitTest.csproj", "{C888DA32-0C18-43BA-99A3-E1DE2657B7C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

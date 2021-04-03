@@ -8,72 +8,43 @@ namespace JsonEditor
     public class EditorModel
     {
         private string m_content;
-        private JsonElement m_jsonElement;
-        private string m_errorMessage;
-        private bool m_isValidJson;
+        private JsonContent m_jsonContent;
 
-        public EditorModel()
-        {
-            m_isValidJson = false;
-        }
-
-        public bool IsValidJson
-        {
-            get { return m_isValidJson; }
-        }
 
         public string Content
         {
             set 
             { 
                 m_content = value;
-                try
-                {
-                    m_jsonElement = JsonSerializer.Deserialize<JsonElement>(value);
-                    m_isValidJson = true;
-                }
-                catch (JsonException)
-                {
-                    m_errorMessage = "Invalid Json";
-                    m_isValidJson = false;
-                }
+                m_jsonContent = new JsonContent(value);
             }
             get { return m_content; }
         }
 
         public string ErrorMessage
         {
-            get { return m_errorMessage; }
+            get {
+                if (IsValidJson)
+                {
+                    return null;
+                }
+                return "Invalid Json";
+            }
+        }
+
+        public bool IsValidJson
+        {
+            get { return m_jsonContent.IsValidJson; }
         }
 
         public string GetIndentedJson()
         {
-            if (!m_isValidJson)
-            {
-                return null;
-            }
-
-            return SerializeJsonElement(true);
+            return m_jsonContent.GetIndentedJson();
         }
 
         public string GetCompactJson()
         {
-            if (!m_isValidJson)
-            {
-                return null;
-            }
-
-            return SerializeJsonElement(false);
-        }
-
-        private string SerializeJsonElement(bool writeIndented)
-        {
-            var options = new JsonSerializerOptions()
-            {
-                WriteIndented = writeIndented
-            };
-
-            return JsonSerializer.Serialize(m_jsonElement, options);
+            return m_jsonContent.GetCompactJson();
         }
     }
 }
