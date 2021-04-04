@@ -29,5 +29,21 @@ namespace JsonEditor
         {
             Model.Content = TextComponent.Text;
         }
+
+        private void CompactJsonMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Model.IsValidJson)
+            {
+                TextComponent.Text = Model.GetCompactJson();
+            }
+        }
+
+        private void IndentedJsonMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Model.IsValidJson)
+            {
+                TextComponent.Text = Model.GetIndentedJson();
+            }
+        }
     }
 }
