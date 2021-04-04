@@ -12,12 +12,12 @@ namespace JsonEditor
 {
     public partial class Editor : Form
     {
-        private EditorModel Model;
+        private EditorModel m_model;
 
         public Editor(EditorModel model)
         {
             InitializeComponent();
-            this.Model = model;
+            m_model = model;
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -27,31 +27,31 @@ namespace JsonEditor
 
         private void TextComponent_TextChanged(object sender, EventArgs e)
         {
-            Model.Content = TextComponent.Text;
+            m_model.Content = TextComponent.Text;
         }
 
         private void CompactJsonMenuItem_Click(object sender, EventArgs e)
         {
-            if (Model.IsValidJson)
+            if (m_model.IsValidJson)
             {
-                TextComponent.Text = Model.GetCompactJson();
+                TextComponent.Text = m_model.GetCompactJson();
             }
             else
             {
-                Notifier.BalloonTipText = Model.ErrorMessage;
+                Notifier.BalloonTipText = m_model.ErrorMessage;
                 Notifier.ShowBalloonTip(3000);
             }
         }
 
         private void IndentedJsonMenuItem_Click(object sender, EventArgs e)
         {
-            if (Model.IsValidJson)
+            if (m_model.IsValidJson)
             {
-                TextComponent.Text = Model.GetIndentedJson();
+                TextComponent.Text = m_model.GetIndentedJson();
             }
             else
             {
-                Notifier.BalloonTipText = Model.ErrorMessage;
+                Notifier.BalloonTipText = m_model.ErrorMessage;
                 Notifier.ShowBalloonTip(3000);
             }
         }
