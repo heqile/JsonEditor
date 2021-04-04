@@ -10,6 +10,12 @@ namespace JsonEditor
         private string m_content;
         private JsonContent m_jsonContent;
 
+        public EditorModel()
+        {
+            m_content = string.Empty;
+            m_jsonContent = new JsonContent(string.Empty);
+        }
+
         public string Content
         {
             set 
@@ -22,12 +28,9 @@ namespace JsonEditor
 
         public string ErrorMessage
         {
-            get {
-                if (IsValidJson)
-                {
-                    return null;
-                }
-                return "Invalid Json";
+            get 
+            {
+                return m_jsonContent.ErrorMessage;
             }
         }
 

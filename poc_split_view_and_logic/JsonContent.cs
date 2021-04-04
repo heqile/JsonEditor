@@ -7,8 +7,8 @@ namespace JsonEditor
 {
     public class JsonContent
     {
-        public const string EmptyInputErrorMessage = "Please write a json string.";
-        public const string InvalidJsonErrorMessage = "Invalid json, please check your json.";
+        public const string EmptyInputErrorMessage = "Please write a json.";
+        public const string InvalidJsonErrorMessage = "Invalid json, please check your input.";
 
         private bool m_isValidJson;
         private JsonElement m_jsonElement;

@@ -38,7 +38,7 @@ namespace JsonEditor
             }
             else
             {
-                Notifier.BalloonTipText = "Invalid Json";
+                Notifier.BalloonTipText = Model.ErrorMessage;
                 Notifier.ShowBalloonTip(3000);
             }
         }
@@ -51,7 +51,7 @@ namespace JsonEditor
             }
             else
             {
-                Notifier.BalloonTipText = "Invalid Json";
+                Notifier.BalloonTipText = Model.ErrorMessage;
                 Notifier.ShowBalloonTip(3000);
             }
         }
@@ -59,7 +59,6 @@ namespace JsonEditor
         private void Editor_Load(object sender, EventArgs e)
         {
             Notifier.Visible = true;
-            Notifier.BalloonTipTitle = "JsonEditor";
         }
     }
 }
