@@ -36,6 +36,11 @@ namespace JsonEditor
             {
                 TextComponent.Text = Model.GetCompactJson();
             }
+            else
+            {
+                Notifier.BalloonTipText = "Invalid Json";
+                Notifier.ShowBalloonTip(3000);
+            }
         }
 
         private void IndentedJsonMenuItem_Click(object sender, EventArgs e)
@@ -44,6 +49,17 @@ namespace JsonEditor
             {
                 TextComponent.Text = Model.GetIndentedJson();
             }
+            else
+            {
+                Notifier.BalloonTipText = "Invalid Json";
+                Notifier.ShowBalloonTip(3000);
+            }
+        }
+
+        private void Editor_Load(object sender, EventArgs e)
+        {
+            Notifier.Visible = true;
+            Notifier.BalloonTipTitle = "JsonEditor";
         }
     }
 }

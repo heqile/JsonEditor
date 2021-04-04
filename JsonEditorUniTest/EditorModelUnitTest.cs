@@ -79,14 +79,13 @@ namespace JsonEditorUnitTest
         {
             // Given
             string invalidInput = "{\"key1\": \"value1\",\n \"key2: [\n\"value2-1\",\n \"value2-2\"],\n \"key3\": {\n\"key3-1\": \"value3-1\",\n \"key3-2\": \"value3-2\"}\n}";
-            string expectedEmptyString = null;
 
             // When
             EditorModel model = new EditorModel();
             model.Content = invalidInput;
 
             // Then
-            Assert.AreEqual(expectedEmptyString, model.GetIndentedJson());
+            Assert.AreEqual(string.Empty, model.GetIndentedJson());
         }
 
 
@@ -116,14 +115,13 @@ namespace JsonEditorUnitTest
         {
             // Given
             string invalidInput = "{\"key1\": \"value1\",\n \"key2: [\n\"value2-1\",\n \"value2-2\"],\n \"key3\": {\n\"key3-1\": \"value3-1\",\n \"key3-2\": \"value3-2\"}\n}";
-            string expectedEmptyString = null;
 
             // When
             EditorModel model = new EditorModel();
             model.Content = invalidInput;
 
             // Then
-            Assert.AreEqual(expectedEmptyString, model.GetCompactJson());
+            Assert.AreEqual(string.Empty, model.GetCompactJson());
         }
     }
 }

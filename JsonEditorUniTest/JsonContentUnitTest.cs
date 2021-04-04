@@ -20,6 +20,58 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
+        public void ErrorMessage_Null_ValidJson()
+        {
+            // Given
+            string validInput = "{\"key1\": \"value1\",\n \"key2\": [\n\"value2-1\",\n \"value2-2\"],\n \"key3\": {\n\"key3-1\": \"value3-1\",\n \"key3-2\": \"value3-2\"}\n}";
+
+            // When
+            JsonContent jsonContent = new JsonContent(validInput);
+
+            // Then
+            Assert.AreEqual(string.Empty, jsonContent.ErrorMessage);
+        }
+
+        [TestMethod]
+        public void ErrorMessage_InvalidJsonErrorMessage_InvalidJson()
+        {
+            // Given
+            string invalidInput = "{\"key1\": \"value1\",\n \"key2: [\n\"value2-1\",\n \"value2-2\"],\n \"key3\": {\n\"key3-1\": \"value3-1\",\n \"key3-2\": \"value3-2\"}\n}";
+
+            // When
+            JsonContent jsonContent = new JsonContent(invalidInput);
+
+            // Then
+            Assert.AreEqual(JsonContent.InvalidJsonErrorMessage, jsonContent.ErrorMessage);
+        }
+
+        [TestMethod]
+        public void ErrorMessage_EmptyErrorMessage_EmptyInput()
+        {
+            // Given
+            string emptyInput = "";
+
+            // When
+            JsonContent jsonContent = new JsonContent(emptyInput);
+
+            // Then
+            Assert.AreEqual(JsonContent.EmptyInputErrorMessage, jsonContent.ErrorMessage);
+        }
+
+        [TestMethod]
+        public void ErrorMessage_EmptyErrorMessage_NullInput()
+        {
+            // Given
+            string emptyInput = null;
+
+            // When
+            JsonContent jsonContent = new JsonContent(emptyInput);
+
+            // Then
+            Assert.AreEqual(JsonContent.EmptyInputErrorMessage, jsonContent.ErrorMessage);
+        }
+
+        [TestMethod]
         public void IsValidJson_True_ValidJson()
         {
             // Given
@@ -75,7 +127,7 @@ namespace JsonEditorUnitTest
             JsonContent jsonContent = new JsonContent(validInput);
 
             // Then
-            Assert.AreEqual(null, jsonContent.GetCompactJson());
+            Assert.AreEqual(string.Empty, jsonContent.GetCompactJson());
         }
 
         [TestMethod]
@@ -108,7 +160,7 @@ namespace JsonEditorUnitTest
             JsonContent jsonContent = new JsonContent(validInput);
 
             // Then
-            Assert.AreEqual(null, jsonContent.GetIndentedJson());
+            Assert.AreEqual(string.Empty, jsonContent.GetIndentedJson());
         }
     }
 }

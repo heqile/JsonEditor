@@ -29,6 +29,8 @@ namespace JsonEditor
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
             this.TextComponent = new System.Windows.Forms.RichTextBox();
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,6 +38,7 @@ namespace JsonEditor
             this.JsonMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CompactJsonMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.IndentedJsonMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Notifier = new System.Windows.Forms.NotifyIcon(this.components);
             this.Menu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -99,6 +102,12 @@ namespace JsonEditor
             this.IndentedJsonMenuItem.Text = "IndentedJson";
             this.IndentedJsonMenuItem.Click += new System.EventHandler(this.IndentedJsonMenuItem_Click);
             // 
+            // Notifier
+            // 
+            this.Notifier.Icon = ((System.Drawing.Icon)(resources.GetObject("Notifier.Icon")));
+            this.Notifier.Text = "JsonEditor";
+            this.Notifier.Visible = true;
+            // 
             // Editor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -108,6 +117,7 @@ namespace JsonEditor
             this.Controls.Add(this.Menu);
             this.Name = "Editor";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Editor_Load);
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
             this.ResumeLayout(false);
@@ -125,6 +135,7 @@ namespace JsonEditor
         private System.Windows.Forms.ToolStripMenuItem JsonMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CompactJsonMenuItem;
         private System.Windows.Forms.ToolStripMenuItem IndentedJsonMenuItem;
+        private System.Windows.Forms.NotifyIcon Notifier;
     }
 }
 

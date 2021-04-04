@@ -10,7 +10,6 @@ namespace JsonEditor
         private string m_content;
         private JsonContent m_jsonContent;
 
-
         public string Content
         {
             set 
