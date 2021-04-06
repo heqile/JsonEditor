@@ -13,11 +13,15 @@ namespace JsonEditor
     public partial class Editor : Form
     {
         private EditorModel m_model;
+        private KeyboardHook m_hook = new KeyboardHook();
 
         public Editor(EditorModel model)
         {
             InitializeComponent();
             m_model = model;
+
+            m_hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+            m_hook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.J);
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -59,6 +63,12 @@ namespace JsonEditor
         private void Editor_Load(object sender, EventArgs e)
         {
             Notifier.Visible = true;
+        }
+
+        void hook_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            // show the keys pressed in a label.
+            TextComponent.Text = e.Modifier.ToString() + " + " + e.Key.ToString();
         }
     }
 }
