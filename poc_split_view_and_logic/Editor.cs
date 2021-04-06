@@ -13,15 +13,19 @@ namespace JsonEditor
     public partial class Editor : Form
     {
         private EditorModel m_model;
-        private KeyboardHook m_hook = new KeyboardHook();
+        private KeyboardHook m_compactJsonHook = new KeyboardHook();
+        private KeyboardHook m_indentedJsonHook = new KeyboardHook();
+        private KeyboardManager m_keyboardManager = new KeyboardManager();
 
         public Editor(EditorModel model)
         {
             InitializeComponent();
             m_model = model;
 
-            m_hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
-            m_hook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.J);
+            m_compactJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(compactJsonHook_KeyPressed);
+            m_compactJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Alt, Keys.Space);
+            m_indentedJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(indentedJsonHook_KeyPressed);
+            m_indentedJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.Space);
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -31,7 +35,7 @@ namespace JsonEditor
 
         private void TextComponent_TextChanged(object sender, EventArgs e)
         {
-            m_model.Content = TextComponent.Text;
+            
         }
 
         private void CompactJsonMenuItem_Click(object sender, EventArgs e)
@@ -65,10 +69,43 @@ namespace JsonEditor
             Notifier.Visible = true;
         }
 
-        void hook_KeyPressed(object sender, KeyPressedEventArgs e)
+        void compactJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            // show the keys pressed in a label.
-            TextComponent.Text = e.Modifier.ToString() + " + " + e.Key.ToString();
+            Task.Delay(300).Wait();
+            m_keyboardManager.SendCopyCommand();
+            var text = Clipboard.GetText();
+            m_model.Content = text;
+            if (m_model.IsValidJson)
+            {
+                string formattedJson = m_model.GetCompactJson();
+                TextComponent.Text = formattedJson;
+                //Clipboard.SetText(m_model.GetCompactJson());
+                //m_keyboardManager.SendPasteCommand();
+            }
+            else
+            {
+                Notifier.BalloonTipText = m_model.ErrorMessage;
+                Notifier.ShowBalloonTip(3000);
+            }
+        }
+
+        void indentedJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            m_keyboardManager.SendCopyCommand();
+            var text = Clipboard.GetText();
+            m_model.Content = text;
+            if (m_model.IsValidJson)
+            {
+                string formattedJson = m_model.GetIndentedJson();
+                TextComponent.Text = formattedJson;
+                //Clipboard.SetText(v);
+                //m_keyboardManager.SendPasteCommand();
+            }
+            else
+            {
+                Notifier.BalloonTipText = m_model.ErrorMessage;
+                Notifier.ShowBalloonTip(3000);
+            }
         }
     }
 }
