@@ -13,8 +13,4 @@
     <PackageReference Include="coverlet.collector" Version="1.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\poc_split_view_and_logic\JsonEditor.csproj" />
-  </ItemGroup>
-
 </Project>
