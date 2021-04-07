@@ -33,11 +33,6 @@ namespace JsonEditor
             Dispose();
         }
 
-        private void TextComponent_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
         private void CompactJsonMenuItem_Click(object sender, EventArgs e)
         {
             if (m_model.IsValidJson)
@@ -67,11 +62,12 @@ namespace JsonEditor
         private void Editor_Load(object sender, EventArgs e)
         {
             Notifier.Visible = true;
+            WindowState = FormWindowState.Minimized;
         }
 
         void compactJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            Task.Delay(300).Wait();
+            Task.Delay(500).Wait();
             m_keyboardManager.SendCopyCommand();
             var text = Clipboard.GetText();
             m_model.Content = text;
@@ -79,8 +75,8 @@ namespace JsonEditor
             {
                 string formattedJson = m_model.GetCompactJson();
                 TextComponent.Text = formattedJson;
-                //Clipboard.SetText(m_model.GetCompactJson());
-                //m_keyboardManager.SendPasteCommand();
+                Show();
+                WindowState = FormWindowState.Normal;
             }
             else
             {
@@ -91,6 +87,7 @@ namespace JsonEditor
 
         void indentedJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
+            Task.Delay(500).Wait();
             m_keyboardManager.SendCopyCommand();
             var text = Clipboard.GetText();
             m_model.Content = text;
@@ -98,14 +95,31 @@ namespace JsonEditor
             {
                 string formattedJson = m_model.GetIndentedJson();
                 TextComponent.Text = formattedJson;
-                //Clipboard.SetText(v);
-                //m_keyboardManager.SendPasteCommand();
+                Show();
+                WindowState = FormWindowState.Normal;
             }
             else
             {
                 Notifier.BalloonTipText = m_model.ErrorMessage;
                 Notifier.ShowBalloonTip(3000);
             }
+        }
+
+        private void Editor_Resize(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+            }
+            else
+            {
+                ShowInTaskbar = true;
+            }
+        }
+
+        private void Notifier_DoubleClick(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Normal;
         }
     }
 }
