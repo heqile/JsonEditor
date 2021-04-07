@@ -39,7 +39,10 @@ namespace JsonEditor
             this.CompactJsonMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.IndentedJsonMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Notifier = new System.Windows.Forms.NotifyIcon(this.components);
+            this.NotifierMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NotifierMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu.SuspendLayout();
+            this.NotifierMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // TextComponent
@@ -103,10 +106,26 @@ namespace JsonEditor
             // 
             // Notifier
             // 
+            this.Notifier.ContextMenuStrip = this.NotifierMenuStrip;
             this.Notifier.Icon = ((System.Drawing.Icon)(resources.GetObject("Notifier.Icon")));
             this.Notifier.Text = "JsonEditor";
             this.Notifier.Visible = true;
             this.Notifier.DoubleClick += new System.EventHandler(this.Notifier_DoubleClick);
+            this.Notifier.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Notifier_MouseClick);
+            // 
+            // NotifierMenuStrip
+            // 
+            this.NotifierMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NotifierMenuExit});
+            this.NotifierMenuStrip.Name = "notifierMenuStrip";
+            this.NotifierMenuStrip.Size = new System.Drawing.Size(97, 26);
+            // 
+            // NotifierMenuExit
+            // 
+            this.NotifierMenuExit.Name = "NotifierMenuExit";
+            this.NotifierMenuExit.Size = new System.Drawing.Size(96, 22);
+            this.NotifierMenuExit.Text = "Exit";
+            this.NotifierMenuExit.Click += new System.EventHandler(this.NotifierMenuExit_Click);
             // 
             // Editor
             // 
@@ -122,6 +141,7 @@ namespace JsonEditor
             this.Resize += new System.EventHandler(this.Editor_Resize);
             this.Menu.ResumeLayout(false);
             this.Menu.PerformLayout();
+            this.NotifierMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,6 +158,8 @@ namespace JsonEditor
         private System.Windows.Forms.ToolStripMenuItem CompactJsonMenuItem;
         private System.Windows.Forms.ToolStripMenuItem IndentedJsonMenuItem;
         private System.Windows.Forms.NotifyIcon Notifier;
+        private System.Windows.Forms.ContextMenuStrip NotifierMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem NotifierMenuExit;
     }
 }
 

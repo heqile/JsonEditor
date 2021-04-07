@@ -22,9 +22,9 @@ namespace JsonEditor
             InitializeComponent();
             m_model = model;
 
-            m_compactJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(compactJsonHook_KeyPressed);
+            m_compactJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(CompactJsonHook_KeyPressed);
             m_compactJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Alt, Keys.Space);
-            m_indentedJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(indentedJsonHook_KeyPressed);
+            m_indentedJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(IndentedJsonHook_KeyPressed);
             m_indentedJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.Space);
         }
 
@@ -65,7 +65,7 @@ namespace JsonEditor
             WindowState = FormWindowState.Minimized;
         }
 
-        void compactJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        void CompactJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
             Task.Delay(300).Wait();
             m_keyboardManager.SendCopyCommand();
@@ -85,7 +85,7 @@ namespace JsonEditor
             }
         }
 
-        void indentedJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        void IndentedJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
             Task.Delay(500).Wait();
             m_keyboardManager.SendCopyCommand();
@@ -135,6 +135,20 @@ namespace JsonEditor
             //assuming you want the close-button to only hide the form, 
             //and are overriding the form's OnFormClosing method:
             this.Hide();
+        }
+
+        private void Notifier_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                NotifierMenuStrip.Show();
+            }
+        }
+
+
+        private void NotifierMenuExit_Click(object sender, EventArgs e)
+        {
+            Dispose();
         }
     }
 }
