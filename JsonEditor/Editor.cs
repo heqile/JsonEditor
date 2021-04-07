@@ -67,7 +67,7 @@ namespace JsonEditor
 
         void CompactJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            Task.Delay(300).Wait();
+            Task.Delay(200).Wait();
             m_keyboardManager.SendCopyCommand();
             var text = Clipboard.GetText();
             m_model.Content = text;
@@ -75,8 +75,14 @@ namespace JsonEditor
             {
                 string formattedJson = m_model.GetCompactJson();
                 TextComponent.Text = formattedJson;
-                Show();
-                WindowState = FormWindowState.Normal;
+                TextComponent.SelectAll();
+                TextComponent.Focus();
+                Task.Delay(100).Wait();
+                Clipboard.SetText(formattedJson);
+                Task.Delay(100).Wait();
+                m_keyboardManager.SendPasteCommand();
+                //Show();
+                //WindowState = FormWindowState.Normal;
             }
             else
             {
@@ -87,7 +93,7 @@ namespace JsonEditor
 
         void IndentedJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            Task.Delay(500).Wait();
+            Task.Delay(200).Wait();
             m_keyboardManager.SendCopyCommand();
             var text = Clipboard.GetText();
             m_model.Content = text;
@@ -95,8 +101,14 @@ namespace JsonEditor
             {
                 string formattedJson = m_model.GetIndentedJson();
                 TextComponent.Text = formattedJson;
-                Show();
-                WindowState = FormWindowState.Normal;
+                TextComponent.SelectAll();
+                TextComponent.Focus();
+                Task.Delay(100).Wait();
+                Clipboard.SetText(formattedJson);
+                Task.Delay(100).Wait();
+                m_keyboardManager.SendPasteCommand();
+                //Show();
+                //WindowState = FormWindowState.Normal;
             }
             else
             {
