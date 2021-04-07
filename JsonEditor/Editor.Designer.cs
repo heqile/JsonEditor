@@ -45,10 +45,9 @@ namespace JsonEditor
             // TextComponent
             // 
             this.TextComponent.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TextComponent.Location = new System.Drawing.Point(1, 33);
-            this.TextComponent.Margin = new System.Windows.Forms.Padding(4);
+            this.TextComponent.Location = new System.Drawing.Point(1, 28);
             this.TextComponent.Name = "TextComponent";
-            this.TextComponent.Size = new System.Drawing.Size(1024, 491);
+            this.TextComponent.Size = new System.Drawing.Size(797, 418);
             this.TextComponent.TabIndex = 0;
             this.TextComponent.Text = "";
             // 
@@ -60,8 +59,7 @@ namespace JsonEditor
             this.JsonMenuItem});
             this.Menu.Location = new System.Drawing.Point(0, 0);
             this.Menu.Name = "Menu";
-            this.Menu.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.Menu.Size = new System.Drawing.Size(1029, 28);
+            this.Menu.Size = new System.Drawing.Size(800, 25);
             this.Menu.TabIndex = 1;
             this.Menu.Text = "menuStrip1";
             // 
@@ -70,13 +68,13 @@ namespace JsonEditor
             this.FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Exit});
             this.FileMenuItem.Name = "FileMenuItem";
-            this.FileMenuItem.Size = new System.Drawing.Size(48, 24);
+            this.FileMenuItem.Size = new System.Drawing.Size(39, 21);
             this.FileMenuItem.Text = "File";
             // 
             // Exit
             // 
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(118, 26);
+            this.Exit.Size = new System.Drawing.Size(96, 22);
             this.Exit.Text = "Exit";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -86,20 +84,20 @@ namespace JsonEditor
             this.CompactJsonMenuItem,
             this.IndentedJsonMenuItem});
             this.JsonMenuItem.Name = "JsonMenuItem";
-            this.JsonMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.JsonMenuItem.Size = new System.Drawing.Size(46, 21);
             this.JsonMenuItem.Text = "Json";
             // 
             // CompactJsonMenuItem
             // 
             this.CompactJsonMenuItem.Name = "CompactJsonMenuItem";
-            this.CompactJsonMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.CompactJsonMenuItem.Size = new System.Drawing.Size(154, 22);
             this.CompactJsonMenuItem.Text = "CompactJson";
             this.CompactJsonMenuItem.Click += new System.EventHandler(this.CompactJsonMenuItem_Click);
             // 
             // IndentedJsonMenuItem
             // 
             this.IndentedJsonMenuItem.Name = "IndentedJsonMenuItem";
-            this.IndentedJsonMenuItem.Size = new System.Drawing.Size(190, 26);
+            this.IndentedJsonMenuItem.Size = new System.Drawing.Size(154, 22);
             this.IndentedJsonMenuItem.Text = "IndentedJson";
             this.IndentedJsonMenuItem.Click += new System.EventHandler(this.IndentedJsonMenuItem_Click);
             // 
@@ -112,14 +110,14 @@ namespace JsonEditor
             // 
             // Editor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1029, 529);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.TextComponent);
             this.Controls.Add(this.Menu);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Editor";
-            this.Text = "Form1";
+            this.Text = "JsonEditor";
             this.Load += new System.EventHandler(this.Editor_Load);
             this.Resize += new System.EventHandler(this.Editor_Resize);
             this.Menu.ResumeLayout(false);
