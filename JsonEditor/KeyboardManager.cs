@@ -40,7 +40,7 @@ namespace JsonEditor
             keybd_event(0x43, 0, KEYEVENTF_KEYDOWN, 0); //Send the C key
             keybd_event(0x43, 0, KEYEVENTF_KEYUP, 0);
             keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
-            Task.Delay(100).Wait();
+            Task.Delay(50).Wait();
         }
 
         public void SendPasteCommand()
@@ -55,6 +55,7 @@ namespace JsonEditor
             keybd_event(0x56, 0, KEYEVENTF_KEYDOWN, 0); //Send the V key
             keybd_event(0x56, 0, KEYEVENTF_KEYUP, 0);
             keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
+            Task.Delay(50).Wait();
         }
     }
 }
