@@ -67,7 +67,7 @@ namespace JsonEditor
 
         void compactJsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            Task.Delay(500).Wait();
+            Task.Delay(300).Wait();
             m_keyboardManager.SendCopyCommand();
             var text = Clipboard.GetText();
             m_model.Content = text;
