@@ -23,9 +23,9 @@ namespace JsonEditor
             m_model = model;
 
             m_compactJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(CompactJsonHook_KeyPressed);
-            m_compactJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Alt, Keys.Space);
+            m_compactJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.W);
             m_indentedJsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(IndentedJsonHook_KeyPressed);
-            m_indentedJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.Space);
+            m_indentedJsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.Q);
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -132,8 +132,6 @@ namespace JsonEditor
                 return;
             }
             e.Cancel = true;
-            //assuming you want the close-button to only hide the form, 
-            //and are overriding the form's OnFormClosing method:
             this.Hide();
         }
 
@@ -145,10 +143,15 @@ namespace JsonEditor
             }
         }
 
-
         private void NotifierMenuExit_Click(object sender, EventArgs e)
         {
             Dispose();
+        }
+
+        private void NotifierMenuShow_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            WindowState = FormWindowState.Normal;
         }
     }
 }

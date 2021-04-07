@@ -40,6 +40,7 @@ namespace JsonEditor
             this.IndentedJsonMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Notifier = new System.Windows.Forms.NotifyIcon(this.components);
             this.NotifierMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.NotifierMenuShow = new System.Windows.Forms.ToolStripMenuItem();
             this.NotifierMenuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu.SuspendLayout();
             this.NotifierMenuStrip.SuspendLayout();
@@ -116,14 +117,22 @@ namespace JsonEditor
             // NotifierMenuStrip
             // 
             this.NotifierMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.NotifierMenuShow,
             this.NotifierMenuExit});
             this.NotifierMenuStrip.Name = "notifierMenuStrip";
-            this.NotifierMenuStrip.Size = new System.Drawing.Size(97, 26);
+            this.NotifierMenuStrip.Size = new System.Drawing.Size(147, 48);
+            // 
+            // NotifierMenuShow
+            // 
+            this.NotifierMenuShow.Name = "NotifierMenuShow";
+            this.NotifierMenuShow.Size = new System.Drawing.Size(146, 22);
+            this.NotifierMenuShow.Text = "Show Editor";
+            this.NotifierMenuShow.Click += new System.EventHandler(this.NotifierMenuShow_Click);
             // 
             // NotifierMenuExit
             // 
             this.NotifierMenuExit.Name = "NotifierMenuExit";
-            this.NotifierMenuExit.Size = new System.Drawing.Size(96, 22);
+            this.NotifierMenuExit.Size = new System.Drawing.Size(146, 22);
             this.NotifierMenuExit.Text = "Exit";
             this.NotifierMenuExit.Click += new System.EventHandler(this.NotifierMenuExit_Click);
             // 
@@ -160,6 +169,7 @@ namespace JsonEditor
         private System.Windows.Forms.NotifyIcon Notifier;
         private System.Windows.Forms.ContextMenuStrip NotifierMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem NotifierMenuExit;
+        private System.Windows.Forms.ToolStripMenuItem NotifierMenuShow;
     }
 }
 
