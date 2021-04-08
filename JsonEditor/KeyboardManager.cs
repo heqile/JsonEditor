@@ -23,21 +23,21 @@ namespace JsonEditor
 
         public void SendCopyCommand()
         {
+            Task.Delay(200).Wait();  // keep long for applications like chrome or visualstudio
             keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYDOWN, 0);
             keybd_event(0x43, 0, KEYEVENTF_KEYDOWN, 0); //Send the C key
             keybd_event(0x43, 0, KEYEVENTF_KEYUP, 0);
             keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
-            
             Task.Delay(150).Wait();
         }
 
         public void SendPasteCommand()
         {
+            Task.Delay(50).Wait();
             keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYDOWN, 0);
             keybd_event(0x56, 0, KEYEVENTF_KEYDOWN, 0); //Send the V key
             keybd_event(0x56, 0, KEYEVENTF_KEYUP, 0);
             keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
-            
             Task.Delay(100).Wait();
         }
     }
