@@ -68,15 +68,13 @@ namespace JsonEditor
                 {
                     string formattedJson = m_model.GetIndentedJson();
                     SetTextComponentContent(formattedJson);
-                    Clipboard.SetText(formattedJson);
-                    Task.Delay(50).Wait();
+                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
                 }
                 else if (text == m_model.GetIndentedJson())
                 {
                     string formattedJson = m_model.GetCompactJson();
                     SetTextComponentContent(formattedJson);
-                    Clipboard.SetText(formattedJson);
-                    Task.Delay(50).Wait();
+                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
                 }
                 else
                 {
@@ -85,8 +83,7 @@ namespace JsonEditor
                     {
                         string formattedJson = m_model.GetIndentedJson();
                         SetTextComponentContent(formattedJson);
-                        Clipboard.SetText(formattedJson);
-                        Task.Delay(50).Wait();
+                        Clipboard.SetDataObject(formattedJson, true, 5, 50);
                     }
                     else
                     {
@@ -99,24 +96,20 @@ namespace JsonEditor
             else
             {
                 m_windowManager.SetFocusedHandleForeground();
-                Task.Delay(200).Wait();  // keep long for applications like chrome or visualstudio
                 m_keyboardManager.SendCopyCommand();
                 var text = Clipboard.GetText();
-                Task.Delay(100).Wait();
                 if (text == m_model.GetCompactJson())
                 {
                     string formattedJson = m_model.GetIndentedJson();
                     SetTextComponentContent(formattedJson);
-                    Clipboard.SetText(formattedJson);
-                    Task.Delay(50).Wait();
+                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
                     m_keyboardManager.SendPasteCommand();
                 }
                 else if (text == m_model.GetIndentedJson())
                 {
                     string formattedJson = m_model.GetCompactJson();
                     SetTextComponentContent(formattedJson);
-                    Clipboard.SetText(formattedJson);
-                    Task.Delay(50).Wait();
+                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
                     m_keyboardManager.SendPasteCommand();
                 }
                 else
@@ -126,8 +119,7 @@ namespace JsonEditor
                     {
                         string formattedJson = m_model.GetIndentedJson();
                         SetTextComponentContent(formattedJson);
-                        Clipboard.SetText(formattedJson);
-                        Task.Delay(50).Wait();
+                        Clipboard.SetDataObject(formattedJson, true, 5, 50);
                         m_keyboardManager.SendPasteCommand();
                     }
                     else
