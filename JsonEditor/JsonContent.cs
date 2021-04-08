@@ -65,6 +65,7 @@ namespace JsonEditor
             }
 
             StringWriter stringWriter = new StringWriter();
+            stringWriter.NewLine = "\r\n";
             JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter);
             jsonWriter.Formatting = Formatting.Indented;
             jsonWriter.IndentChar = ' ';

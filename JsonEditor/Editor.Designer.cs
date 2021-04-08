@@ -111,6 +111,7 @@ namespace JsonEditor
             this.Notifier.Icon = ((System.Drawing.Icon)(resources.GetObject("Notifier.Icon")));
             this.Notifier.Text = "JsonEditor";
             this.Notifier.Visible = true;
+            this.Notifier.BalloonTipClicked += new System.EventHandler(this.Notifier_BalloonTipClicked);
             this.Notifier.DoubleClick += new System.EventHandler(this.Notifier_DoubleClick);
             this.Notifier.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Notifier_MouseClick);
             // 
