@@ -67,18 +67,14 @@ namespace JsonEditor
                 if (text == m_model.GetCompactJson())
                 {
                     string formattedJson = m_model.GetIndentedJson();
-                    TextComponent.Text = formattedJson;
-                    TextComponent.SelectAll();
-                    TextComponent.Focus();
+                    SetTextComponentContent(formattedJson);
                     Clipboard.SetText(formattedJson);
                     Task.Delay(50).Wait();
                 }
                 else if (text == m_model.GetIndentedJson())
                 {
                     string formattedJson = m_model.GetCompactJson();
-                    TextComponent.Text = formattedJson;
-                    TextComponent.SelectAll();
-                    TextComponent.Focus();
+                    SetTextComponentContent(formattedJson);
                     Clipboard.SetText(formattedJson);
                     Task.Delay(50).Wait();
                 }
@@ -88,9 +84,7 @@ namespace JsonEditor
                     if (m_model.IsValidJson)
                     {
                         string formattedJson = m_model.GetIndentedJson();
-                        TextComponent.Text = formattedJson;
-                        TextComponent.SelectAll();
-                        TextComponent.Focus();
+                        SetTextComponentContent(formattedJson);
                         Clipboard.SetText(formattedJson);
                         Task.Delay(50).Wait();
                     }
@@ -98,7 +92,7 @@ namespace JsonEditor
                     {
                         Notifier.BalloonTipText = m_model.ErrorMessage;
                         Notifier.ShowBalloonTip(3000);
-                        TextComponent.Text = text;
+                        SetTextComponentContent(text);
                     }
                 }
             }
@@ -112,9 +106,7 @@ namespace JsonEditor
                 if (text == m_model.GetCompactJson())
                 {
                     string formattedJson = m_model.GetIndentedJson();
-                    TextComponent.Text = formattedJson;
-                    TextComponent.SelectAll();
-                    TextComponent.Focus();
+                    SetTextComponentContent(formattedJson);
                     Clipboard.SetText(formattedJson);
                     Task.Delay(50).Wait();
                     m_keyboardManager.SendPasteCommand();
@@ -122,9 +114,7 @@ namespace JsonEditor
                 else if (text == m_model.GetIndentedJson())
                 {
                     string formattedJson = m_model.GetCompactJson();
-                    TextComponent.Text = formattedJson;
-                    TextComponent.SelectAll();
-                    TextComponent.Focus();
+                    SetTextComponentContent(formattedJson);
                     Clipboard.SetText(formattedJson);
                     Task.Delay(50).Wait();
                     m_keyboardManager.SendPasteCommand();
@@ -135,10 +125,7 @@ namespace JsonEditor
                     if (m_model.IsValidJson)
                     {
                         string formattedJson = m_model.GetIndentedJson();
-                        TextComponent.Text = formattedJson;
-                        TextComponent.SelectAll();
-                        TextComponent.Focus();
-                        Task.Delay(50).Wait();
+                        SetTextComponentContent(formattedJson);
                         Clipboard.SetText(formattedJson);
                         Task.Delay(50).Wait();
                         m_keyboardManager.SendPasteCommand();
@@ -147,11 +134,10 @@ namespace JsonEditor
                     {
                         Notifier.BalloonTipText = m_model.ErrorMessage;
                         Notifier.ShowBalloonTip(3000);
-                        TextComponent.Text = text;
+                        SetTextComponentContent(text);
                     }
                 }
             }
-
         }
 
         private void Editor_Resize(object sender, EventArgs e)
@@ -209,5 +195,11 @@ namespace JsonEditor
             WindowState = FormWindowState.Normal;
         }
 
+        private void SetTextComponentContent(string text)
+        {
+            TextComponent.Text = text;
+            TextComponent.SelectAll();
+            TextComponent.Focus();
+        }
     }
 }
