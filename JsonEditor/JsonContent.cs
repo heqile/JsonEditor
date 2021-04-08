@@ -1,41 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
 
 namespace JsonEditor
 {
     public class JsonContent
     {
         public const string EmptyInputErrorMessage = "Please write a json.";
-        public const string InvalidJsonErrorMessage = "Invalid json, please check your input.";
+        public const string InvalidJsonErrorMessage = "Invalid json.";
 
-        private bool m_isValidJson;
-        private JsonElement m_jsonElement;
         private string m_errorMessage;
+        private JsonSerializer m_serializer;
+        private object m_jsonObject;
 
         public JsonContent(string textContent)
         {
-            m_isValidJson = false;
             m_errorMessage = string.Empty;
+
             if (string.IsNullOrEmpty(textContent))
             {
                 m_errorMessage = EmptyInputErrorMessage;
                 return;
             }
 
+            m_serializer = new JsonSerializer();
             try
             {
-                m_jsonElement = JsonSerializer.Deserialize<JsonElement>(textContent);
-                m_isValidJson = true;
+                m_jsonObject = JsonConvert.DeserializeObject(textContent);
             }
-            catch (JsonException)
+            catch (Exception ex)
             {
-                m_errorMessage = InvalidJsonErrorMessage;
-            }
-            catch (ArgumentNullException)
-            {
-                m_errorMessage = EmptyInputErrorMessage;
+                m_errorMessage = ex.Message;
             }
         }
 
@@ -46,35 +41,36 @@ namespace JsonEditor
 
         public bool IsValidJson
         {
-            get { return m_isValidJson; }
+            get { return m_jsonObject != null; }
         }
 
         public string GetCompactJson()
         {
-            if (!m_isValidJson)
+            if (m_jsonObject is null)
             {
                 return string.Empty;
             }
-
-            var options = new JsonSerializerOptions()
-            {
-                WriteIndented = false
-            };
-            return JsonSerializer.Serialize(m_jsonElement, options);
+            StringWriter stringWriter = new StringWriter();
+            JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter);
+            jsonWriter.Formatting = Formatting.None;
+            m_serializer.Serialize(jsonWriter, m_jsonObject);
+            return stringWriter.ToString();
         }
 
         public string GetIndentedJson()
         {
-            if (!m_isValidJson)
+            if (m_jsonObject is null)
             {
                 return string.Empty;
             }
 
-            var options = new JsonSerializerOptions()
-            {
-                WriteIndented = true
-            };
-            return JsonSerializer.Serialize(m_jsonElement, options);
+            StringWriter stringWriter = new StringWriter();
+            JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter);
+            jsonWriter.Formatting = Formatting.Indented;
+            jsonWriter.IndentChar = ' ';
+            jsonWriter.Indentation = 4;
+            m_serializer.Serialize(jsonWriter, m_jsonObject);
+            return stringWriter.ToString();
         }
     }
 }

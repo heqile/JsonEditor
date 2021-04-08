@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -64,7 +58,7 @@ namespace JsonEditor
 
         void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            Task.Delay(50).Wait();
+            Task.Delay(200).Wait();  // keep long for applications like chrome or visualstudio
             m_keyboardManager.SendCopyCommand();
             Task.Delay(50).Wait();
             var text = Clipboard.GetText();
@@ -104,13 +98,12 @@ namespace JsonEditor
                     Clipboard.SetText(formattedJson);
                     Task.Delay(50).Wait();
                     m_keyboardManager.SendPasteCommand();
-                    //Show();
-                    //WindowState = FormWindowState.Normal;
                 }
                 else
                 {
                     Notifier.BalloonTipText = m_model.ErrorMessage;
                     Notifier.ShowBalloonTip(3000);
+                    TextComponent.Text = text;
                 }
             }
         }
@@ -129,7 +122,7 @@ namespace JsonEditor
 
         private void Notifier_DoubleClick(object sender, EventArgs e)
         {
-            this.Show();
+            Show();
             WindowState = FormWindowState.Normal;
         }
 
@@ -142,7 +135,7 @@ namespace JsonEditor
                 return;
             }
             e.Cancel = true;
-            this.Hide();
+            Hide();
         }
 
         private void Notifier_MouseClick(object sender, MouseEventArgs e)
@@ -160,7 +153,7 @@ namespace JsonEditor
 
         private void NotifierMenuShow_Click(object sender, EventArgs e)
         {
-            this.Show();
+            Show();
             WindowState = FormWindowState.Normal;
         }
     }
