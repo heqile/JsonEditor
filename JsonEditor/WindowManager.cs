@@ -6,6 +6,7 @@ namespace JsonEditor
 {
     public class WindowManager
     {
+        private IntPtr m_previousForegroundWindow;
 
         [DllImport("user32.dll")]
         static extern bool GetCursorPos(out Point lpPoint);
@@ -21,7 +22,11 @@ namespace JsonEditor
             Point cursorPoint;
             GetCursorPos(out cursorPoint);
             IntPtr cursorHandle = WindowFromPoint(cursorPoint);
-            SetForegroundWindow(cursorHandle);
+            if (cursorHandle != m_previousForegroundWindow) 
+            { 
+                SetForegroundWindow(cursorHandle);
+                m_previousForegroundWindow = cursorHandle;
+            }
         }
 
         public bool IsMainWindowFocused()
