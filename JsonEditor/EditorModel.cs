@@ -40,7 +40,6 @@ namespace JsonEditor
 
         public string GetFormattedJson()
         {
-            m_content = m_content.Replace("\n", "\r\n");  // replace new line
             string formattedJson = GetFormattedJsonIfSameAsPrevious();
             if (!string.IsNullOrEmpty(formattedJson))
             {

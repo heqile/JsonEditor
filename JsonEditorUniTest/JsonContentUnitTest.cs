@@ -16,6 +16,7 @@ namespace JsonEditorUnitTest
             Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
             object jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(validInput);
             StringWriter sw = new StringWriter();
+            sw.NewLine = "\n";
             Newtonsoft.Json.JsonTextWriter jw = new Newtonsoft.Json.JsonTextWriter(sw);
             jw.Formatting = Newtonsoft.Json.Formatting.Indented;
             jw.IndentChar = ' ';

@@ -65,7 +65,7 @@ namespace JsonEditor
             }
 
             StringWriter stringWriter = new StringWriter();
-            stringWriter.NewLine = "\r\n";
+            stringWriter.NewLine = "\n";  // in richTextEditor, it stores "\n", to be consistent, use "\n" in output of json converter
             JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter);
             jsonWriter.Formatting = Formatting.Indented;
             jsonWriter.IndentChar = ' ';

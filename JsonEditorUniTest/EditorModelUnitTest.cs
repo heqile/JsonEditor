@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using JsonEditor;
 using System.Text.Json;
 using System.IO;
+using System;
 
 namespace JsonEditorUnitTest
 {
@@ -16,10 +17,21 @@ namespace JsonEditorUnitTest
             Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
             object jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(validInput);
             StringWriter sw = new StringWriter();
+            sw.NewLine = "\n";
             Newtonsoft.Json.JsonTextWriter jw = new Newtonsoft.Json.JsonTextWriter(sw);
             jw.Formatting = Newtonsoft.Json.Formatting.Indented;
             jw.IndentChar = ' ';
             jw.Indentation = 4;
+            serializer.Serialize(jw, jsonObj);
+            return sw.ToString();
+        }
+        string convertToCompactJson(string input)
+        {
+            Newtonsoft.Json.JsonSerializer serializer = new Newtonsoft.Json.JsonSerializer();
+            object jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(validInput);
+            StringWriter sw = new StringWriter();
+            Newtonsoft.Json.JsonTextWriter jw = new Newtonsoft.Json.JsonTextWriter(sw);
+            jw.Formatting = Newtonsoft.Json.Formatting.None;
             serializer.Serialize(jw, jsonObj);
             return sw.ToString();
         }
@@ -72,22 +84,7 @@ namespace JsonEditorUnitTest
             model.Text = validInput;
 
             // Then
-            Assert.IsTrue(model.IsValidJson);
-            Assert.AreEqual(string.Empty, model.ErrorMessage);
-        }
-
-        [TestMethod]
-        public void SetContent_ErrorMessage_InvalidValidJson()
-        {
-            // Given
-
-            // When
-            EditorModel model = new EditorModel();
-            model.Text = invalidInput;
-
-            // Then
-            Assert.IsFalse(model.IsValidJson);
-            Assert.IsTrue(model.ErrorMessage.Contains("Invalid character after parsing property name"));
+            Assert.AreEqual(validInput, model.Text);
         }
 
         [TestMethod]
@@ -113,7 +110,8 @@ namespace JsonEditorUnitTest
             model.Text = invalidInput;
 
             // Then
-            Assert.AreEqual(string.Empty, model.GetIndentedJson());
+            Assert.ThrowsException<ArgumentOutOfRangeException>(model.GetCompactJson);
+            Assert.IsTrue(model.ErrorMessage.Contains("Invalid character after parsing property name"));
         }
 
 
@@ -137,7 +135,7 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetCompactJson_EmptyString_InvalidValidJson()
+        public void GetCompactJson_EmptyString_InvalidJson()
         {
             // Given
 
@@ -146,7 +144,85 @@ namespace JsonEditorUnitTest
             model.Text = invalidInput;
 
             // Then
-            Assert.AreEqual(string.Empty, model.GetCompactJson());
+            Assert.ThrowsException<ArgumentOutOfRangeException>(model.GetCompactJson);
+            Assert.IsTrue(model.ErrorMessage.Contains("Invalid character after parsing property name"));
+        }
+
+        [TestMethod]
+        public void GetFormattedJson_IndentedJson_GotCompactJsonPreviously()
+        {
+            // Give
+            string inputJson = convertToCompactJson(validInput);
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel();
+            model.Text = inputJson;
+            model.GetCompactJson();
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJson());
+        }
+
+        [TestMethod]
+        public void GetFormattedJson_CompactJson_GotIndentedJsonPreviously()
+        {
+            // Give
+            string inputJson = convertToIndentedJson(validInput);
+            string expectedJson = convertToCompactJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel();
+            model.Text = inputJson;
+            model.GetIndentedJson();
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJson());
+        }
+
+        [TestMethod]
+        public void GetFormattedJson_IndentedJson_NewJsonInputAndIsCompactJson()
+        {
+            // Give
+            string inputJson = convertToCompactJson(validInput);
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel();
+            model.Text = inputJson;
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJson());
+        }
+
+        [TestMethod]
+        public void GetFormattedJson_CompactJson_NewJsonInputAndIsIndentedJson()
+        {
+            // Give
+            string inputJson = convertToIndentedJson(validInput);
+            string expectedJson = convertToCompactJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel();
+            model.Text = inputJson;
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJson());
+        }
+
+        [TestMethod]
+        public void GetFormattedJson_IndentedJson_NewJsonInputAndNeitherIndentedFormatNorCompactFormat()
+        {
+            // Give
+            string inputJson = convertToCompactJson(validInput).Replace(":", "   :  \r\n");
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel();
+            model.Text = inputJson;
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJson());
         }
     }
 }
