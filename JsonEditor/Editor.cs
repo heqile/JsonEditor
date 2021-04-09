@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace JsonEditor
@@ -59,76 +58,84 @@ namespace JsonEditor
             WindowState = FormWindowState.Minimized;
         }
 
-        void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        private string getTextFromTextComponent()
         {
-            if (m_windowManager.IsMainWindowFocused())
+            return TextComponent.Text.Replace("\n", "\r\n");
+        }
+
+        private string getTextFromClipboard()
+        {
+            m_windowManager.SetFocusedHandleForeground();
+            m_keyboardManager.SendCopyCommand();
+            return Clipboard.GetText();
+        }
+
+        private string getFormattedJson(string inputText)
+        {
+            string formattedJson;
+            if (inputText == m_model.GetCompactJson())
             {
-                var text = TextComponent.Text.Replace("\n", "\r\n");
-                if (text == m_model.GetCompactJson())
-                {
-                    string formattedJson = m_model.GetIndentedJson();
-                    SetTextComponentContent(formattedJson);
-                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
-                }
-                else if (text == m_model.GetIndentedJson())
-                {
-                    string formattedJson = m_model.GetCompactJson();
-                    SetTextComponentContent(formattedJson);
-                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
-                }
-                else
-                {
-                    m_model.Content = text;
-                    if (m_model.IsValidJson)
-                    {
-                        string formattedJson = m_model.GetIndentedJson();
-                        SetTextComponentContent(formattedJson);
-                        Clipboard.SetDataObject(formattedJson, true, 5, 50);
-                    }
-                    else
-                    {
-                        Notifier.BalloonTipText = m_model.ErrorMessage;
-                        Notifier.ShowBalloonTip(3000);
-                        SetTextComponentContent(text);
-                    }
-                }
+                formattedJson = m_model.GetIndentedJson();
+            }
+            else if (inputText == m_model.GetIndentedJson())
+            {
+                formattedJson = m_model.GetCompactJson();
             }
             else
             {
-                m_windowManager.SetFocusedHandleForeground();
-                m_keyboardManager.SendCopyCommand();
-                var text = Clipboard.GetText();
-                if (text == m_model.GetCompactJson())
+                m_model.Content = inputText;
+                if (m_model.IsValidJson)
                 {
-                    string formattedJson = m_model.GetIndentedJson();
-                    SetTextComponentContent(formattedJson);
-                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
-                    m_keyboardManager.SendPasteCommand();
-                }
-                else if (text == m_model.GetIndentedJson())
-                {
-                    string formattedJson = m_model.GetCompactJson();
-                    SetTextComponentContent(formattedJson);
-                    Clipboard.SetDataObject(formattedJson, true, 5, 50);
-                    m_keyboardManager.SendPasteCommand();
+                    formattedJson = m_model.GetIndentedJson();
                 }
                 else
                 {
-                    m_model.Content = text;
-                    if (m_model.IsValidJson)
-                    {
-                        string formattedJson = m_model.GetIndentedJson();
-                        SetTextComponentContent(formattedJson);
-                        Clipboard.SetDataObject(formattedJson, true, 5, 50);
-                        m_keyboardManager.SendPasteCommand();
-                    }
-                    else
-                    {
-                        Notifier.BalloonTipText = m_model.ErrorMessage;
-                        Notifier.ShowBalloonTip(3000);
-                        SetTextComponentContent(text);
-                    }
+                    var exception = new ArgumentOutOfRangeException(m_model.ErrorMessage);
+                    throw (exception);
                 }
+            }
+            return formattedJson;
+        }
+
+        void DisplayNotifierBallonTop(string text)
+        {
+            Notifier.BalloonTipText = text;
+            Notifier.ShowBalloonTip(3000);
+        }
+
+        void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            bool isMainWindowFocused = m_windowManager.IsMainWindowFocused();
+            string inputText;
+            if (isMainWindowFocused)
+            {
+                inputText = getTextFromTextComponent();
+            }
+            else
+            {
+                inputText = getTextFromClipboard();
+            }
+
+            string formattedJson;
+            try
+            {
+                formattedJson = getFormattedJson(inputText);
+                SetTextComponentContent(formattedJson);
+            }
+            catch (ArgumentOutOfRangeException exc)
+            {
+                DisplayNotifierBallonTop(exc.Message);
+                SetTextComponentContent(inputText);
+                return;
+            }
+
+
+            Clipboard.SetDataObject(formattedJson, true, 5, 50);
+
+            bool needSendPasteCommand = !isMainWindowFocused;
+            if (needSendPasteCommand)
+            {
+                m_keyboardManager.SendPasteCommand();
             }
         }
 
