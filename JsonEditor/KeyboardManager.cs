@@ -8,14 +8,7 @@ namespace JsonEditor
     {
         public const UInt32 KEYEVENTF_KEYDOWN = 0x0;
         public const UInt32 KEYEVENTF_KEYUP = 0x2;
-        public const UInt32 VK_SHIFT = 0x10;
         public const UInt32 VK_CONTROL = 0x11;
-        public const UInt32 VK_MENU = 0x12;
-        public const UInt32 WM_KEYDOWN = 0x0100;
-        public const UInt32 WM_COPY = 0x0301;
-        public const UInt32 WM_PASTE = 0x0302;
-        public const UInt32 WM_KEYUP = 0x0101;
-        public const UInt32 WM_CHAR = 0x0102;
 
 
         public void SendCopyCommand()
