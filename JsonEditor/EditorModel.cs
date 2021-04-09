@@ -40,7 +40,7 @@ namespace JsonEditor
 
         public string GetFormattedJson()
         {
-            string formattedJson = GetFormattedJsonIfSameAsPrevious();
+            string formattedJson = GetFormattedJsonIfInputIsKnown();
             if (!string.IsNullOrEmpty(formattedJson))
             {
                 return formattedJson;
@@ -53,7 +53,7 @@ namespace JsonEditor
                 throw (exception);
             }
 
-            formattedJson = GetFormattedJsonIfSameAsPrevious();
+            formattedJson = GetFormattedJsonIfInputIsKnown();
             if (!string.IsNullOrEmpty(formattedJson))
             {
                 return formattedJson;
@@ -61,7 +61,7 @@ namespace JsonEditor
             return m_jsonContent.GetIndentedJson();
         }
 
-        private string GetFormattedJsonIfSameAsPrevious()
+        private string GetFormattedJsonIfInputIsKnown()
         {
             if (m_content == m_jsonContent.GetCompactJson())
             {
