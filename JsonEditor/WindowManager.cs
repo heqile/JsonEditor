@@ -8,7 +8,7 @@ namespace JsonEditor
     {
         private IntPtr m_previousForegroundWindow;
 
-        public void SetFocusedHandleForeground()
+        public void SetFocusedWindowForeground()
         {
             Point cursorPoint;
             NativeMethods.GetCursorPos(out cursorPoint);

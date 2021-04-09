@@ -151,7 +151,7 @@ namespace JsonEditor
 
         private string getTextFromClipboard()
         {
-            m_windowManager.SetFocusedHandleForeground();
+            m_windowManager.SetFocusedWindowForeground();
             m_keyboardManager.SendCopyCommand();
             return Clipboard.GetText();
         }
