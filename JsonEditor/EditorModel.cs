@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace JsonEditor
 {
@@ -37,14 +38,60 @@ namespace JsonEditor
             m_jsonContent = new JsonContent(m_content);
         }
 
+        public string GetFormattedJson()
+        {
+            m_content = m_content.Replace("\n", "\r\n");  // replace new line
+            if (m_content == m_jsonContent.GetCompactJson())
+            {
+                return m_jsonContent.GetIndentedJson();
+            }
+            else if (m_content == m_jsonContent.GetIndentedJson())
+            {
+                return m_jsonContent.GetCompactJson();
+            }
+            else
+            {
+                m_jsonContent = new JsonContent(m_content);
+                if (m_jsonContent.IsValidJson)
+                {
+                    if (m_content == m_jsonContent.GetCompactJson())
+                    {
+                        return m_jsonContent.GetIndentedJson();
+                    }
+                    else if (m_content == m_jsonContent.GetIndentedJson())
+                    {
+                        return m_jsonContent.GetCompactJson();
+                    }
+                    else
+                    {
+                        return m_jsonContent.GetIndentedJson();
+                    }
+                }
+                var exception = new ArgumentOutOfRangeException(m_jsonContent.ErrorMessage);
+                throw (exception);
+            }
+        }
+
         public string GetIndentedJson()
         {
-            return m_jsonContent.GetIndentedJson();
+            m_jsonContent = new JsonContent(m_content);
+            if (m_jsonContent.IsValidJson)
+            {
+                return m_jsonContent.GetIndentedJson();
+            }
+            var exception = new ArgumentOutOfRangeException(m_jsonContent.ErrorMessage);
+            throw (exception);
         }
 
         public string GetCompactJson()
         {
-            return m_jsonContent.GetCompactJson();
+            m_jsonContent = new JsonContent(m_content);
+            if (m_jsonContent.IsValidJson)
+            {
+                return m_jsonContent.GetCompactJson();
+            }
+            var exception = new ArgumentOutOfRangeException(m_jsonContent.ErrorMessage);
+            throw (exception);
         }
     }
 }

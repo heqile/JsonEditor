@@ -13,7 +13,6 @@ namespace JsonEditor
         public Editor(EditorModel model)
         {
             InitializeComponent();
-            // do data binding
             m_model = model;
             TextComponent.DataBindings.Add("Text", m_model, "Text", true, DataSourceUpdateMode.OnPropertyChanged);
 
@@ -28,29 +27,29 @@ namespace JsonEditor
 
         private void CompactJsonMenuItem_Click(object sender, EventArgs e)
         {
-            m_model.ValidateJson();
-            if (m_model.IsValidJson)
+            try
             {
-                TextComponent.Text = m_model.GetCompactJson();
+                string formattedJson = m_model.GetCompactJson();
+                SetTextComponentContent(formattedJson);
             }
-            else
+            catch (ArgumentOutOfRangeException exc)
             {
-                Notifier.BalloonTipText = m_model.ErrorMessage;
-                Notifier.ShowBalloonTip(3000);
+                DisplayNotifierBallonTop(exc.Message);
+                return;
             }
         }
 
         private void IndentedJsonMenuItem_Click(object sender, EventArgs e)
         {
-            m_model.ValidateJson();
-            if (m_model.IsValidJson)
+            try
             {
-                TextComponent.Text = m_model.GetIndentedJson();
+                string formattedJson = m_model.GetIndentedJson();
+                SetTextComponentContent(formattedJson);
             }
-            else
+            catch (ArgumentOutOfRangeException exc)
             {
-                Notifier.BalloonTipText = m_model.ErrorMessage;
-                Notifier.ShowBalloonTip(3000);
+                DisplayNotifierBallonTop(exc.Message);
+                return;
             }
         }
 
@@ -60,43 +59,11 @@ namespace JsonEditor
             WindowState = FormWindowState.Minimized;
         }
 
-        private string getTextFromTextComponent()
-        {
-            return TextComponent.Text.Replace("\n", "\r\n");
-        }
-
         private string getTextFromClipboard()
         {
             m_windowManager.SetFocusedHandleForeground();
             m_keyboardManager.SendCopyCommand();
             return Clipboard.GetText();
-        }
-
-        private string getFormattedJson(string inputText)
-        {
-            string formattedJson;
-            if (inputText == m_model.GetCompactJson())
-            {
-                formattedJson = m_model.GetIndentedJson();
-            }
-            else if (inputText == m_model.GetIndentedJson())
-            {
-                formattedJson = m_model.GetCompactJson();
-            }
-            else
-            {
-                m_model.ValidateJson();
-                if (m_model.IsValidJson)
-                {
-                    formattedJson = m_model.GetIndentedJson();
-                }
-                else
-                {
-                    var exception = new ArgumentOutOfRangeException(m_model.ErrorMessage);
-                    throw (exception);
-                }
-            }
-            return formattedJson;
         }
 
         void DisplayNotifierBallonTop(string text)
@@ -110,35 +77,27 @@ namespace JsonEditor
             // todo:
             // 1. take all process logic to model
             // 2. in form, we only interact with the form component
-            bool isMainWindowFocused = m_windowManager.IsMainWindowFocused();
-            string inputText;
-            if (isMainWindowFocused)
+            bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
+            if (isForeignWindowFocused)
             {
-                inputText = getTextFromTextComponent();
-            }
-            else
-            {
-                inputText = getTextFromClipboard();
+                TextComponent.Text = getTextFromClipboard();
             }
 
             string formattedJson;
             try
             {
-                formattedJson = getFormattedJson(inputText);
+                formattedJson = m_model.GetFormattedJson();
                 SetTextComponentContent(formattedJson);
             }
             catch (ArgumentOutOfRangeException exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
-                SetTextComponentContent(inputText);
                 return;
             }
 
-
             Clipboard.SetDataObject(formattedJson, true, 5, 50);
 
-            bool needSendPasteCommand = !isMainWindowFocused;
-            if (needSendPasteCommand)
+            if (isForeignWindowFocused)
             {
                 m_keyboardManager.SendPasteCommand();
             }
