@@ -1,4 +1,6 @@
-﻿namespace JsonEditor
+﻿using System.ComponentModel;
+
+namespace JsonEditor
 {
     public class EditorModel
     {
@@ -11,15 +13,12 @@
             m_jsonContent = new JsonContent(string.Empty);
         }
 
-        public string Content
+        public string Text
         {
-            set 
-            { 
-                m_content = value;
-                m_jsonContent = new JsonContent(value);
-            }
+            set { m_content = value; }
             get { return m_content; }
         }
+
 
         public string ErrorMessage
         {
@@ -32,6 +31,10 @@
         public bool IsValidJson
         {
             get { return m_jsonContent.IsValidJson; }
+        }
+        public void ValidateJson()
+        {
+            m_jsonContent = new JsonContent(m_content);
         }
 
         public string GetIndentedJson()

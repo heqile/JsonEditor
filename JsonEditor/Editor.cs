@@ -13,7 +13,9 @@ namespace JsonEditor
         public Editor(EditorModel model)
         {
             InitializeComponent();
+            // do data binding
             m_model = model;
+            TextComponent.DataBindings.Add("Text", m_model, "Text", true, DataSourceUpdateMode.OnPropertyChanged);
 
             m_jsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed);
             m_jsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.Space);
@@ -26,7 +28,7 @@ namespace JsonEditor
 
         private void CompactJsonMenuItem_Click(object sender, EventArgs e)
         {
-            m_model.Content = TextComponent.Text;
+            m_model.ValidateJson();
             if (m_model.IsValidJson)
             {
                 TextComponent.Text = m_model.GetCompactJson();
@@ -40,7 +42,7 @@ namespace JsonEditor
 
         private void IndentedJsonMenuItem_Click(object sender, EventArgs e)
         {
-            m_model.Content = TextComponent.Text;
+            m_model.ValidateJson();
             if (m_model.IsValidJson)
             {
                 TextComponent.Text = m_model.GetIndentedJson();
@@ -83,7 +85,7 @@ namespace JsonEditor
             }
             else
             {
-                m_model.Content = inputText;
+                m_model.ValidateJson();
                 if (m_model.IsValidJson)
                 {
                     formattedJson = m_model.GetIndentedJson();
@@ -105,6 +107,9 @@ namespace JsonEditor
 
         void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
+            // todo:
+            // 1. take all process logic to model
+            // 2. in form, we only interact with the form component
             bool isMainWindowFocused = m_windowManager.IsMainWindowFocused();
             string inputText;
             if (isMainWindowFocused)

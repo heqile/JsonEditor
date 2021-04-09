@@ -56,10 +56,10 @@ namespace JsonEditorUnitTest
 
             // When
             EditorModel model = new EditorModel();
-            model.Content = inputContent;
+            model.Text = inputContent;
 
             // Then
-            Assert.AreEqual(inputContent, model.Content);
+            Assert.AreEqual(inputContent, model.Text);
         }
 
         [TestMethod]
@@ -69,7 +69,7 @@ namespace JsonEditorUnitTest
 
             // When
             EditorModel model = new EditorModel();
-            model.Content = validInput;
+            model.Text = validInput;
 
             // Then
             Assert.IsTrue(model.IsValidJson);
@@ -83,7 +83,7 @@ namespace JsonEditorUnitTest
 
             // When
             EditorModel model = new EditorModel();
-            model.Content = invalidInput;
+            model.Text = invalidInput;
 
             // Then
             Assert.IsFalse(model.IsValidJson);
@@ -98,7 +98,7 @@ namespace JsonEditorUnitTest
 
             // When
             EditorModel model = new EditorModel();
-            model.Content = validInput;
+            model.Text = validInput;
 
             // Then
             Assert.AreEqual(expectedJson, model.GetIndentedJson());
@@ -110,7 +110,7 @@ namespace JsonEditorUnitTest
             // Given
             // When
             EditorModel model = new EditorModel();
-            model.Content = invalidInput;
+            model.Text = invalidInput;
 
             // Then
             Assert.AreEqual(string.Empty, model.GetIndentedJson());
@@ -130,7 +130,7 @@ namespace JsonEditorUnitTest
 
             // When
             EditorModel model = new EditorModel();
-            model.Content = validInput;
+            model.Text = validInput;
 
             // Then
             Assert.AreEqual(expectedJson, model.GetCompactJson());
@@ -143,7 +143,7 @@ namespace JsonEditorUnitTest
 
             // When
             EditorModel model = new EditorModel();
-            model.Content = invalidInput;
+            model.Text = invalidInput;
 
             // Then
             Assert.AreEqual(string.Empty, model.GetCompactJson());
