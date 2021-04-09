@@ -33,14 +33,10 @@ namespace JsonEditor
         {
             get { return m_jsonContent.IsValidJson; }
         }
-        public void ValidateJson()
-        {
-            m_jsonContent = new JsonContent(m_content);
-        }
 
         public string GetFormattedJson()
         {
-            string formattedJson = GetFormattedJsonIfInputIsKnown();
+            string formattedJson = GetFormattedJsonIfContentIsKnown();
             if (!string.IsNullOrEmpty(formattedJson))
             {
                 return formattedJson;
@@ -53,7 +49,7 @@ namespace JsonEditor
                 throw (exception);
             }
 
-            formattedJson = GetFormattedJsonIfInputIsKnown();
+            formattedJson = GetFormattedJsonIfContentIsKnown();
             if (!string.IsNullOrEmpty(formattedJson))
             {
                 return formattedJson;
@@ -61,7 +57,7 @@ namespace JsonEditor
             return m_jsonContent.GetIndentedJson();
         }
 
-        private string GetFormattedJsonIfInputIsKnown()
+        private string GetFormattedJsonIfContentIsKnown()
         {
             if (m_content == m_jsonContent.GetCompactJson())
             {

@@ -59,24 +59,8 @@ namespace JsonEditor
             WindowState = FormWindowState.Minimized;
         }
 
-        private string getTextFromClipboard()
+        private void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            m_windowManager.SetFocusedHandleForeground();
-            m_keyboardManager.SendCopyCommand();
-            return Clipboard.GetText();
-        }
-
-        void DisplayNotifierBallonTop(string text)
-        {
-            Notifier.BalloonTipText = text;
-            Notifier.ShowBalloonTip(3000);
-        }
-
-        void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
-        {
-            // todo:
-            // 1. take all process logic to model
-            // 2. in form, we only interact with the form component
             bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
             if (isForeignWindowFocused)
             {
@@ -163,6 +147,19 @@ namespace JsonEditor
             TextComponent.Text = text;
             TextComponent.SelectAll();
             TextComponent.Focus();
+        }
+
+        private string getTextFromClipboard()
+        {
+            m_windowManager.SetFocusedHandleForeground();
+            m_keyboardManager.SendCopyCommand();
+            return Clipboard.GetText();
+        }
+
+        private void DisplayNotifierBallonTop(string text)
+        {
+            Notifier.BalloonTipText = text;
+            Notifier.ShowBalloonTip(3000);
         }
     }
 }
