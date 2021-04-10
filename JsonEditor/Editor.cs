@@ -61,6 +61,9 @@ namespace JsonEditor
 
         private void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
+            // todo:
+            // 1. should use 2 way binding between TextComponent.Text and model.Text, to avoid `TextComponent.Text = getTextFromClipboard();`
+            // 2. move all KeyboardManager and WindowManager code to model
             bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
             if (isForeignWindowFocused)
             {
