@@ -48,6 +48,9 @@ namespace JsonEditor
             // 
             // TextComponent
             // 
+            this.TextComponent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TextComponent.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TextComponent.Location = new System.Drawing.Point(1, 28);
             this.TextComponent.Name = "TextComponent";
