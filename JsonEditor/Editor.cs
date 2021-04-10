@@ -30,7 +30,8 @@ namespace JsonEditor
             try
             {
                 string formattedJson = m_model.GetCompactJson();
-                SetTextComponentContent(formattedJson);
+                TextComponent.Text = formattedJson;
+                Clipboard.SetDataObject(formattedJson, true, 5, 50);
             }
             catch (ArgumentOutOfRangeException exc)
             {
@@ -44,7 +45,8 @@ namespace JsonEditor
             try
             {
                 string formattedJson = m_model.GetIndentedJson();
-                SetTextComponentContent(formattedJson);
+                TextComponent.Text = formattedJson;
+                Clipboard.SetDataObject(formattedJson, true, 5, 50);
             }
             catch (ArgumentOutOfRangeException exc)
             {
@@ -67,19 +69,17 @@ namespace JsonEditor
                 TextComponent.Text = getTextFromClipboard();
             }
 
-            string formattedJson;
             try
             {
-                formattedJson = m_model.GetFormattedJson();
-                SetTextComponentContent(formattedJson);
+                string formattedJson = m_model.GetFormattedJson();
+                TextComponent.Text = formattedJson;
+                Clipboard.SetDataObject(formattedJson, true, 5, 50);
             }
             catch (ArgumentOutOfRangeException exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
                 return;
             }
-
-            Clipboard.SetDataObject(formattedJson, true, 5, 50);
 
             if (isForeignWindowFocused)
             {
@@ -140,11 +140,6 @@ namespace JsonEditor
         {
             Show();
             WindowState = FormWindowState.Normal;
-        }
-
-        private void SetTextComponentContent(string text)
-        {
-            TextComponent.Text = text;
         }
 
         private string getTextFromClipboard()
