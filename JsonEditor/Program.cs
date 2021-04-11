@@ -14,7 +14,7 @@ namespace JsonEditor
         [STAThread]
         static void Main()
         {
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            //Application.SetHighDpiMode(HighDpiMode.SystemAware); // initial project is for .netcore 3.1, but not for net4.6.1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditorModel model = new EditorModel();
