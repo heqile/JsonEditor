@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 
 namespace JsonEditor
 {
     public class WindowManager
     {
+        private const int WaitWindowReadyMs = 300;
         private IntPtr m_previousForegroundWindow;
 
         public void SetFocusedWindowForeground()
@@ -13,11 +15,12 @@ namespace JsonEditor
             Point cursorPoint;
             NativeMethods.GetCursorPos(out cursorPoint);
             IntPtr cursorHandle = NativeMethods.WindowFromPoint(cursorPoint);
-            if (cursorHandle != m_previousForegroundWindow) 
+            if (cursorHandle != m_previousForegroundWindow)
             {
                 NativeMethods.SetForegroundWindow(cursorHandle);
                 m_previousForegroundWindow = cursorHandle;
             }
+            Task.Delay(WaitWindowReadyMs).Wait();  // wait window ready to receive key press
         }
 
         public bool IsMainWindowFocused()
@@ -28,6 +31,7 @@ namespace JsonEditor
             IntPtr focusedHandle = NativeMethods.GetFocus();
             return cursorHandle == focusedHandle;
         }
+
         internal static class NativeMethods
         {
             [DllImport("user32.dll")]

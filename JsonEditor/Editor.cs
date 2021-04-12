@@ -31,7 +31,7 @@ namespace JsonEditor
             {
                 string formattedJson = m_model.GetCompactJson();
                 TextComponent.Text = formattedJson;
-                Clipboard.SetDataObject(formattedJson, true, 5, 50);
+                ClipboardManager.SetText(formattedJson);
             }
             catch (ArgumentOutOfRangeException exc)
             {
@@ -46,7 +46,7 @@ namespace JsonEditor
             {
                 string formattedJson = m_model.GetIndentedJson();
                 TextComponent.Text = formattedJson;
-                Clipboard.SetDataObject(formattedJson, true, 5, 50);
+                ClipboardManager.SetText(formattedJson);
             }
             catch (ArgumentOutOfRangeException exc)
             {
@@ -73,7 +73,7 @@ namespace JsonEditor
             {
                 string formattedJson = m_model.GetFormattedJson();
                 TextComponent.Text = formattedJson;
-                Clipboard.SetDataObject(formattedJson, true, 5, 50);
+                ClipboardManager.SetText(formattedJson);
             }
             catch (ArgumentOutOfRangeException exc)
             {
@@ -146,7 +146,7 @@ namespace JsonEditor
         {
             m_windowManager.SetFocusedWindowForeground();
             m_keyboardManager.SendCopyCommand();
-            return Clipboard.GetText();
+            return ClipboardManager.GetText();
         }
 
         private void DisplayNotifierBallonTop(string text)
