@@ -6,7 +6,7 @@ namespace JsonEditor
     public partial class Editor : Form
     {
         private EditorModel m_model;
-        private KeyboardHook m_jsonHook = new KeyboardHook();
+        private HookManager m_hookManager = new HookManager();
         private KeyboardManager m_keyboardManager = new KeyboardManager();
         private WindowManager m_windowManager = new WindowManager();
 
@@ -16,8 +16,7 @@ namespace JsonEditor
             m_model = model;
             TextComponent.DataBindings.Add("Text", m_model, "Text", true, DataSourceUpdateMode.OnPropertyChanged);
 
-            m_jsonHook.KeyPressed += new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed);
-            m_jsonHook.RegisterHotKey(KeyboardHook.ModifierKeys.Control | KeyboardHook.ModifierKeys.Shift, Keys.Space);
+            m_hookManager.SetConversionShortcutHandler(new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed));
         }
 
         private void Exit_Click(object sender, EventArgs e)
