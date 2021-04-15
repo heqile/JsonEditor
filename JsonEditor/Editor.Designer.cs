@@ -42,6 +42,8 @@ namespace JsonEditor
             this.NotifierMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.NotifierMenuShow = new System.Windows.Forms.ToolStripMenuItem();
             this.NotifierMenuExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.Settings = new System.Windows.Forms.ToolStripMenuItem();
+            this.NotifierMenuSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.Menu.SuspendLayout();
             this.NotifierMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -51,10 +53,10 @@ namespace JsonEditor
             this.TextComponent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextComponent.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TextComponent.Location = new System.Drawing.Point(1, 28);
+            this.TextComponent.Font = new System.Drawing.Font("Arial", 12F);
+            this.TextComponent.Location = new System.Drawing.Point(1, 25);
             this.TextComponent.Name = "TextComponent";
-            this.TextComponent.Size = new System.Drawing.Size(797, 418);
+            this.TextComponent.Size = new System.Drawing.Size(910, 369);
             this.TextComponent.TabIndex = 0;
             this.TextComponent.Text = "";
             // 
@@ -66,13 +68,15 @@ namespace JsonEditor
             this.JsonMenuItem});
             this.Menu.Location = new System.Drawing.Point(0, 0);
             this.Menu.Name = "Menu";
-            this.Menu.Size = new System.Drawing.Size(800, 25);
+            this.Menu.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.Menu.Size = new System.Drawing.Size(914, 25);
             this.Menu.TabIndex = 1;
             this.Menu.Text = "menuStrip1";
             // 
             // FileMenuItem
             // 
             this.FileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.Settings,
             this.Exit});
             this.FileMenuItem.Name = "FileMenuItem";
             this.FileMenuItem.Size = new System.Drawing.Size(39, 21);
@@ -81,7 +85,7 @@ namespace JsonEditor
             // Exit
             // 
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(96, 22);
+            this.Exit.Size = new System.Drawing.Size(122, 22);
             this.Exit.Text = "Exit";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -122,29 +126,44 @@ namespace JsonEditor
             // 
             this.NotifierMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.NotifierMenuShow,
+            this.NotifierMenuSettings,
             this.NotifierMenuExit});
             this.NotifierMenuStrip.Name = "notifierMenuStrip";
-            this.NotifierMenuStrip.Size = new System.Drawing.Size(147, 48);
+            this.NotifierMenuStrip.Size = new System.Drawing.Size(147, 70);
             // 
             // NotifierMenuShow
             // 
             this.NotifierMenuShow.Name = "NotifierMenuShow";
-            this.NotifierMenuShow.Size = new System.Drawing.Size(146, 22);
+            this.NotifierMenuShow.Size = new System.Drawing.Size(180, 22);
             this.NotifierMenuShow.Text = "Show Editor";
             this.NotifierMenuShow.Click += new System.EventHandler(this.NotifierMenuShow_Click);
             // 
             // NotifierMenuExit
             // 
             this.NotifierMenuExit.Name = "NotifierMenuExit";
-            this.NotifierMenuExit.Size = new System.Drawing.Size(146, 22);
+            this.NotifierMenuExit.Size = new System.Drawing.Size(180, 22);
             this.NotifierMenuExit.Text = "Exit";
             this.NotifierMenuExit.Click += new System.EventHandler(this.NotifierMenuExit_Click);
             // 
+            // Settings
+            // 
+            this.Settings.Name = "Settings";
+            this.Settings.Size = new System.Drawing.Size(180, 22);
+            this.Settings.Text = "Settings";
+            this.Settings.Click += new System.EventHandler(this.Settings_Click);
+            // 
+            // NotifierMenuSettings
+            // 
+            this.NotifierMenuSettings.Name = "NotifierMenuSettings";
+            this.NotifierMenuSettings.Size = new System.Drawing.Size(180, 22);
+            this.NotifierMenuSettings.Text = "Settings";
+            this.NotifierMenuSettings.Click += new System.EventHandler(this.NotifierMenuSettings_Click);
+            // 
             // Editor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(914, 397);
             this.Controls.Add(this.TextComponent);
             this.Controls.Add(this.Menu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -174,6 +193,8 @@ namespace JsonEditor
         private System.Windows.Forms.ContextMenuStrip NotifierMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem NotifierMenuExit;
         private System.Windows.Forms.ToolStripMenuItem NotifierMenuShow;
+        private System.Windows.Forms.ToolStripMenuItem Settings;
+        private System.Windows.Forms.ToolStripMenuItem NotifierMenuSettings;
     }
 }
 

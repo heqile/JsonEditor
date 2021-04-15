@@ -17,6 +17,7 @@ namespace JsonEditor
             TextComponent.DataBindings.Add("Text", m_model, "Text", true, DataSourceUpdateMode.OnPropertyChanged);
 
             m_hookManager.SetConversionShortcutHandler(new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed));
+            m_hookManager.UpdateHook();
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -152,6 +153,18 @@ namespace JsonEditor
         {
             Notifier.BalloonTipText = text;
             Notifier.ShowBalloonTip(3000);
+        }
+
+        private void NotifierMenuSettings_Click(object sender, EventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Show();
+        }
+
+        private void Settings_Click(object sender, EventArgs e)
+        {
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Show();
         }
     }
 }
