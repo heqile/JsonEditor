@@ -12,9 +12,17 @@ namespace JsonEditor
 {
     public partial class SettingsWindow : Form
     {
+        Configuration m_configuration;
+
         public SettingsWindow()
         {
             InitializeComponent();
+        }
+
+        private void SettingsWindow_Load(object sender, EventArgs e)
+        {
+            m_configuration = Configuration.GetInstance();
+            KeyBindingTextBox.DataBindings.Add("Text", m_configuration, "ConversionShortcutKeyBinding");
         }
     }
 }

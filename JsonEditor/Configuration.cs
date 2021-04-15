@@ -48,6 +48,23 @@ namespace JsonEditor
             }
         }
 
+        public string ConversionShortcutKeyBinding
+        {
+            get
+            {
+                return ConversionShortcutModifierKey.ToString() + " + " + ConversionShortcutMainKey.ToString();
+            }
+            //set
+            //{
+            //    string[] vs = value.Split('+');
+            //    //KeyboardHook.ModifierKeys conversionShortcutModifierKey;
+            //    Enum.TryParse(vs[0], out KeyboardHook.ModifierKeys conversionShortcutModifierKey);
+            //    ConversionShortcutModifierKey = conversionShortcutModifierKey;
+            //    Enum.TryParse(vs[1], out Keys conversionShortcutMainKey);
+            //    ConversionShortcutMainKey = conversionShortcutMainKey;
+            //}
+        }
+
         public void SaveConfiguration()
         {
             OnConfigurationUpdated(EventArgs.Empty);

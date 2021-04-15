@@ -33,7 +33,7 @@ namespace JsonEditor
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.ShortkeyBindingLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.KeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -64,25 +64,28 @@ namespace JsonEditor
             this.ShortkeyBindingLabel.TabIndex = 1;
             this.ShortkeyBindingLabel.Text = "Shortcut binding:";
             // 
-            // textBox1
+            // KeyBindingTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(241, 41);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(202, 25);
-            this.textBox1.TabIndex = 2;
+            this.KeyBindingTextBox.Location = new System.Drawing.Point(241, 41);
+            this.KeyBindingTextBox.Name = "KeyBindingTextBox";
+            this.KeyBindingTextBox.Size = new System.Drawing.Size(202, 25);
+            this.KeyBindingTextBox.TabIndex = 2;
             // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 143);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.KeyBindingTextBox);
             this.Controls.Add(this.ShortkeyBindingLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SettingsWindow";
+            this.ShowInTaskbar = false;
             this.Text = "Settings";
+            this.Load += new System.EventHandler(this.SettingsWindow_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -93,6 +96,6 @@ namespace JsonEditor
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Label ShortkeyBindingLabel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox KeyBindingTextBox;
     }
 }
