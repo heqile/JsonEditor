@@ -33,7 +33,9 @@ namespace JsonEditor
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.ShortkeyBindingLabel = new System.Windows.Forms.Label();
-            this.KeyBindingTextBox = new System.Windows.Forms.TextBox();
+            this.ModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
+            this.MainKeyBindingTextBox = new System.Windows.Forms.TextBox();
+            this.ShortcutBindingPlusLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -64,19 +66,37 @@ namespace JsonEditor
             this.ShortkeyBindingLabel.TabIndex = 1;
             this.ShortkeyBindingLabel.Text = "Shortcut binding:";
             // 
-            // KeyBindingTextBox
+            // ModifierKeyBindingTextBox
             // 
-            this.KeyBindingTextBox.Location = new System.Drawing.Point(241, 41);
-            this.KeyBindingTextBox.Name = "KeyBindingTextBox";
-            this.KeyBindingTextBox.Size = new System.Drawing.Size(202, 25);
-            this.KeyBindingTextBox.TabIndex = 2;
+            this.ModifierKeyBindingTextBox.Location = new System.Drawing.Point(232, 41);
+            this.ModifierKeyBindingTextBox.Name = "ModifierKeyBindingTextBox";
+            this.ModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 25);
+            this.ModifierKeyBindingTextBox.TabIndex = 2;
+            // 
+            // MainKeyBindingTextBox
+            // 
+            this.MainKeyBindingTextBox.Location = new System.Drawing.Point(409, 41);
+            this.MainKeyBindingTextBox.Name = "MainKeyBindingTextBox";
+            this.MainKeyBindingTextBox.Size = new System.Drawing.Size(79, 25);
+            this.MainKeyBindingTextBox.TabIndex = 3;
+            // 
+            // ShortcutBindingPlusLabel
+            // 
+            this.ShortcutBindingPlusLabel.AutoSize = true;
+            this.ShortcutBindingPlusLabel.Location = new System.Drawing.Point(373, 44);
+            this.ShortcutBindingPlusLabel.Name = "ShortcutBindingPlusLabel";
+            this.ShortcutBindingPlusLabel.Size = new System.Drawing.Size(15, 15);
+            this.ShortcutBindingPlusLabel.TabIndex = 4;
+            this.ShortcutBindingPlusLabel.Text = "+";
             // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(500, 143);
-            this.Controls.Add(this.KeyBindingTextBox);
+            this.Controls.Add(this.ShortcutBindingPlusLabel);
+            this.Controls.Add(this.MainKeyBindingTextBox);
+            this.Controls.Add(this.ModifierKeyBindingTextBox);
             this.Controls.Add(this.ShortkeyBindingLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
@@ -96,6 +116,8 @@ namespace JsonEditor
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Label ShortkeyBindingLabel;
-        private System.Windows.Forms.TextBox KeyBindingTextBox;
+        private System.Windows.Forms.TextBox ModifierKeyBindingTextBox;
+        private System.Windows.Forms.TextBox MainKeyBindingTextBox;
+        private System.Windows.Forms.Label ShortcutBindingPlusLabel;
     }
 }

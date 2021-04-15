@@ -22,7 +22,8 @@ namespace JsonEditor
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
             m_configuration = Configuration.GetInstance();
-            KeyBindingTextBox.DataBindings.Add("Text", m_configuration, "ConversionShortcutKeyBinding");
+            ModifierKeyBindingTextBox.DataBindings.Add("Text", m_configuration, "ConversionShortcutModifierKey");
+            MainKeyBindingTextBox.DataBindings.Add("Text", m_configuration, "ConversionShortcutMainKey");
         }
     }
 }
