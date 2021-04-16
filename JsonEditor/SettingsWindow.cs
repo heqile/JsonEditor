@@ -46,7 +46,9 @@ namespace JsonEditor
             catch(InvalidOperationException exc)
             {
                 MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            Dispose();
         }
 
         private void MainKeyBindingTextBox_KeyDown(object sender, KeyEventArgs e)
