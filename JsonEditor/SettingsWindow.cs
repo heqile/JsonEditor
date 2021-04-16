@@ -24,8 +24,8 @@ namespace JsonEditor
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
             m_configuration = Configuration.GetInstance();
-            ModifierKeyBindingTextBox.DataBindings.Add("Text", m_configuration, "ConversionShortcutModifierKey");
-            MainKeyBindingTextBox.DataBindings.Add("Text", m_configuration, "ConversionShortcutMainKey");
+            ModifierKeyBindingTextBox.Text = m_configuration.ConversionShortcutModifierKey.ToString();
+            MainKeyBindingTextBox.Text = m_configuration.ConversionShortcutMainKey.ToString();
         }
 
         KeyboardHook.ModifierKeys modifiers;
@@ -49,9 +49,9 @@ namespace JsonEditor
             {
                 m_configuration.SaveConfiguration();
             }
-            catch(Exception)
+            catch(InvalidOperationException exc)
             {
-                // should display an error dialog box
+                MessageBox.Show(exc.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
