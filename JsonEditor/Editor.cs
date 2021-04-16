@@ -33,7 +33,7 @@ namespace JsonEditor
                 TextComponent.Text = formattedJson;
                 ClipboardManager.SetText(formattedJson);
             }
-            catch (ArgumentOutOfRangeException exc)
+            catch (InvalidJsonException exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
                 return;
@@ -48,7 +48,7 @@ namespace JsonEditor
                 TextComponent.Text = formattedJson;
                 ClipboardManager.SetText(formattedJson);
             }
-            catch (ArgumentOutOfRangeException exc)
+            catch (InvalidJsonException exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
                 return;
@@ -75,7 +75,7 @@ namespace JsonEditor
                 TextComponent.Text = formattedJson;
                 ClipboardManager.SetText(formattedJson);
             }
-            catch (ArgumentOutOfRangeException exc)
+            catch (InvalidJsonException exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
                 return;

@@ -57,8 +57,7 @@ namespace JsonEditor
             m_jsonContent = new JsonContent(m_content);
             if (!m_jsonContent.IsValidJson)
             {
-                var exception = new ArgumentOutOfRangeException(m_jsonContent.ErrorMessage);
-                throw (exception);
+                throw new InvalidJsonException(m_jsonContent.ErrorMessage);
             }
 
             formattedJson = GetFormattedJsonIfContentIsKnown();
@@ -89,8 +88,7 @@ namespace JsonEditor
             {
                 return m_jsonContent.GetIndentedJson();
             }
-            var exception = new ArgumentOutOfRangeException(m_jsonContent.ErrorMessage);
-            throw (exception);
+            throw new InvalidJsonException(m_jsonContent.ErrorMessage);
         }
 
         public string GetCompactJson()
@@ -100,8 +98,7 @@ namespace JsonEditor
             {
                 return m_jsonContent.GetCompactJson();
             }
-            var exception = new ArgumentOutOfRangeException(m_jsonContent.ErrorMessage);
-            throw (exception);
+            throw new InvalidJsonException(m_jsonContent.ErrorMessage);
         }
     }
 }
