@@ -7,7 +7,7 @@ namespace JsonEditor
     public class JsonContent
     {
         public const string EmptyInputErrorMessage = "Please write a json.";
-        public const string InvalidJsonErrorMessage = "Invalid json.";
+        public const string InvalidJsonErrorMessage = "Invalid json, please check.";
 
         private string m_errorMessage;
         private JsonSerializer m_serializer;
@@ -17,7 +17,7 @@ namespace JsonEditor
         {
             m_errorMessage = string.Empty;
 
-            if (string.IsNullOrEmpty(textContent))
+            if (textContent is null || textContent.Trim() == string.Empty)
             {
                 m_errorMessage = EmptyInputErrorMessage;
                 return;
@@ -28,9 +28,9 @@ namespace JsonEditor
             {
                 m_jsonObject = JsonConvert.DeserializeObject(textContent);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                m_errorMessage = ex.Message;
+                m_errorMessage = InvalidJsonErrorMessage;
             }
         }
 
