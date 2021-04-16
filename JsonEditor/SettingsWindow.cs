@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace JsonEditor
@@ -19,16 +12,17 @@ namespace JsonEditor
         public SettingsWindow()
         {
             InitializeComponent();
+            m_configuration = Configuration.GetInstance();
+            m_modifierKeys = m_configuration.ConversionShortcutModifierKey;
+            m_mainKeys = m_configuration.ConversionShortcutMainKey;
         }
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
-            m_configuration = Configuration.GetInstance();
-            ModifierKeyBindingTextBox.Text = m_configuration.ConversionShortcutModifierKey.ToString();
-            MainKeyBindingTextBox.Text = m_configuration.ConversionShortcutMainKey.ToString();
+            ModifierKeyBindingTextBox.Text = m_modifierKeys.ToString();
+            MainKeyBindingTextBox.Text = m_mainKeys.ToString();
         }
 
-        KeyboardHook.ModifierKeys modifiers;
         private void ModifierKeyBindingTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             bool isModifierKeys = e.Control || e.Alt || e.Shift;
