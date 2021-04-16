@@ -110,8 +110,8 @@ namespace JsonEditorUnitTest
             model.Text = invalidInput;
 
             // Then
-            Assert.ThrowsException<ArgumentOutOfRangeException>(model.GetCompactJson);
-            Assert.IsTrue(model.ErrorMessage.Contains("Invalid character after parsing property name"));
+            Assert.ThrowsException<InvalidJsonException>(model.GetCompactJson);
+            Assert.IsTrue(model.ErrorMessage.Contains(JsonContent.InvalidJsonErrorMessage));
         }
 
 
@@ -144,8 +144,8 @@ namespace JsonEditorUnitTest
             model.Text = invalidInput;
 
             // Then
-            Assert.ThrowsException<ArgumentOutOfRangeException>(model.GetCompactJson);
-            Assert.IsTrue(model.ErrorMessage.Contains("Invalid character after parsing property name"));
+            Assert.ThrowsException<InvalidJsonException>(model.GetCompactJson);
+            Assert.IsTrue(model.ErrorMessage.Contains(JsonContent.InvalidJsonErrorMessage));
         }
 
         [TestMethod]

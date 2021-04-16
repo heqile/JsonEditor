@@ -57,7 +57,7 @@ namespace JsonEditorUnitTest
             JsonContent jsonContent = new JsonContent(invalidInput);
 
             // Then
-            Assert.IsTrue(jsonContent.ErrorMessage.Contains("Invalid character after parsing property name"));
+            Assert.IsTrue(jsonContent.ErrorMessage.Contains(JsonContent.InvalidJsonErrorMessage));
         }
 
         [TestMethod]
