@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace JsonEditor
 {
@@ -31,9 +30,18 @@ namespace JsonEditor
             m_conversionShortcut.KeyPressed += m_conversionShortcutHandler;
         }
 
-        public void ConfigurationUpdated(object sender, EventArgs e)
+        public void ConfigurationUpdated(object sender, ConfigurationUpdatedEventArgs e)
         {
-            UpdateHook();
+            try
+            {
+                UpdateHook();
+                e.Success = true;
+            }
+            catch (Exception exc)
+            {
+                e.Success = false;
+                e.ErrorMessage = exc.Message;
+            }
         }
     }
 }

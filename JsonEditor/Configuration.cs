@@ -15,7 +15,7 @@ namespace JsonEditor
         {
             if (m_configuration == null)
             {
-                return new Configuration();
+                m_configuration = new Configuration();
             }
             return m_configuration;
         }
@@ -50,19 +50,30 @@ namespace JsonEditor
 
         public void SaveConfiguration()
         {
-            OnConfigurationUpdated(EventArgs.Empty);
+            ConfigurationUpdatedEventArgs eventArgs = new ConfigurationUpdatedEventArgs();
+            OnConfigurationUpdated(eventArgs);
             Save();
         }
 
-        protected virtual void OnConfigurationUpdated(EventArgs e)
+        protected virtual void OnConfigurationUpdated(ConfigurationUpdatedEventArgs e)
         {
-            EventHandler handler = ConfigurationUpdatedHandler;
+            EventHandler<ConfigurationUpdatedEventArgs> handler = ConfigurationUpdatedHandler;
             if (handler != null)
             {
                 handler(this, e);
+                if (!e.Success)
+                {
+                    throw new InvalidOperationException(e.ErrorMessage);
+                }
             }
         }
 
-        public event EventHandler ConfigurationUpdatedHandler;
+        public event EventHandler<ConfigurationUpdatedEventArgs> ConfigurationUpdatedHandler;
+    }
+
+    public class ConfigurationUpdatedEventArgs : EventArgs
+    {
+        public bool Success { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }
