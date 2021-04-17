@@ -76,30 +76,6 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void IsValidJson_False_InitialState()
-        {
-            // Given
-
-            // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-
-            // Then
-            Assert.AreEqual(false, model.IsValidJson);
-        }
-
-        [TestMethod]
-        public void GetErrorMessage_EmptyInputErrorMessage_InitialState()
-        {
-            // Given
-
-            // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-
-            // Then
-            Assert.AreEqual(JsonFormatter.EmptyInputErrorMessage, model.ErrorMessage);
-        }
-
-        [TestMethod]
         public void ContentSetterAndGetter_ChangeContentValue_SetContent()
         {
             // Given
@@ -139,7 +115,6 @@ namespace JsonEditorUnitTest
 
             // Then
             Assert.ThrowsException<InvalidJsonException>(model.GetCompactJsonAndSetToClipboard);
-            Assert.IsTrue(model.ErrorMessage.Contains(JsonFormatter.InvalidJsonErrorMessage));
             clipboardManager.Verify(o => o.SetText(It.IsAny<string>()), Times.Never);
         }
 
@@ -175,7 +150,6 @@ namespace JsonEditorUnitTest
 
             // Then
             Assert.ThrowsException<InvalidJsonException>(model.GetCompactJsonAndSetToClipboard);
-            Assert.IsTrue(model.ErrorMessage.Contains(JsonFormatter.InvalidJsonErrorMessage));
             clipboardManager.Verify(o => o.SetText(It.IsAny<string>()), Times.Never);
         }
 

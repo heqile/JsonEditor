@@ -9,7 +9,7 @@ namespace JsonEditor
         private readonly WindowManager m_windowManager;
         private readonly ClipboardManager m_clipboardManager;
         private readonly HookManager m_hookManager;
-        private JsonFormatter m_jsonContent = new JsonFormatter();
+        private JsonFormatter m_jsonFormatter = new JsonFormatter();
 
         public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager, ClipboardManager clipboardManager, HookManager hookManager)
         {
@@ -23,16 +23,6 @@ namespace JsonEditor
         {
             set { m_content = value; }
             get { return m_content; }
-        }
-
-        public string ErrorMessage
-        {
-            get { return m_jsonContent.ErrorMessage; }
-        }
-
-        public bool IsValidJson
-        {
-            get { return m_jsonContent.IsValidJson; }
         }
 
         public void SetConversionShortcutHandlerAndUpdateHook(EventHandler<KeyPressedEventArgs> eventHandler)
@@ -74,10 +64,10 @@ namespace JsonEditor
                 return formattedJson;
             }
 
-            m_jsonContent = new JsonFormatter(m_content);
-            if (!m_jsonContent.IsValidJson)
+            m_jsonFormatter = new JsonFormatter(m_content);
+            if (!m_jsonFormatter.IsValidJson)
             {
-                throw new InvalidJsonException(m_jsonContent.ErrorMessage);
+                throw new InvalidJsonException(m_jsonFormatter.ErrorMessage);
             }
 
             formattedJson = GetFormattedJsonIfContentIsKnown();
@@ -85,44 +75,44 @@ namespace JsonEditor
             {
                 return formattedJson;
             }
-            return m_jsonContent.GetIndentedJson();
+            return m_jsonFormatter.GetIndentedJson();
         }
 
         private string GetFormattedJsonIfContentIsKnown()
         {
-            if (m_content == m_jsonContent.GetCompactJson())
+            if (m_content == m_jsonFormatter.GetCompactJson())
             {
-                return m_jsonContent.GetIndentedJson();
+                return m_jsonFormatter.GetIndentedJson();
             }
-            else if (m_content == m_jsonContent.GetIndentedJson())
+            else if (m_content == m_jsonFormatter.GetIndentedJson())
             {
-                return m_jsonContent.GetCompactJson();
+                return m_jsonFormatter.GetCompactJson();
             }
             return string.Empty;
         }
 
         public string GetIndentedJsonAndSetToClipboard()
         {
-            m_jsonContent = new JsonFormatter(m_content);
-            if (m_jsonContent.IsValidJson)
+            m_jsonFormatter = new JsonFormatter(m_content);
+            if (m_jsonFormatter.IsValidJson)
             {
-                string formattedJson = m_jsonContent.GetIndentedJson();
+                string formattedJson = m_jsonFormatter.GetIndentedJson();
                 m_clipboardManager.SetText(formattedJson);
                 return formattedJson;
             }
-            throw new InvalidJsonException(m_jsonContent.ErrorMessage);
+            throw new InvalidJsonException(m_jsonFormatter.ErrorMessage);
         }
 
         public string GetCompactJsonAndSetToClipboard()
         {
-            m_jsonContent = new JsonFormatter(m_content);
-            if (m_jsonContent.IsValidJson)
+            m_jsonFormatter = new JsonFormatter(m_content);
+            if (m_jsonFormatter.IsValidJson)
             {
-                string formattedJson = m_jsonContent.GetCompactJson();
+                string formattedJson = m_jsonFormatter.GetCompactJson();
                 m_clipboardManager.SetText(formattedJson);
                 return formattedJson;
             }
-            throw new InvalidJsonException(m_jsonContent.ErrorMessage);
+            throw new InvalidJsonException(m_jsonFormatter.ErrorMessage);
         }
     }
 }
