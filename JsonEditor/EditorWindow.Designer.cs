@@ -1,7 +1,7 @@
 ﻿
 namespace JsonEditor
 {
-    partial class Editor
+    partial class EditorWindow
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,7 +30,7 @@ namespace JsonEditor
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditorWindow));
             this.TextComponent = new System.Windows.Forms.RichTextBox();
             this.Menu = new System.Windows.Forms.MenuStrip();
             this.FileMenuItem = new System.Windows.Forms.ToolStripMenuItem();

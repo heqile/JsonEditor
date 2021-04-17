@@ -3,12 +3,12 @@ using System.Windows.Forms;
 
 namespace JsonEditor
 {
-    public partial class Editor : Form
+    public partial class EditorWindow : Form
     {
         private EditorModel m_model;
         private HookManager m_hookManager = new HookManager();
 
-        public Editor(EditorModel model)
+        public EditorWindow(EditorModel model)
         {
             InitializeComponent();
             m_model = model;

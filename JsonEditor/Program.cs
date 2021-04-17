@@ -21,7 +21,7 @@ namespace JsonEditor
             WindowManager windowManager = new WindowManager();
             ClipboardManager clipboardManager = new ClipboardManager();
             EditorModel model = new EditorModel(windowManager, keyboardManager, clipboardManager);
-            Application.Run(new Editor(model));
+            Application.Run(new EditorWindow(model));
         }
     }
 }
