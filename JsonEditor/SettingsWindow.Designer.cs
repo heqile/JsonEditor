@@ -32,7 +32,7 @@ namespace JsonEditor
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.ShortkeyBindingLabel = new System.Windows.Forms.Label();
+            this.HotKeyBindingLabel = new System.Windows.Forms.Label();
             this.ModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.MainKeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.ShortcutBindingPlusLabel = new System.Windows.Forms.Label();
@@ -60,16 +60,16 @@ namespace JsonEditor
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // ShortkeyBindingLabel
+            // HotKeyBindingLabel
             // 
-            this.ShortkeyBindingLabel.AutoSize = true;
-            this.ShortkeyBindingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ShortkeyBindingLabel.Location = new System.Drawing.Point(25, 29);
-            this.ShortkeyBindingLabel.Name = "ShortkeyBindingLabel";
-            this.ShortkeyBindingLabel.Size = new System.Drawing.Size(124, 21);
-            this.ShortkeyBindingLabel.TabIndex = 1;
-            this.ShortkeyBindingLabel.Text = "HotKey binding :";
-            this.ShortkeyBindingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.HotKeyBindingLabel.AutoSize = true;
+            this.HotKeyBindingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.HotKeyBindingLabel.Location = new System.Drawing.Point(25, 29);
+            this.HotKeyBindingLabel.Name = "HotKeyBindingLabel";
+            this.HotKeyBindingLabel.Size = new System.Drawing.Size(124, 21);
+            this.HotKeyBindingLabel.TabIndex = 1;
+            this.HotKeyBindingLabel.Text = "HotKey binding :";
+            this.HotKeyBindingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ModifierKeyBindingTextBox
             // 
@@ -111,7 +111,7 @@ namespace JsonEditor
             this.Controls.Add(this.ShortcutBindingPlusLabel);
             this.Controls.Add(this.MainKeyBindingTextBox);
             this.Controls.Add(this.ModifierKeyBindingTextBox);
-            this.Controls.Add(this.ShortkeyBindingLabel);
+            this.Controls.Add(this.HotKeyBindingLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -131,7 +131,7 @@ namespace JsonEditor
 
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.Label ShortkeyBindingLabel;
+        private System.Windows.Forms.Label HotKeyBindingLabel;
         private System.Windows.Forms.TextBox ModifierKeyBindingTextBox;
         private System.Windows.Forms.TextBox MainKeyBindingTextBox;
         private System.Windows.Forms.Label ShortcutBindingPlusLabel;

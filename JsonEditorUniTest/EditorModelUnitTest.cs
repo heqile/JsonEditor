@@ -56,7 +56,7 @@ namespace JsonEditorUnitTest
             clipboardManager.Setup(o => o.SetText(It.IsAny<string>()));
 
             hookManager = new Mock<HookManager>();
-            hookManager.Setup(o => o.SetConversionShortcutHandler(It.IsAny<EventHandler<KeyPressedEventArgs>>()));
+            hookManager.Setup(o => o.SetConversionHotKeyHandler(It.IsAny<EventHandler<KeyPressedEventArgs>>()));
             hookManager.Setup(o => o.UpdateHook());
         }
 

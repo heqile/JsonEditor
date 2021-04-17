@@ -22,29 +22,29 @@ namespace JsonEditor
 
         [UserScopedSetting()]
         [DefaultSettingValue("Control, Shift")]
-        public KeyboardHook.ModifierKeys ConversionShortcutModifierKey
+        public KeyboardHook.ModifierKeys ConversionHotKeyModifierKey
         {
             get
             {
-                return (KeyboardHook.ModifierKeys)this["ConversionShortcutModifierKey"];
+                return (KeyboardHook.ModifierKeys)this["ConversionHotKeyModifierKey"];
             }
             set
             {
-                this["ConversionShortcutModifierKey"] = (KeyboardHook.ModifierKeys)value;
+                this["ConversionHotKeyModifierKey"] = (KeyboardHook.ModifierKeys)value;
             }
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("Space")]
-        public Keys ConversionShortcutMainKey
+        public Keys ConversionHotKeyMainKey
         {
             get
             {
-                return (Keys)this["ConversionShortcutMainKey"];
+                return (Keys)this["ConversionHotKeyMainKey"];
             }
             set
             {
-                this["ConversionShortcutMainKey"] = (Keys)value;
+                this["ConversionHotKeyMainKey"] = (Keys)value;
             }
         }
 

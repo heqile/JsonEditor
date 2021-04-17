@@ -25,9 +25,9 @@ namespace JsonEditor
             get { return m_content; }
         }
 
-        public void SetConversionShortcutHandlerAndUpdateHook(EventHandler<KeyPressedEventArgs> eventHandler)
+        public void SetConversionHotKeyHandlerAndUpdateHook(EventHandler<KeyPressedEventArgs> eventHandler)
         {
-            m_hookManager.SetConversionShortcutHandler(eventHandler);
+            m_hookManager.SetConversionHotKeyHandler(eventHandler);
             m_hookManager.UpdateHook();
         }
 

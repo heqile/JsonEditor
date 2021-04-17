@@ -15,7 +15,7 @@ namespace JsonEditor
 
             m_model = model;
             TextComponent.DataBindings.Add("Text", m_model, "Text", true, DataSourceUpdateMode.OnPropertyChanged);
-            m_model.SetConversionShortcutHandlerAndUpdateHook(new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed));
+            m_model.SetConversionHotKeyHandlerAndUpdateHook(new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed));
         }
 
         private void Exit_Click(object sender, EventArgs e)

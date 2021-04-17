@@ -4,8 +4,8 @@ namespace JsonEditor
 {
     public class HookManager
     {
-        private KeyboardHook m_conversionShortcut;
-        private EventHandler<KeyPressedEventArgs> m_conversionShortcutHandler;
+        private KeyboardHook m_conversionHotKey;
+        private EventHandler<KeyPressedEventArgs> m_conversionHotKeyHandler;
         private readonly Configuration m_configuration;
         
         public HookManager()
@@ -17,21 +17,21 @@ namespace JsonEditor
             m_configuration.ConfigurationUpdatedHandler += ConfigurationUpdatedHandler;
         }
 
-        virtual public void SetConversionShortcutHandler(EventHandler<KeyPressedEventArgs> handler)
+        virtual public void SetConversionHotKeyHandler(EventHandler<KeyPressedEventArgs> handler)
         {
-            m_conversionShortcutHandler = handler;
+            m_conversionHotKeyHandler = handler;
         }
 
         virtual public void UpdateHook()
         {
-            if (m_conversionShortcut != null)
+            if (m_conversionHotKey != null)
             {
-                m_conversionShortcut.Dispose();
+                m_conversionHotKey.Dispose();
             }
-            m_conversionShortcut = new KeyboardHook();
-            m_conversionShortcut.RegisterHotKey(
-                m_configuration.ConversionShortcutModifierKey, m_configuration.ConversionShortcutMainKey);
-            m_conversionShortcut.KeyPressed += m_conversionShortcutHandler;
+            m_conversionHotKey = new KeyboardHook();
+            m_conversionHotKey.RegisterHotKey(
+                m_configuration.ConversionHotKeyModifierKey, m_configuration.ConversionHotKeyMainKey);
+            m_conversionHotKey.KeyPressed += m_conversionHotKeyHandler;
         }
 
         public void ConfigurationUpdatedHandler(object sender, ConfigurationUpdatedEventArgs e)

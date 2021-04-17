@@ -13,8 +13,8 @@ namespace JsonEditor
         {
             InitializeComponent();
             m_configuration = configuration;
-            m_modifierKeys = m_configuration.ConversionShortcutModifierKey;
-            m_mainKeys = m_configuration.ConversionShortcutMainKey;
+            m_modifierKeys = m_configuration.ConversionHotKeyModifierKey;
+            m_mainKeys = m_configuration.ConversionHotKeyMainKey;
         }
 
         private void SettingsWindow_Load(object sender, EventArgs e)
@@ -37,8 +37,8 @@ namespace JsonEditor
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            m_configuration.ConversionShortcutModifierKey = m_modifierKeys;
-            m_configuration.ConversionShortcutMainKey = m_mainKeys;
+            m_configuration.ConversionHotKeyModifierKey = m_modifierKeys;
+            m_configuration.ConversionHotKeyMainKey = m_mainKeys;
             try
             {
                 m_configuration.SaveConfiguration();
