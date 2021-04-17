@@ -5,6 +5,7 @@
 	  <TargetFramework>net461</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <ApplicationIcon>letter_j.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
