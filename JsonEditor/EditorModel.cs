@@ -2,10 +2,16 @@
 {
     public class EditorModel
     {
-        private string m_content = string.Empty;
-        private JsonContent m_jsonContent = new JsonContent(string.Empty);
-        private KeyboardManager m_keyboardManager = new KeyboardManager();
-        private WindowManager m_windowManager = new WindowManager();
+        private string m_content;
+        private KeyboardManager m_keyboardManager;
+        private WindowManager m_windowManager;
+        private JsonContent m_jsonContent = new JsonContent();
+
+        public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager)
+        {
+            m_windowManager = windowManager;
+            m_keyboardManager = keyboardManager;
+        }
 
         public string Text
         {
@@ -15,10 +21,7 @@
 
         public string ErrorMessage
         {
-            get 
-            {
-                return m_jsonContent.ErrorMessage;
-            }
+            get { return m_jsonContent.ErrorMessage; }
         }
 
         public bool IsValidJson
@@ -31,7 +34,7 @@
             bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
             if (isForeignWindowFocused)
             {
-                m_content = getTextFromClipboard();
+                m_content = GetTextFromClipboard();
             }
 
             string formattedJson = FormatJson();
@@ -44,7 +47,7 @@
 
             return formattedJson;
         }
-        private string getTextFromClipboard()
+        private string GetTextFromClipboard()
         {
             m_windowManager.SetFocusedWindowForeground();
             m_keyboardManager.SendCopyCommand();
