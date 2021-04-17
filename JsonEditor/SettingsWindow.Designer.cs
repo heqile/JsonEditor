@@ -35,7 +35,7 @@ namespace JsonEditor
             this.HotKeyBindingLabel = new System.Windows.Forms.Label();
             this.ModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.MainKeyBindingTextBox = new System.Windows.Forms.TextBox();
-            this.ShortcutBindingPlusLabel = new System.Windows.Forms.Label();
+            this.HotKeyBindingPlusLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // SaveButton
@@ -93,22 +93,22 @@ namespace JsonEditor
             this.MainKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.MainKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainKeyBindingTextBox_KeyDown);
             // 
-            // ShortcutBindingPlusLabel
+            // HotKeyBindingPlusLabel
             // 
-            this.ShortcutBindingPlusLabel.AutoSize = true;
-            this.ShortcutBindingPlusLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ShortcutBindingPlusLabel.Location = new System.Drawing.Point(344, 30);
-            this.ShortcutBindingPlusLabel.Name = "ShortcutBindingPlusLabel";
-            this.ShortcutBindingPlusLabel.Size = new System.Drawing.Size(21, 21);
-            this.ShortcutBindingPlusLabel.TabIndex = 4;
-            this.ShortcutBindingPlusLabel.Text = "+";
+            this.HotKeyBindingPlusLabel.AutoSize = true;
+            this.HotKeyBindingPlusLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.HotKeyBindingPlusLabel.Location = new System.Drawing.Point(344, 30);
+            this.HotKeyBindingPlusLabel.Name = "HotKeyBindingPlusLabel";
+            this.HotKeyBindingPlusLabel.Size = new System.Drawing.Size(21, 21);
+            this.HotKeyBindingPlusLabel.TabIndex = 4;
+            this.HotKeyBindingPlusLabel.Text = "+";
             // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 131);
-            this.Controls.Add(this.ShortcutBindingPlusLabel);
+            this.Controls.Add(this.HotKeyBindingPlusLabel);
             this.Controls.Add(this.MainKeyBindingTextBox);
             this.Controls.Add(this.ModifierKeyBindingTextBox);
             this.Controls.Add(this.HotKeyBindingLabel);
@@ -134,6 +134,6 @@ namespace JsonEditor
         private System.Windows.Forms.Label HotKeyBindingLabel;
         private System.Windows.Forms.TextBox ModifierKeyBindingTextBox;
         private System.Windows.Forms.TextBox MainKeyBindingTextBox;
-        private System.Windows.Forms.Label ShortcutBindingPlusLabel;
+        private System.Windows.Forms.Label HotKeyBindingPlusLabel;
     }
 }
