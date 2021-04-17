@@ -9,7 +9,7 @@ namespace JsonEditor
         private readonly WindowManager m_windowManager;
         private readonly ClipboardManager m_clipboardManager;
         private readonly HookManager m_hookManager;
-        private JsonContent m_jsonContent = new JsonContent();
+        private JsonFormatter m_jsonContent = new JsonFormatter();
 
         public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager, ClipboardManager clipboardManager, HookManager hookManager)
         {
@@ -74,7 +74,7 @@ namespace JsonEditor
                 return formattedJson;
             }
 
-            m_jsonContent = new JsonContent(m_content);
+            m_jsonContent = new JsonFormatter(m_content);
             if (!m_jsonContent.IsValidJson)
             {
                 throw new InvalidJsonException(m_jsonContent.ErrorMessage);
@@ -103,7 +103,7 @@ namespace JsonEditor
 
         public string GetIndentedJsonAndSetToClipboard()
         {
-            m_jsonContent = new JsonContent(m_content);
+            m_jsonContent = new JsonFormatter(m_content);
             if (m_jsonContent.IsValidJson)
             {
                 string formattedJson = m_jsonContent.GetIndentedJson();
@@ -115,7 +115,7 @@ namespace JsonEditor
 
         public string GetCompactJsonAndSetToClipboard()
         {
-            m_jsonContent = new JsonContent(m_content);
+            m_jsonContent = new JsonFormatter(m_content);
             if (m_jsonContent.IsValidJson)
             {
                 string formattedJson = m_jsonContent.GetCompactJson();

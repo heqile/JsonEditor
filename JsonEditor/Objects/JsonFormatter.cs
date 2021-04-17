@@ -4,7 +4,7 @@ using System.IO;
 
 namespace JsonEditor
 {
-    public class JsonContent
+    public class JsonFormatter
     {
         public const string EmptyInputErrorMessage = "Please write a json.";
         public const string InvalidJsonErrorMessage = "Invalid json, please check.";
@@ -13,12 +13,12 @@ namespace JsonEditor
         private JsonSerializer m_serializer;
         private object m_jsonObject;
 
-        public JsonContent()
+        public JsonFormatter()
         {
             m_errorMessage = EmptyInputErrorMessage;
         }
 
-        public JsonContent(string textContent)
+        public JsonFormatter(string textContent)
         {
             m_errorMessage = string.Empty;
 
