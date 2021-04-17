@@ -40,14 +40,14 @@ namespace JsonEditor
 
                     if (clipboardContent != initialValue)
                     {
-                        return clipboardContent;
+                        break;
                     }
                 }
                 catch (Exception)
                 {}
                 Task.Delay(RetryIntervalMs).Wait();
             }
-            return clipboardContent;
+            return clipboardContent.Replace("\r\n", "\n");
         }
     }
 }

@@ -7,8 +7,6 @@ namespace JsonEditor
     {
         private EditorModel m_model;
         private HookManager m_hookManager = new HookManager();
-        private KeyboardManager m_keyboardManager = new KeyboardManager();
-        private WindowManager m_windowManager = new WindowManager();
 
         public Editor(EditorModel model)
         {
@@ -29,9 +27,7 @@ namespace JsonEditor
         {
             try
             {
-                string formattedJson = m_model.GetCompactJson();
-                TextComponent.Text = formattedJson;
-                ClipboardManager.SetText(formattedJson);
+                TextComponent.Text = m_model.GetCompactJson();
             }
             catch (InvalidJsonException exc)
             {
@@ -44,9 +40,7 @@ namespace JsonEditor
         {
             try
             {
-                string formattedJson = m_model.GetIndentedJson();
-                TextComponent.Text = formattedJson;
-                ClipboardManager.SetText(formattedJson);
+                TextComponent.Text = m_model.GetIndentedJson();
             }
             catch (InvalidJsonException exc)
             {
@@ -63,27 +57,13 @@ namespace JsonEditor
 
         private void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
-            if (isForeignWindowFocused)
-            {
-                TextComponent.Text = getTextFromClipboard();
-            }
-
             try
             {
-                string formattedJson = m_model.GetFormattedJson();
-                TextComponent.Text = formattedJson;
-                ClipboardManager.SetText(formattedJson);
+                TextComponent.Text = m_model.GetFormattedJson();
             }
             catch (InvalidJsonException exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
-                return;
-            }
-
-            if (isForeignWindowFocused)
-            {
-                m_keyboardManager.SendPasteCommand();
             }
         }
 
@@ -140,13 +120,6 @@ namespace JsonEditor
         {
             Show();
             WindowState = FormWindowState.Normal;
-        }
-
-        private string getTextFromClipboard()
-        {
-            m_windowManager.SetFocusedWindowForeground();
-            m_keyboardManager.SendCopyCommand();
-            return ClipboardManager.GetText();
         }
 
         private void DisplayNotifierBallonTop(string text)
