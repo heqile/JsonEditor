@@ -1,31 +1,17 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace JsonEditor
+﻿namespace JsonEditor
 {
-    public class EditorModel : INotifyPropertyChanged
+    public class EditorModel
     {
         private string m_content = string.Empty;
         private JsonContent m_jsonContent = new JsonContent(string.Empty);
         private KeyboardManager m_keyboardManager = new KeyboardManager();
         private WindowManager m_windowManager = new WindowManager();
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
         public string Text
         {
-            set 
-            {
-                if (value == Text)
-                {
-                    return;
-                }
-                m_content = value;
-                OnPropertyChanged("Text");
-            }
+            set { m_content = value; }
             get { return m_content; }
         }
-
 
         public string ErrorMessage
         {
@@ -38,14 +24,6 @@ namespace JsonEditor
         public bool IsValidJson
         {
             get { return m_jsonContent.IsValidJson; }
-        }
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         public string GetFormattedJson()
