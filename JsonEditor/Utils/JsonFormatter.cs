@@ -9,23 +9,15 @@ namespace JsonEditor
         public const string EmptyInputErrorMessage = "Please write a json.";
         public const string InvalidJsonErrorMessage = "Invalid json, please check.";
 
-        private string m_errorMessage;
         private JsonSerializer m_serializer;
         private object m_jsonObject;
 
-        public JsonFormatter()
-        {
-            m_errorMessage = EmptyInputErrorMessage;
-        }
 
         public JsonFormatter(string textContent)
         {
-            m_errorMessage = string.Empty;
-
             if (textContent is null || textContent.Trim() == string.Empty)
             {
-                m_errorMessage = EmptyInputErrorMessage;
-                return;
+                throw new EmptyJsonException(EmptyInputErrorMessage);
             }
 
             m_serializer = new JsonSerializer();
@@ -35,18 +27,8 @@ namespace JsonEditor
             }
             catch (Exception)
             {
-                m_errorMessage = InvalidJsonErrorMessage;
+                throw new InvalidJsonException(InvalidJsonErrorMessage);
             }
-        }
-
-        public string ErrorMessage
-        {
-            get { return m_errorMessage; }
-        }
-
-        public bool IsValidJson
-        {
-            get { return m_jsonObject != null; }
         }
 
         public string GetCompactJson()

@@ -2,11 +2,12 @@
 using JsonEditor;
 using System.Text.Json;
 using System.IO;
+using System;
 
 namespace JsonEditorUnitTest
 {
     [TestClass]
-    public class JsonFormatterUnitTest
+    public class JsonContentUnitTest
     {
         public const string validInput = "{\"key1\": \"value1\",\n \"key2\": [\n\"value2-1\",\n \"value2-2\"],\n \"key3\": {\n\"key3-1\": \"value3-1\",\n \"key3-2\": \"value3-2\"}\n}";
         public const string invalidInput = "{\"key1\": \"value1\",\n \"key2: [\n\"value2-1\",\n \"value2-2\"],\n \"key3\": {\n\"key3-1\": \"value3-1\",\n \"key3-2\": \"value3-2\"}\n}";
@@ -37,77 +38,41 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void ErrorMessage_Empty_ValidJson()
+        public void Constructor_ThrowInvalidJsonException_InvalidJson()
         {
             // Given
 
             // When
-            JsonFormatter jsonContent = new JsonFormatter(validInput);
+            Action action = () => new JsonFormatter(invalidInput);
 
             // Then
-            Assert.AreEqual(string.Empty, jsonContent.ErrorMessage);
+            Assert.ThrowsException<InvalidJsonException>(action);
         }
 
         [TestMethod]
-        public void ErrorMessage_InvalidJsonErrorMessage_InvalidJson()
-        {
-            // Given
-
-            // When
-            JsonFormatter jsonContent = new JsonFormatter(invalidInput);
-
-            // Then
-            Assert.IsTrue(jsonContent.ErrorMessage.Contains(JsonFormatter.InvalidJsonErrorMessage));
-        }
-
-        [TestMethod]
-        public void ErrorMessage_EmptyErrorMessage_EmptyInput()
+        public void Constructor_ThrowEmptyJsonException_EmptyInput()
         {
             // Given
             string emptyInput = "";
 
             // When
-            JsonFormatter jsonContent = new JsonFormatter(emptyInput);
+            Action action = () => new JsonFormatter(emptyInput);
 
             // Then
-            Assert.AreEqual(JsonFormatter.EmptyInputErrorMessage, jsonContent.ErrorMessage);
+            Assert.ThrowsException<EmptyJsonException>(action);
         }
 
         [TestMethod]
-        public void ErrorMessage_EmptyErrorMessage_NullInput()
+        public void Constructor_ThrowEmptyJsonException_NullInput()
         {
             // Given
             string emptyInput = null;
 
             // When
-            JsonFormatter jsonContent = new JsonFormatter(emptyInput);
+            Action action = () => new JsonFormatter(emptyInput);
 
             // Then
-            Assert.AreEqual(JsonFormatter.EmptyInputErrorMessage, jsonContent.ErrorMessage);
-        }
-
-        [TestMethod]
-        public void IsValidJson_True_ValidJson()
-        {
-            // Given
-
-            // When
-            JsonFormatter jsonContent = new JsonFormatter(validInput);
-
-            // Then
-            Assert.IsTrue(jsonContent.IsValidJson);
-        }
-
-        [TestMethod]
-        public void IsValidJson_False_InvalidJson()
-        {
-            // Given
-
-            // When
-            JsonFormatter jsonContent = new JsonFormatter(invalidInput);
-
-            // Then
-            Assert.IsFalse(jsonContent.IsValidJson);
+            Assert.ThrowsException<EmptyJsonException>(action);
         }
 
         [TestMethod]
@@ -129,18 +94,6 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetCompactJson_Null_InvalidJson()
-        {
-            // Given
-
-            // When
-            JsonFormatter jsonContent = new JsonFormatter(invalidInput);
-
-            // Then
-            Assert.AreEqual(string.Empty, jsonContent.GetCompactJson());
-        }
-
-        [TestMethod]
         public void GetIndentedJson_IndentedJsonString_ValidJson()
         {
             // Given
@@ -151,18 +104,6 @@ namespace JsonEditorUnitTest
 
             // Then
             Assert.AreEqual(expectedJson, jsonContent.GetIndentedJson());
-        }
-
-        [TestMethod]
-        public void GetIndentedJson_Empty_InvalidJson()
-        {
-            // Given
-
-            // When
-            JsonFormatter jsonContent = new JsonFormatter(invalidInput);
-
-            // Then
-            Assert.AreEqual(string.Empty, jsonContent.GetIndentedJson());
         }
     }
 }

@@ -29,7 +29,7 @@ namespace JsonEditor
             {
                 TextComponent.Text = m_model.GetCompactJsonAndSetToClipboard();
             }
-            catch (InvalidJsonException exc)
+            catch (Exception exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
                 return;
@@ -42,7 +42,7 @@ namespace JsonEditor
             {
                 TextComponent.Text = m_model.GetIndentedJsonAndSetToClipboard();
             }
-            catch (InvalidJsonException exc)
+            catch (Exception exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
                 return;
@@ -61,7 +61,7 @@ namespace JsonEditor
             {
                 TextComponent.Text = m_model.GetFormattedJsonAndSetToClipboard();
             }
-            catch (InvalidJsonException exc)
+            catch (Exception exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
             }
