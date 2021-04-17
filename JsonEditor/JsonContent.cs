@@ -13,6 +13,11 @@ namespace JsonEditor
         private JsonSerializer m_serializer;
         private object m_jsonObject;
 
+        public JsonContent()
+        {
+            m_errorMessage = EmptyInputErrorMessage;
+        }
+
         public JsonContent(string textContent)
         {
             m_errorMessage = string.Empty;
