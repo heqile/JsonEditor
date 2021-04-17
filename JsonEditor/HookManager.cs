@@ -11,7 +11,7 @@ namespace JsonEditor
         public HookManager(Configuration configuration)
         {
             m_configuration = configuration;
-            m_configuration.ConfigurationUpdatedHandler += ConfigurationUpdated;
+            m_configuration.ConfigurationUpdatedHandler += ConfigurationUpdatedHandler;
         }
 
         public void SetConversionShortcutHandler(EventHandler<KeyPressedEventArgs> handler)
@@ -31,7 +31,7 @@ namespace JsonEditor
             m_conversionShortcut.KeyPressed += m_conversionShortcutHandler;
         }
 
-        public void ConfigurationUpdated(object sender, ConfigurationUpdatedEventArgs e)
+        public void ConfigurationUpdatedHandler(object sender, ConfigurationUpdatedEventArgs e)
         {
             try
             {
