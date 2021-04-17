@@ -9,8 +9,8 @@ namespace JsonEditor
         public const string EmptyInputErrorMessage = "Please write a json.";
         public const string InvalidJsonErrorMessage = "Invalid json, please check.";
 
-        private JsonSerializer m_serializer;
-        private object m_jsonObject;
+        private readonly JsonSerializer m_serializer;
+        private readonly object m_jsonObject;
 
 
         public JsonFormatter(string textContent)
@@ -38,8 +38,10 @@ namespace JsonEditor
                 return string.Empty;
             }
             StringWriter stringWriter = new StringWriter();
-            JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter);
-            jsonWriter.Formatting = Formatting.None;
+            JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter)
+            {
+                Formatting = Formatting.None
+            };
             m_serializer.Serialize(jsonWriter, m_jsonObject);
             return stringWriter.ToString();
         }
@@ -51,12 +53,16 @@ namespace JsonEditor
                 return string.Empty;
             }
 
-            StringWriter stringWriter = new StringWriter();
-            stringWriter.NewLine = "\n";  // in richTextEditor, it stores "\n", to be consistent, use "\n" in output of json converter
-            JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter);
-            jsonWriter.Formatting = Formatting.Indented;
-            jsonWriter.IndentChar = ' ';
-            jsonWriter.Indentation = 4;
+            StringWriter stringWriter = new StringWriter
+            {
+                NewLine = "\n"  // in richTextEditor, it stores "\n", to be consistent, use "\n" in output of json converter
+            };
+            JsonTextWriter jsonWriter = new JsonTextWriter(stringWriter)
+            {
+                Formatting = Formatting.Indented,
+                IndentChar = ' ',
+                Indentation = 4
+            };
             m_serializer.Serialize(jsonWriter, m_jsonObject);
             return stringWriter.ToString();
         }

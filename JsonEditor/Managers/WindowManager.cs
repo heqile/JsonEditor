@@ -12,8 +12,7 @@ namespace JsonEditor
 
         virtual public void SetFocusedWindowForeground()
         {
-            Point cursorPoint;
-            NativeMethods.GetCursorPos(out cursorPoint);
+            NativeMethods.GetCursorPos(out Point cursorPoint);
             IntPtr cursorHandle = NativeMethods.WindowFromPoint(cursorPoint);
             if (cursorHandle != m_previousForegroundWindow)
             {
@@ -25,8 +24,7 @@ namespace JsonEditor
 
         virtual public bool IsMainWindowFocused()
         {
-            Point cursorPoint;
-            NativeMethods.GetCursorPos(out cursorPoint);
+            NativeMethods.GetCursorPos(out Point cursorPoint);
             IntPtr cursorHandle = NativeMethods.WindowFromPoint(cursorPoint);
             IntPtr focusedHandle = NativeMethods.GetFocus();
             return cursorHandle == focusedHandle;
