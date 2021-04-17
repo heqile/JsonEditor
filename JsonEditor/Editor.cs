@@ -27,7 +27,7 @@ namespace JsonEditor
         {
             try
             {
-                TextComponent.Text = m_model.GetCompactJson();
+                TextComponent.Text = m_model.GetCompactJsonAndSetToClipboard();
             }
             catch (InvalidJsonException exc)
             {
@@ -40,7 +40,7 @@ namespace JsonEditor
         {
             try
             {
-                TextComponent.Text = m_model.GetIndentedJson();
+                TextComponent.Text = m_model.GetIndentedJsonAndSetToClipboard();
             }
             catch (InvalidJsonException exc)
             {
@@ -59,7 +59,7 @@ namespace JsonEditor
         {
             try
             {
-                TextComponent.Text = m_model.GetFormattedJson();
+                TextComponent.Text = m_model.GetFormattedJsonAndSetToClipboard();
             }
             catch (InvalidJsonException exc)
             {

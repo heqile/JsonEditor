@@ -3,14 +3,16 @@
     public class EditorModel
     {
         private string m_content;
-        private KeyboardManager m_keyboardManager;
-        private WindowManager m_windowManager;
+        private readonly KeyboardManager m_keyboardManager;
+        private readonly WindowManager m_windowManager;
+        private readonly ClipboardManager m_clipboardManager;
         private JsonContent m_jsonContent = new JsonContent();
 
-        public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager)
+        public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager, ClipboardManager clipboardManager)
         {
             m_windowManager = windowManager;
             m_keyboardManager = keyboardManager;
+            m_clipboardManager = clipboardManager;
         }
 
         public string Text
@@ -29,7 +31,7 @@
             get { return m_jsonContent.IsValidJson; }
         }
 
-        public string GetFormattedJson()
+        public string GetFormattedJsonAndSetToClipboard()
         {
             bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
             if (isForeignWindowFocused)
@@ -38,7 +40,7 @@
             }
 
             string formattedJson = FormatJson();
-            ClipboardManager.SetText(formattedJson);
+            m_clipboardManager.SetText(formattedJson);
 
             if (isForeignWindowFocused)
             {
@@ -51,7 +53,7 @@
         {
             m_windowManager.SetFocusedWindowForeground();
             m_keyboardManager.SendCopyCommand();
-            return ClipboardManager.GetText();
+            return m_clipboardManager.GetText();
         }
 
         private string FormatJson()
@@ -89,25 +91,25 @@
             return string.Empty;
         }
 
-        public string GetIndentedJson()
+        public string GetIndentedJsonAndSetToClipboard()
         {
             m_jsonContent = new JsonContent(m_content);
             if (m_jsonContent.IsValidJson)
             {
                 string formattedJson = m_jsonContent.GetIndentedJson();
-                ClipboardManager.SetText(formattedJson);
+                m_clipboardManager.SetText(formattedJson);
                 return formattedJson;
             }
             throw new InvalidJsonException(m_jsonContent.ErrorMessage);
         }
 
-        public string GetCompactJson()
+        public string GetCompactJsonAndSetToClipboard()
         {
             m_jsonContent = new JsonContent(m_content);
             if (m_jsonContent.IsValidJson)
             {
                 string formattedJson = m_jsonContent.GetCompactJson();
-                ClipboardManager.SetText(formattedJson);
+                m_clipboardManager.SetText(formattedJson);
                 return formattedJson;
             }
             throw new InvalidJsonException(m_jsonContent.ErrorMessage);

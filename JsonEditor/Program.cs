@@ -19,7 +19,8 @@ namespace JsonEditor
             Application.SetCompatibleTextRenderingDefault(false);        
             KeyboardManager keyboardManager = new KeyboardManager();
             WindowManager windowManager = new WindowManager();
-            EditorModel model = new EditorModel(windowManager, keyboardManager);
+            ClipboardManager clipboardManager = new ClipboardManager();
+            EditorModel model = new EditorModel(windowManager, keyboardManager, clipboardManager);
             Application.Run(new Editor(model));
         }
     }
