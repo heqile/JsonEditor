@@ -66,7 +66,7 @@ namespace JsonEditor
             this.ShortkeyBindingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ShortkeyBindingLabel.Location = new System.Drawing.Point(25, 29);
             this.ShortkeyBindingLabel.Name = "ShortkeyBindingLabel";
-            this.ShortkeyBindingLabel.Size = new System.Drawing.Size(159, 28);
+            this.ShortkeyBindingLabel.Size = new System.Drawing.Size(124, 21);
             this.ShortkeyBindingLabel.TabIndex = 1;
             this.ShortkeyBindingLabel.Text = "HotKey binding :";
             this.ShortkeyBindingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,7 +77,7 @@ namespace JsonEditor
             this.ModifierKeyBindingTextBox.Location = new System.Drawing.Point(204, 29);
             this.ModifierKeyBindingTextBox.Name = "ModifierKeyBindingTextBox";
             this.ModifierKeyBindingTextBox.ReadOnly = true;
-            this.ModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 30);
+            this.ModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 25);
             this.ModifierKeyBindingTextBox.TabIndex = 2;
             this.ModifierKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.ModifierKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModifierKeyBindingTextBox_KeyDown);
@@ -88,7 +88,7 @@ namespace JsonEditor
             this.MainKeyBindingTextBox.Location = new System.Drawing.Point(381, 29);
             this.MainKeyBindingTextBox.Name = "MainKeyBindingTextBox";
             this.MainKeyBindingTextBox.ReadOnly = true;
-            this.MainKeyBindingTextBox.Size = new System.Drawing.Size(79, 30);
+            this.MainKeyBindingTextBox.Size = new System.Drawing.Size(79, 25);
             this.MainKeyBindingTextBox.TabIndex = 3;
             this.MainKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.MainKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainKeyBindingTextBox_KeyDown);
@@ -99,13 +99,13 @@ namespace JsonEditor
             this.ShortcutBindingPlusLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ShortcutBindingPlusLabel.Location = new System.Drawing.Point(344, 30);
             this.ShortcutBindingPlusLabel.Name = "ShortcutBindingPlusLabel";
-            this.ShortcutBindingPlusLabel.Size = new System.Drawing.Size(26, 28);
+            this.ShortcutBindingPlusLabel.Size = new System.Drawing.Size(21, 21);
             this.ShortcutBindingPlusLabel.TabIndex = 4;
             this.ShortcutBindingPlusLabel.Text = "+";
             // 
             // SettingsWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(488, 131);
             this.Controls.Add(this.ShortcutBindingPlusLabel);
