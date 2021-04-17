@@ -1,4 +1,6 @@
-﻿namespace JsonEditor
+﻿using System;
+
+namespace JsonEditor
 {
     public class EditorModel
     {
@@ -6,13 +8,15 @@
         private readonly KeyboardManager m_keyboardManager;
         private readonly WindowManager m_windowManager;
         private readonly ClipboardManager m_clipboardManager;
+        private readonly HookManager m_hookManager;
         private JsonContent m_jsonContent = new JsonContent();
 
-        public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager, ClipboardManager clipboardManager)
+        public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager, ClipboardManager clipboardManager, HookManager hookManager)
         {
             m_windowManager = windowManager;
             m_keyboardManager = keyboardManager;
             m_clipboardManager = clipboardManager;
+            m_hookManager = hookManager;
         }
 
         public string Text
@@ -29,6 +33,12 @@
         public bool IsValidJson
         {
             get { return m_jsonContent.IsValidJson; }
+        }
+
+        public void SetConversionShortcutHandlerAndUpdateHook(EventHandler<KeyPressedEventArgs> eventHandler)
+        {
+            m_hookManager.SetConversionShortcutHandler(eventHandler);
+            m_hookManager.UpdateHook();
         }
 
         public string GetFormattedJsonAndSetToClipboard()

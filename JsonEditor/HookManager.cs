@@ -6,10 +6,11 @@ namespace JsonEditor
     {
         private KeyboardHook m_conversionShortcut;
         private EventHandler<KeyPressedEventArgs> m_conversionShortcutHandler;
-        private Configuration m_configuration = Configuration.GetInstance();
+        private readonly Configuration m_configuration;
 
-        public HookManager()
+        public HookManager(Configuration configuration)
         {
+            m_configuration = configuration;
             m_configuration.ConfigurationUpdatedHandler += ConfigurationUpdated;
         }
 

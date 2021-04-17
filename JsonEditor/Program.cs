@@ -16,12 +16,14 @@ namespace JsonEditor
         {
             //Application.SetHighDpiMode(HighDpiMode.SystemAware); // initial project is for .netcore 3.1, but not for net4.6.1
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);        
+            Application.SetCompatibleTextRenderingDefault(false);
+            Configuration configuration = Configuration.GetInstance();
+            HookManager hookManager = new HookManager(configuration);
             KeyboardManager keyboardManager = new KeyboardManager();
             WindowManager windowManager = new WindowManager();
             ClipboardManager clipboardManager = new ClipboardManager();
-            EditorModel model = new EditorModel(windowManager, keyboardManager, clipboardManager);
-            Application.Run(new EditorWindow(model));
+            EditorModel model = new EditorModel(windowManager, keyboardManager, clipboardManager, hookManager);
+            Application.Run(new EditorWindow(model, configuration));
         }
     }
 }

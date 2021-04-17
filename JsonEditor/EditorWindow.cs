@@ -5,17 +5,17 @@ namespace JsonEditor
 {
     public partial class EditorWindow : Form
     {
-        private EditorModel m_model;
-        private HookManager m_hookManager = new HookManager();
+        private readonly EditorModel m_model;
+        private readonly Configuration m_configuration;
 
-        public EditorWindow(EditorModel model)
+        public EditorWindow(EditorModel model, Configuration configuration)
         {
             InitializeComponent();
+            m_configuration = configuration;
+
             m_model = model;
             TextComponent.DataBindings.Add("Text", m_model, "Text", true, DataSourceUpdateMode.OnPropertyChanged);
-
-            m_hookManager.SetConversionShortcutHandler(new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed));
-            m_hookManager.UpdateHook();
+            m_model.SetConversionShortcutHandlerAndUpdateHook(new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed));
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -130,13 +130,13 @@ namespace JsonEditor
 
         private void NotifierMenuSettings_Click(object sender, EventArgs e)
         {
-            SettingsWindow settingsWindow = new SettingsWindow();
+            SettingsWindow settingsWindow = new SettingsWindow(m_configuration);
             settingsWindow.Show();
         }
 
         private void Settings_Click(object sender, EventArgs e)
         {
-            SettingsWindow settingsWindow = new SettingsWindow();
+            SettingsWindow settingsWindow = new SettingsWindow(m_configuration);
             settingsWindow.Show();
         }
     }

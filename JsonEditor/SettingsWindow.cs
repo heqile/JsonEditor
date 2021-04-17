@@ -5,14 +5,14 @@ namespace JsonEditor
 {
     public partial class SettingsWindow : Form
     {
-        private Configuration m_configuration;
+        private readonly Configuration m_configuration;
         private KeyboardHook.ModifierKeys m_modifierKeys;
         private Keys m_mainKeys;
 
-        public SettingsWindow()
+        public SettingsWindow(Configuration configuration)
         {
             InitializeComponent();
-            m_configuration = Configuration.GetInstance();
+            m_configuration = configuration;
             m_modifierKeys = m_configuration.ConversionShortcutModifierKey;
             m_mainKeys = m_configuration.ConversionShortcutMainKey;
         }
