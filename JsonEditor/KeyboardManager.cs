@@ -9,7 +9,7 @@ namespace JsonEditor
         public const UInt32 KEYEVENTF_KEYUP = 0x2;
         public const UInt32 VK_CONTROL = 0x11;
 
-        public void SendCopyCommand()
+        virtual public void SendCopyCommand()
         {
             NativeMethods.keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYDOWN, 0);
             NativeMethods.keybd_event(0x43, 0, KEYEVENTF_KEYDOWN, 0); //Send the C key
@@ -17,7 +17,7 @@ namespace JsonEditor
             NativeMethods.keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, 0);
         }
 
-        public void SendPasteCommand()
+        virtual public void SendPasteCommand()
         {
             NativeMethods.keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYDOWN, 0);
             NativeMethods.keybd_event(0x56, 0, KEYEVENTF_KEYDOWN, 0); //Send the V key

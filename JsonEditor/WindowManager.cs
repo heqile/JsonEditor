@@ -10,7 +10,7 @@ namespace JsonEditor
         private const int WaitWindowReadyMs = 300;
         private IntPtr m_previousForegroundWindow;
 
-        public void SetFocusedWindowForeground()
+        virtual public void SetFocusedWindowForeground()
         {
             Point cursorPoint;
             NativeMethods.GetCursorPos(out cursorPoint);
@@ -23,7 +23,7 @@ namespace JsonEditor
             Task.Delay(WaitWindowReadyMs).Wait();  // wait window ready to receive key press
         }
 
-        public bool IsMainWindowFocused()
+        virtual public bool IsMainWindowFocused()
         {
             Point cursorPoint;
             NativeMethods.GetCursorPos(out cursorPoint);

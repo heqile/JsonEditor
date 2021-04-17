@@ -4,12 +4,12 @@ using System.Windows.Forms;
 
 namespace JsonEditor
 {
-    public static class ClipboardManager
+    public class ClipboardManager
     {
         private const int MaxRetry = 5;
         private const int RetryIntervalMs = 10;
 
-        public static void SetText(string text)
+        virtual public void SetText(string text)
         {
             for (int retryCounter = 0; retryCounter < MaxRetry; retryCounter++)
             {
@@ -24,7 +24,7 @@ namespace JsonEditor
             }
         }
 
-        public static string GetText()
+        virtual public string GetText()
         {
             string initialValue = string.Empty;
             string clipboardContent = string.Empty;
