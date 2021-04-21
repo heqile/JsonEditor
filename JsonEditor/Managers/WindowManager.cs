@@ -7,8 +7,16 @@ namespace JsonEditor
 {
     public class WindowManager
     {
-        private const int WaitWindowReadyMs = 300;
+        private Configuration m_configuration;
         private IntPtr m_previousForegroundWindow;
+
+        public WindowManager()
+        { }
+
+        public WindowManager(Configuration configuration)
+        {
+            m_configuration = configuration;
+        }
 
         virtual public void SetFocusedWindowForeground()
         {
@@ -19,7 +27,7 @@ namespace JsonEditor
                 NativeMethods.SetForegroundWindow(cursorHandle);
                 m_previousForegroundWindow = cursorHandle;
             }
-            Task.Delay(WaitWindowReadyMs).Wait();  // wait window ready to receive key press
+            Task.Delay((int)m_configuration.WaitWindowReadyMs).Wait();  // wait window ready to receive key press
         }
 
         virtual public bool IsMainWindowFocused()

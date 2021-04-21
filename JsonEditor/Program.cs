@@ -20,9 +20,9 @@ namespace JsonEditor
             Configuration configuration = Configuration.GetInstance();
             HookManager hookManager = new HookManager(configuration);
             KeyboardManager keyboardManager = new KeyboardManager();
-            WindowManager windowManager = new WindowManager();
+            WindowManager windowManager = new WindowManager(configuration);
             ClipboardManager clipboardManager = new ClipboardManager();
-            EditorModel model = new EditorModel(windowManager, keyboardManager, clipboardManager, hookManager);
+            EditorModel model = new EditorModel(configuration, windowManager, keyboardManager, clipboardManager, hookManager);
             Application.Run(new EditorWindow(model, configuration));
         }
     }

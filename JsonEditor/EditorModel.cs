@@ -8,11 +8,13 @@ namespace JsonEditor
         private readonly WindowManager m_windowManager;
         private readonly ClipboardManager m_clipboardManager;
         private readonly HookManager m_hookManager;
+        private readonly Configuration m_configuration;
         private string m_content;
         private JsonFormatter m_jsonFormatter;
 
-        public EditorModel(WindowManager windowManager, KeyboardManager keyboardManager, ClipboardManager clipboardManager, HookManager hookManager)
+        public EditorModel(Configuration configuration, WindowManager windowManager, KeyboardManager keyboardManager, ClipboardManager clipboardManager, HookManager hookManager)
         {
+            m_configuration = configuration;
             m_windowManager = windowManager;
             m_keyboardManager = keyboardManager;
             m_clipboardManager = clipboardManager;
@@ -102,11 +104,21 @@ namespace JsonEditor
             {
                 return m_jsonFormatter.GetIndentedJson();
             }
-            else if (m_content == m_jsonFormatter.GetIndentedJson())
+
+            bool notIntendedJson = m_content != m_jsonFormatter.GetIndentedJson();
+            if (notIntendedJson)
+            {
+                return string.Empty;
+            }
+
+            if (m_configuration.CompactConversionEnabled)
             {
                 return m_jsonFormatter.GetCompactJson();
             }
-            return string.Empty;
+            else
+            {
+                return m_content;
+            }
         }
     }
 }

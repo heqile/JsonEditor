@@ -17,6 +17,7 @@ namespace JsonEditorUnitTest
         private Mock<WindowManager> windowManager;
         private Mock<ClipboardManager> clipboardManager;
         private Mock<HookManager> hookManager;
+        private Mock<Configuration> configuration;
 
         string convertToIndentedJson(string input)
         {
@@ -58,6 +59,8 @@ namespace JsonEditorUnitTest
             hookManager = new Mock<HookManager>();
             hookManager.Setup(o => o.SetConversionHotKeyHandler(It.IsAny<EventHandler<KeyPressedEventArgs>>()));
             hookManager.Setup(o => o.UpdateHook());
+
+            configuration = new Mock<Configuration>();
         }
 
         public void AssertionsWhenMainWindowFocused()
@@ -82,7 +85,7 @@ namespace JsonEditorUnitTest
             string inputContent = "test";
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputContent;
 
             // Then
@@ -97,7 +100,7 @@ namespace JsonEditorUnitTest
             string expectedJson = convertToIndentedJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = validInput;
 
             // Then
@@ -110,7 +113,7 @@ namespace JsonEditorUnitTest
         {
             // Given
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = invalidInput;
 
             // Then
@@ -131,7 +134,7 @@ namespace JsonEditorUnitTest
             string expectedJson = JsonSerializer.Serialize(jsonElement, options);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = validInput;
 
             // Then
@@ -145,7 +148,7 @@ namespace JsonEditorUnitTest
             // Given
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = invalidInput;
 
             // Then
@@ -164,7 +167,7 @@ namespace JsonEditorUnitTest
             string expectedJson = convertToIndentedJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
             model.GetCompactJsonAndSetToClipboard();
 
@@ -175,17 +178,40 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_GotIndentedJsonPreviously_MainWindowFocused()
+        public void GetFormattedJsonAndSetToClipboard_CompactJson_GotIndentedJsonPreviously_MainWindowFocused_CompactConversionEnabled()
         {
             // Mock
             windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
 
             // Give
             string inputJson = convertToIndentedJson(validInput);
             string expectedJson = convertToCompactJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            model.Text = inputJson;
+            model.GetIndentedJsonAndSetToClipboard();
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
+            clipboardManager.Verify(o => o.SetText(expectedJson));
+            AssertionsWhenMainWindowFocused();
+        }
+
+        [TestMethod]
+        public void GetFormattedJsonAndSetToClipboard_IndentedJson_GotIndentedJsonPreviously_MainWindowFocused_CompactConversionDisabled()
+        {
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
+
+            // Give
+            string inputJson = convertToIndentedJson(validInput);
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
             model.GetIndentedJsonAndSetToClipboard();
 
@@ -206,7 +232,7 @@ namespace JsonEditorUnitTest
             string expectedJson = convertToIndentedJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
 
             // Then
@@ -216,17 +242,39 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_NewJsonInputAndIsIndentedJson_MainWindowFocused()
+        public void GetFormattedJsonAndSetToClipboard_CompactJson_NewJsonInputAndIsIndentedJson_MainWindowFocused_CompactConversionEnabled()
         {
             // Mock
             windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
 
             // Give
             string inputJson = convertToIndentedJson(validInput);
             string expectedJson = convertToCompactJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            model.Text = inputJson;
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
+            clipboardManager.Verify(o => o.SetText(expectedJson));
+            AssertionsWhenMainWindowFocused();
+        }
+
+        [TestMethod]
+        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndIsIndentedJson_MainWindowFocused_CompactConversionDisabled()
+        {
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
+
+            // Give
+            string inputJson = convertToIndentedJson(validInput);
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
 
             // Then
@@ -246,7 +294,7 @@ namespace JsonEditorUnitTest
             string expectedJson = convertToIndentedJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
 
             // Then
@@ -268,7 +316,7 @@ namespace JsonEditorUnitTest
             string expectedJson = convertToIndentedJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
             model.GetCompactJsonAndSetToClipboard();
 
@@ -279,19 +327,44 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_GotIndentedJsonPreviously_ForeignWindowFocused()
+        public void GetFormattedJsonAndSetToClipboard_CompactJson_GotIndentedJsonPreviously_ForeignWindowFocused_CompactConversionEnabled()
         {
             string inputJson = convertToIndentedJson(validInput);
 
             // Mock
             windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
             clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
 
             // Give
             string expectedJson = convertToCompactJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            model.Text = inputJson;
+            model.GetIndentedJsonAndSetToClipboard();
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
+            clipboardManager.Verify(o => o.SetText(expectedJson));
+            AssertionsWhenForeignWindowFocused();
+        }
+
+        [TestMethod]
+        public void GetFormattedJsonAndSetToClipboard_IndentedJson_GotIndentedJsonPreviously_ForeignWindowFocused_CompactConversionDisabled()
+        {
+            string inputJson = convertToIndentedJson(validInput);
+
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
+            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
+
+            // Give
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
             model.GetIndentedJsonAndSetToClipboard();
 
@@ -314,7 +387,7 @@ namespace JsonEditorUnitTest
             string expectedJson = convertToIndentedJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
 
             // Then
@@ -324,19 +397,43 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_NewJsonInputAndIsIndentedJson_ForeignWindowFocused()
+        public void GetFormattedJsonAndSetToClipboard_CompactJson_NewJsonInputAndIsIndentedJson_ForeignWindowFocused_CompactConversionEnabled()
         {
             string inputJson = convertToIndentedJson(validInput);
 
             // Mock
             windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
             clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
 
             // Give
             string expectedJson = convertToCompactJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            model.Text = inputJson;
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
+            clipboardManager.Verify(o => o.SetText(expectedJson));
+            AssertionsWhenForeignWindowFocused();
+        }
+
+        [TestMethod]
+        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndIsIndentedJson_ForeignWindowFocused_CompactConversionDisabled()
+        {
+            string inputJson = convertToIndentedJson(validInput);
+
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
+            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
+            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
+
+            // Give
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
 
             // Then
@@ -358,7 +455,7 @@ namespace JsonEditorUnitTest
             string expectedJson = convertToIndentedJson(validInput);
 
             // When
-            EditorModel model = new EditorModel(windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
             model.Text = inputJson;
 
             // Then

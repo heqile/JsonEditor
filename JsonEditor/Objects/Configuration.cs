@@ -8,7 +8,7 @@ namespace JsonEditor
     {
         private static Configuration m_configuration;
 
-        private Configuration()
+        public Configuration()
         { }
 
         public static Configuration GetInstance()
@@ -45,6 +45,34 @@ namespace JsonEditor
             set
             {
                 this["ConversionHotKeyMainKey"] = (Keys)value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("false")]
+        virtual public bool CompactConversionEnabled
+        {
+            get
+            {
+                return (bool)this["CompactConversionEnabled"];
+            }
+            set
+            {
+                this["CompactConversionEnabled"] = (bool)value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("300")]
+        public uint WaitWindowReadyMs
+        {
+            get
+            {
+                return (uint)this["WaitWindowReadyMs"];
+            }
+            set
+            {
+                this["WaitWindowReadyMs"] = (uint)value;
             }
         }
 
