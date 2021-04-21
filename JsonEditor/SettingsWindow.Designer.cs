@@ -29,6 +29,7 @@ namespace JsonEditor
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
@@ -36,12 +37,18 @@ namespace JsonEditor
             this.ModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.MainKeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.HotKeyBindingPlusLabel = new System.Windows.Forms.Label();
+            this.TimeWaitingMs = new System.Windows.Forms.TextBox();
+            this.TimeWaitingLabel = new System.Windows.Forms.Label();
+            this.EnableCompactConversionLabel = new System.Windows.Forms.Label();
+            this.CompactConversionEnabled = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveButton
             // 
             this.SaveButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.SaveButton.Location = new System.Drawing.Point(248, 86);
+            this.SaveButton.Location = new System.Drawing.Point(248, 150);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(91, 27);
             this.SaveButton.TabIndex = 0;
@@ -52,7 +59,7 @@ namespace JsonEditor
             // CancelButton
             // 
             this.CancelButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.CancelButton.Location = new System.Drawing.Point(360, 86);
+            this.CancelButton.Location = new System.Drawing.Point(360, 150);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(91, 27);
             this.CancelButton.TabIndex = 0;
@@ -103,11 +110,63 @@ namespace JsonEditor
             this.HotKeyBindingPlusLabel.TabIndex = 4;
             this.HotKeyBindingPlusLabel.Text = "+";
             // 
+            // TimeWaitingMs
+            // 
+            this.TimeWaitingMs.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TimeWaitingMs.Location = new System.Drawing.Point(360, 71);
+            this.TimeWaitingMs.Name = "TimeWaitingMs";
+            this.TimeWaitingMs.Size = new System.Drawing.Size(94, 25);
+            this.TimeWaitingMs.TabIndex = 6;
+            this.TimeWaitingMs.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.TimeWaitingMs.TextChanged += new System.EventHandler(this.TimeWaitingMs_TextChanged);
+            // 
+            // TimeWaitingLabel
+            // 
+            this.TimeWaitingLabel.AutoSize = true;
+            this.TimeWaitingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.TimeWaitingLabel.Location = new System.Drawing.Point(25, 71);
+            this.TimeWaitingLabel.Name = "TimeWaitingLabel";
+            this.TimeWaitingLabel.Size = new System.Drawing.Size(325, 21);
+            this.TimeWaitingLabel.TabIndex = 5;
+            this.TimeWaitingLabel.Text = "Time to wait window ready before copy (ms) :";
+            this.TimeWaitingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // EnableCompactConversionLabel
+            // 
+            this.EnableCompactConversionLabel.AutoSize = true;
+            this.EnableCompactConversionLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.EnableCompactConversionLabel.Location = new System.Drawing.Point(25, 112);
+            this.EnableCompactConversionLabel.Name = "EnableCompactConversionLabel";
+            this.EnableCompactConversionLabel.Size = new System.Drawing.Size(192, 21);
+            this.EnableCompactConversionLabel.TabIndex = 7;
+            this.EnableCompactConversionLabel.Text = "Compact json conversion :";
+            this.EnableCompactConversionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // CompactConversionEnabled
+            // 
+            this.CompactConversionEnabled.AutoSize = true;
+            this.CompactConversionEnabled.Font = new System.Drawing.Font("Leelawadee UI", 12F);
+            this.CompactConversionEnabled.Location = new System.Drawing.Point(281, 111);
+            this.CompactConversionEnabled.Name = "CompactConversionEnabled";
+            this.CompactConversionEnabled.Size = new System.Drawing.Size(84, 25);
+            this.CompactConversionEnabled.TabIndex = 8;
+            this.CompactConversionEnabled.Text = "Enabled";
+            this.CompactConversionEnabled.UseVisualStyleBackColor = true;
+            this.CompactConversionEnabled.CheckedChanged += new System.EventHandler(this.CompactConversionEnabled_CheckedChanged);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 131);
+            this.ClientSize = new System.Drawing.Size(488, 193);
+            this.Controls.Add(this.CompactConversionEnabled);
+            this.Controls.Add(this.EnableCompactConversionLabel);
+            this.Controls.Add(this.TimeWaitingMs);
+            this.Controls.Add(this.TimeWaitingLabel);
             this.Controls.Add(this.HotKeyBindingPlusLabel);
             this.Controls.Add(this.MainKeyBindingTextBox);
             this.Controls.Add(this.ModifierKeyBindingTextBox);
@@ -122,6 +181,7 @@ namespace JsonEditor
             this.Text = "Settings";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.SettingsWindow_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,5 +195,10 @@ namespace JsonEditor
         private System.Windows.Forms.TextBox ModifierKeyBindingTextBox;
         private System.Windows.Forms.TextBox MainKeyBindingTextBox;
         private System.Windows.Forms.Label HotKeyBindingPlusLabel;
+        private System.Windows.Forms.TextBox TimeWaitingMs;
+        private System.Windows.Forms.Label TimeWaitingLabel;
+        private System.Windows.Forms.Label EnableCompactConversionLabel;
+        private System.Windows.Forms.CheckBox CompactConversionEnabled;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
