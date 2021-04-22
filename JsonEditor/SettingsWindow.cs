@@ -9,6 +9,7 @@ namespace JsonEditor
         private KeyboardHook.ModifierKeys m_modifierKeys;
         private Keys m_mainKeys;
         private bool m_compactConversionEnabled;
+        private bool m_displaySuccessMessageEnabled;
         private uint m_waitWindowReadyMs;
         private uint m_previousWaitWindowReadyMs;
 
@@ -19,6 +20,7 @@ namespace JsonEditor
             m_modifierKeys = m_configuration.ConversionHotKeyModifierKey;
             m_mainKeys = m_configuration.ConversionHotKeyMainKey;
             m_compactConversionEnabled = m_configuration.CompactConversionEnabled;
+            m_displaySuccessMessageEnabled = m_configuration.DisplaySuccessNotificationEnabled;
             m_waitWindowReadyMs = m_configuration.WaitWindowReadyMs;
             m_previousWaitWindowReadyMs = m_waitWindowReadyMs;
         }
@@ -28,6 +30,7 @@ namespace JsonEditor
             ModifierKeyBindingTextBox.Text = m_modifierKeys.ToString();
             MainKeyBindingTextBox.Text = m_mainKeys.ToString();
             CompactConversionEnabled.Checked = m_compactConversionEnabled;
+            DisplaySuccessNotificationEnabled.Checked = m_displaySuccessMessageEnabled;
             TimeWaitingMs.Text = m_waitWindowReadyMs.ToString();
         }
 
@@ -48,6 +51,7 @@ namespace JsonEditor
             m_configuration.ConversionHotKeyModifierKey = m_modifierKeys;
             m_configuration.ConversionHotKeyMainKey = m_mainKeys;
             m_configuration.CompactConversionEnabled = m_compactConversionEnabled;
+            m_configuration.DisplaySuccessNotificationEnabled = m_displaySuccessMessageEnabled;
             m_configuration.WaitWindowReadyMs = m_waitWindowReadyMs;
             try
             {
@@ -95,6 +99,11 @@ namespace JsonEditor
             m_previousWaitWindowReadyMs = m_waitWindowReadyMs;
             errorProvider1.SetError(TimeWaitingMs, "");
             return;
+        }
+
+        private void DisplayMessageIfJsonIsValidEnabled_CheckedChanged(object sender, EventArgs e)
+        {
+            m_displaySuccessMessageEnabled = DisplaySuccessNotificationEnabled.Checked;
         }
     }
 }

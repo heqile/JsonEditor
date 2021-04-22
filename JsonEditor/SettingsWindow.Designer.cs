@@ -42,13 +42,15 @@ namespace JsonEditor
             this.EnableCompactConversionLabel = new System.Windows.Forms.Label();
             this.CompactConversionEnabled = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.DisplaySuccessNotificationEnabled = new System.Windows.Forms.CheckBox();
+            this.DisplaySuccessNotificationLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveButton
             // 
             this.SaveButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.SaveButton.Location = new System.Drawing.Point(248, 150);
+            this.SaveButton.Location = new System.Drawing.Point(248, 199);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(91, 27);
             this.SaveButton.TabIndex = 0;
@@ -59,7 +61,7 @@ namespace JsonEditor
             // CancelButton
             // 
             this.CancelButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.CancelButton.Location = new System.Drawing.Point(360, 150);
+            this.CancelButton.Location = new System.Drawing.Point(360, 199);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(91, 27);
             this.CancelButton.TabIndex = 0;
@@ -158,11 +160,36 @@ namespace JsonEditor
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // DisplaySuccessNotificationEnabled
+            // 
+            this.DisplaySuccessNotificationEnabled.AutoSize = true;
+            this.DisplaySuccessNotificationEnabled.Font = new System.Drawing.Font("Leelawadee UI", 12F);
+            this.DisplaySuccessNotificationEnabled.Location = new System.Drawing.Point(281, 150);
+            this.DisplaySuccessNotificationEnabled.Name = "DisplaySuccessNotificationEnabled";
+            this.DisplaySuccessNotificationEnabled.Size = new System.Drawing.Size(84, 25);
+            this.DisplaySuccessNotificationEnabled.TabIndex = 10;
+            this.DisplaySuccessNotificationEnabled.Text = "Enabled";
+            this.DisplaySuccessNotificationEnabled.UseVisualStyleBackColor = true;
+            this.DisplaySuccessNotificationEnabled.CheckedChanged += new System.EventHandler(this.DisplayMessageIfJsonIsValidEnabled_CheckedChanged);
+            // 
+            // DisplaySuccessNotificationLabel
+            // 
+            this.DisplaySuccessNotificationLabel.AutoSize = true;
+            this.DisplaySuccessNotificationLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.DisplaySuccessNotificationLabel.Location = new System.Drawing.Point(25, 151);
+            this.DisplaySuccessNotificationLabel.Name = "DisplaySuccessNotificationLabel";
+            this.DisplaySuccessNotificationLabel.Size = new System.Drawing.Size(126, 17);
+            this.DisplaySuccessNotificationLabel.TabIndex = 9;
+            this.DisplaySuccessNotificationLabel.Text = "Notify if json is valid :";
+            this.DisplaySuccessNotificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 193);
+            this.ClientSize = new System.Drawing.Size(488, 238);
+            this.Controls.Add(this.DisplaySuccessNotificationEnabled);
+            this.Controls.Add(this.DisplaySuccessNotificationLabel);
             this.Controls.Add(this.CompactConversionEnabled);
             this.Controls.Add(this.EnableCompactConversionLabel);
             this.Controls.Add(this.TimeWaitingMs);
@@ -200,5 +227,7 @@ namespace JsonEditor
         private System.Windows.Forms.Label EnableCompactConversionLabel;
         private System.Windows.Forms.CheckBox CompactConversionEnabled;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.CheckBox DisplaySuccessNotificationEnabled;
+        private System.Windows.Forms.Label DisplaySuccessNotificationLabel;
     }
 }

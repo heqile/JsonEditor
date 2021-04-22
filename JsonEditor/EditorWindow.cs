@@ -64,6 +64,12 @@ namespace JsonEditor
             catch (Exception exc)
             {
                 DisplayNotifierBallonTop(exc.Message);
+                return;
+            }
+
+            if (m_configuration.DisplaySuccessNotificationEnabled)
+            {
+                DisplayNotifierBallonTop("JSON is valid.");
             }
         }
 

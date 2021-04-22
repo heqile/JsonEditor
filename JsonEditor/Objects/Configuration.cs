@@ -76,6 +76,20 @@ namespace JsonEditor
             }
         }
 
+        [UserScopedSetting()]
+        [DefaultSettingValue("true")]
+        public bool DisplaySuccessNotificationEnabled
+        {
+            get
+            {
+                return (bool)this["DisplaySuccessNotificationEnabled"];
+            }
+            set
+            {
+                this["DisplaySuccessNotificationEnabled"] = (bool)value;
+            }
+        }
+
         public void SaveConfiguration()
         {
             ConfigurationUpdatedEventArgs eventArgs = new ConfigurationUpdatedEventArgs();
