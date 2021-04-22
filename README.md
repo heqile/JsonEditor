@@ -10,3 +10,6 @@ JsonEditor is a light weight windows application to validate json and convert it
 
 - Editor
   ![Editor](./doc/Editor.PNG)
+
+- Settings
+  ![SettingsWindow](./doc/SettingsWindow.PNG)
