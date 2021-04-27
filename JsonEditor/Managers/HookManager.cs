@@ -30,7 +30,7 @@ namespace JsonEditor
             }
             m_conversionHotKey = new KeyboardHook();
             m_conversionHotKey.RegisterHotKey(
-                m_configuration.ConversionHotKeyModifierKey, m_configuration.ConversionHotKeyMainKey);
+                m_configuration.IndentedFormattingConversionHotKeyModifierKey, m_configuration.IndentedFormattingConversionHotKeyMainKey);
             m_conversionHotKey.KeyPressed += m_conversionHotKeyHandler;
         }
 

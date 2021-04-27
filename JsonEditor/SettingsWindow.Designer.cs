@@ -46,13 +46,15 @@ namespace JsonEditor
             this.CompactFormattingMainKeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.CompactFormattingModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
             this.CompactFomattingKeyBindingLabel = new System.Windows.Forms.Label();
+            this.ResetButton = new System.Windows.Forms.Button();
+            this.ApplyButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveButton
             // 
             this.SaveButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.SaveButton.Location = new System.Drawing.Point(300, 194);
+            this.SaveButton.Location = new System.Drawing.Point(244, 194);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(91, 27);
             this.SaveButton.TabIndex = 0;
@@ -63,7 +65,7 @@ namespace JsonEditor
             // CancelButton
             // 
             this.CancelButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.CancelButton.Location = new System.Drawing.Point(412, 194);
+            this.CancelButton.Location = new System.Drawing.Point(438, 194);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(91, 27);
             this.CancelButton.TabIndex = 0;
@@ -91,7 +93,7 @@ namespace JsonEditor
             this.IndentedFormattingModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 25);
             this.IndentedFormattingModifierKeyBindingTextBox.TabIndex = 2;
             this.IndentedFormattingModifierKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.IndentedFormattingModifierKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModifierKeyBindingTextBox_KeyDown);
+            this.IndentedFormattingModifierKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IndentedFormattingModifierKeyBindingTextBox_KeyDown);
             // 
             // IndentedFormattingMainKeyBindingTextBox
             // 
@@ -102,7 +104,7 @@ namespace JsonEditor
             this.IndentedFormattingMainKeyBindingTextBox.Size = new System.Drawing.Size(79, 25);
             this.IndentedFormattingMainKeyBindingTextBox.TabIndex = 3;
             this.IndentedFormattingMainKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.IndentedFormattingMainKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainKeyBindingTextBox_KeyDown);
+            this.IndentedFormattingMainKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IndentedFormattingMainKeyBindingTextBox_KeyDown);
             // 
             // IndentedFormattingKeyBindingPlusLabel
             // 
@@ -181,6 +183,7 @@ namespace JsonEditor
             this.CompactFormattingMainKeyBindingTextBox.Size = new System.Drawing.Size(79, 25);
             this.CompactFormattingMainKeyBindingTextBox.TabIndex = 13;
             this.CompactFormattingMainKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.CompactFormattingMainKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CompactFormattingMainKeyBindingTextBox_KeyDown);
             // 
             // CompactFormattingModifierKeyBindingTextBox
             // 
@@ -191,6 +194,7 @@ namespace JsonEditor
             this.CompactFormattingModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 25);
             this.CompactFormattingModifierKeyBindingTextBox.TabIndex = 12;
             this.CompactFormattingModifierKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.CompactFormattingModifierKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CompactFormattingModifierKeyBindingTextBox_KeyDown);
             // 
             // CompactFomattingKeyBindingLabel
             // 
@@ -203,11 +207,35 @@ namespace JsonEditor
             this.CompactFomattingKeyBindingLabel.Text = "Compact formatting key binding :";
             this.CompactFomattingKeyBindingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // ResetButton
+            // 
+            this.ResetButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ResetButton.Location = new System.Drawing.Point(29, 194);
+            this.ResetButton.Name = "ResetButton";
+            this.ResetButton.Size = new System.Drawing.Size(91, 27);
+            this.ResetButton.TabIndex = 15;
+            this.ResetButton.Text = "Reset";
+            this.ResetButton.UseVisualStyleBackColor = true;
+            this.ResetButton.Click += new System.EventHandler(this.ResetButton_Click);
+            // 
+            // ApplyButton
+            // 
+            this.ApplyButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ApplyButton.Location = new System.Drawing.Point(341, 194);
+            this.ApplyButton.Name = "ApplyButton";
+            this.ApplyButton.Size = new System.Drawing.Size(91, 27);
+            this.ApplyButton.TabIndex = 16;
+            this.ApplyButton.Text = "Apply";
+            this.ApplyButton.UseVisualStyleBackColor = true;
+            this.ApplyButton.Click += new System.EventHandler(this.ApplyButton_Click);
+            // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(541, 235);
+            this.Controls.Add(this.ApplyButton);
+            this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.CompactFormattingKeyBindingPlusLabel);
             this.Controls.Add(this.CompactFormattingMainKeyBindingTextBox);
             this.Controls.Add(this.CompactFormattingModifierKeyBindingTextBox);
@@ -253,5 +281,7 @@ namespace JsonEditor
         private System.Windows.Forms.TextBox CompactFormattingMainKeyBindingTextBox;
         private System.Windows.Forms.TextBox CompactFormattingModifierKeyBindingTextBox;
         private System.Windows.Forms.Label CompactFomattingKeyBindingLabel;
+        private System.Windows.Forms.Button ResetButton;
+        private System.Windows.Forms.Button ApplyButton;
     }
 }

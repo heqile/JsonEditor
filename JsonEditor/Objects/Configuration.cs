@@ -22,29 +22,65 @@ namespace JsonEditor
 
         [UserScopedSetting()]
         [DefaultSettingValue("Control, Shift")]
-        public KeyboardHook.ModifierKeys ConversionHotKeyModifierKey
+        public KeyboardHook.ModifierKeys IndentedFormattingConversionHotKeyModifierKey
         {
             get
             {
-                return (KeyboardHook.ModifierKeys)this["ConversionHotKeyModifierKey"];
+                return (KeyboardHook.ModifierKeys)this["IndentedFormattingConversionHotKeyModifierKey"];
             }
             set
             {
-                this["ConversionHotKeyModifierKey"] = (KeyboardHook.ModifierKeys)value;
+                this["IndentedFormattingConversionHotKeyModifierKey"] = (KeyboardHook.ModifierKeys)value;
             }
         }
 
         [UserScopedSetting()]
         [DefaultSettingValue("Space")]
-        public Keys ConversionHotKeyMainKey
+        public Keys IndentedFormattingConversionHotKeyMainKey
         {
             get
             {
-                return (Keys)this["ConversionHotKeyMainKey"];
+                return (Keys)this["IndentedFormattingConversionHotKeyMainKey"];
             }
             set
             {
-                this["ConversionHotKeyMainKey"] = (Keys)value;
+                this["IndentedFormattingConversionHotKeyMainKey"] = (Keys)value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("None")]
+        public KeyboardHook.ModifierKeys CompactFormattingConversionHotKeyModifierKey
+        {
+            get
+            {
+                if (this["CompactFormattingConversionHotKeyModifierKey"] is null)
+                {
+                    return KeyboardHook.ModifierKeys.None;
+                }
+                return (KeyboardHook.ModifierKeys)this["CompactFormattingConversionHotKeyModifierKey"];
+            }
+            set
+            {
+                this["CompactFormattingConversionHotKeyModifierKey"] = (KeyboardHook.ModifierKeys)value;
+            }
+        }
+
+        [UserScopedSetting()]
+        [DefaultSettingValue("None")]
+        public Keys CompactFormattingConversionHotKeyMainKey
+        {
+            get
+            {
+                if (this["CompactFormattingConversionHotKeyMainKey"] is null)
+                {
+                    return Keys.None;
+                }
+                return (Keys)this["CompactFormattingConversionHotKeyMainKey"];
+            }
+            set
+            {
+                this["CompactFormattingConversionHotKeyMainKey"] = (Keys)value;
             }
         }
 
