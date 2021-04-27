@@ -85,20 +85,6 @@ namespace JsonEditor
         }
 
         [UserScopedSetting()]
-        [DefaultSettingValue("false")]
-        virtual public bool CompactConversionEnabled
-        {
-            get
-            {
-                return (bool)this["CompactConversionEnabled"];
-            }
-            set
-            {
-                this["CompactConversionEnabled"] = (bool)value;
-            }
-        }
-
-        [UserScopedSetting()]
         [DefaultSettingValue("300")]
         public uint WaitWindowReadyMs
         {
@@ -113,7 +99,7 @@ namespace JsonEditor
         }
 
         [UserScopedSetting()]
-        [DefaultSettingValue("true")]
+        [DefaultSettingValue("false")]
         public bool DisplaySuccessNotificationEnabled
         {
             get
