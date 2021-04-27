@@ -57,7 +57,7 @@ namespace JsonEditorUnitTest
             clipboardManager.Setup(o => o.SetText(It.IsAny<string>()));
 
             hookManager = new Mock<HookManager>();
-            hookManager.Setup(o => o.SetConversionHotKeyHandler(It.IsAny<EventHandler<KeyPressedEventArgs>>()));
+            hookManager.Setup(o => o.SetConversionHotKeyHandler(It.IsAny<EventHandler<KeyPressedEventArgs>>(), It.IsAny<EventHandler<KeyPressedEventArgs>>()));
             hookManager.Setup(o => o.UpdateHook());
 
             configuration = new Mock<Configuration>();
@@ -94,8 +94,11 @@ namespace JsonEditorUnitTest
 
 
         [TestMethod]
-        public void GetIndentedJsonAndSetToClipboard_IndentedJsonString_ValidJson()
+        public void GetIndentedJsonAndSetToClipboard_IndentedJsonString_ValidJson_MainWindowFocused()
         {
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+
             // Given            
             string expectedJson = convertToIndentedJson(validInput);
 
@@ -109,8 +112,31 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetIndentedJsonAndSetToClipboard_EmptyString_InvalidValidJson()
+        public void GetIndentedJsonAndSetToClipboard_IndentedJsonString_ValidJson_ForeignWindowFocused()
         {
+            string inputJson = validInput;
+
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
+            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
+
+            // Given            
+            string expectedJson = convertToIndentedJson(validInput);
+
+            // When
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetIndentedJsonAndSetToClipboard());
+            clipboardManager.Verify(o => o.SetText(expectedJson));
+        }
+
+        [TestMethod]
+        public void GetIndentedJsonAndSetToClipboard_EmptyString_InvalidValidJson_MainWindowFocused()
+        {
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+
             // Given
             // When
             EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
@@ -121,10 +147,30 @@ namespace JsonEditorUnitTest
             clipboardManager.Verify(o => o.SetText(It.IsAny<string>()), Times.Never);
         }
 
+        [TestMethod]
+        public void GetIndentedJsonAndSetToClipboard_EmptyString_InvalidValidJson_ForeignWindowFocused()
+        {
+            string inputJson = invalidInput;
+
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
+            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
+
+            // Given
+            // When
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+
+            // Then
+            Assert.ThrowsException<InvalidJsonException>(model.GetCompactJsonAndSetToClipboard);
+            clipboardManager.Verify(o => o.SetText(It.IsAny<string>()), Times.Never);
+        }
 
         [TestMethod]
-        public void GetCompactJsonAndSetToClipboard_CompactJsonString_ValidJson()
+        public void GetCompactJsonAndSetToClipboard_CompactJsonString_ValidJson_MainWindowFocused()
         {
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+
             // Given
             var jsonElement = JsonSerializer.Deserialize<JsonElement>(validInput);
             var options = new JsonSerializerOptions()
@@ -143,8 +189,36 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetCompactJsonAndSetToClipboard_EmptyString_InvalidJson()
+        public void GetCompactJsonAndSetToClipboard_CompactJsonString_ValidJson_ForeignWindowFocused()
         {
+            string inputJson = validInput;
+
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
+            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
+
+            // Given
+            var jsonElement = JsonSerializer.Deserialize<JsonElement>(validInput);
+            var options = new JsonSerializerOptions()
+            {
+                WriteIndented = false
+            };
+            string expectedJson = JsonSerializer.Serialize(jsonElement, options);
+
+            // When
+            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
+
+            // Then
+            Assert.AreEqual(expectedJson, model.GetCompactJsonAndSetToClipboard());
+            clipboardManager.Verify(o => o.SetText(expectedJson));
+        }
+
+        [TestMethod]
+        public void GetCompactJsonAndSetToClipboard_EmptyString_InvalidJson_MainWindowFocused()
+        {
+            // Mock
+            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
+
             // Given
 
             // When
@@ -157,311 +231,22 @@ namespace JsonEditorUnitTest
         }
 
         [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_GotCompactJsonPreviously_MainWindowFocused()
+        public void GetCompactJsonAndSetToClipboard_EmptyString_InvalidJson_ForeignWindowFocused()
         {
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
-            
-            // Give
-            string inputJson = convertToCompactJson(validInput);
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-            model.GetCompactJsonAndSetToClipboard();
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenMainWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_GotIndentedJsonPreviously_MainWindowFocused_CompactConversionEnabled()
-        {
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
-
-            // Give
-            string inputJson = convertToIndentedJson(validInput);
-            string expectedJson = convertToCompactJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-            model.GetIndentedJsonAndSetToClipboard();
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenMainWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_GotIndentedJsonPreviously_MainWindowFocused_CompactConversionDisabled()
-        {
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
-
-            // Give
-            string inputJson = convertToIndentedJson(validInput);
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-            model.GetIndentedJsonAndSetToClipboard();
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenMainWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndIsCompactJson_MainWindowFocused()
-        {
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
-
-            // Give
-            string inputJson = convertToCompactJson(validInput);
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenMainWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_NewJsonInputAndIsIndentedJson_MainWindowFocused_CompactConversionEnabled()
-        {
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
-
-            // Give
-            string inputJson = convertToIndentedJson(validInput);
-            string expectedJson = convertToCompactJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenMainWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndIsIndentedJson_MainWindowFocused_CompactConversionDisabled()
-        {
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
-
-            // Give
-            string inputJson = convertToIndentedJson(validInput);
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenMainWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndNeitherIndentedFormatNorCompactFormat_MainWindowFocused()
-        {
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(true);
-
-            // Give
-            string inputJson = convertToCompactJson(validInput).Replace(":", "   :  \r\n");
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenMainWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_GotCompactJsonPreviously_ForeignWindowFocused()
-        {
-            string inputJson = convertToCompactJson(validInput);
+            string inputJson = invalidInput;
 
             // Mock
             windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
             clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
 
-            // Give
-            string expectedJson = convertToIndentedJson(validInput);
+            // Given
 
             // When
             EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-            model.GetCompactJsonAndSetToClipboard();
 
             // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenForeignWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_GotIndentedJsonPreviously_ForeignWindowFocused_CompactConversionEnabled()
-        {
-            string inputJson = convertToIndentedJson(validInput);
-
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
-            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
-
-            // Give
-            string expectedJson = convertToCompactJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-            model.GetIndentedJsonAndSetToClipboard();
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenForeignWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_GotIndentedJsonPreviously_ForeignWindowFocused_CompactConversionDisabled()
-        {
-            string inputJson = convertToIndentedJson(validInput);
-
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
-            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
-
-            // Give
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-            model.GetIndentedJsonAndSetToClipboard();
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenForeignWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndIsCompactJson_ForeignWindowFocused()
-        {
-            string inputJson = convertToCompactJson(validInput);
-            
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
-            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
-
-            // Give
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenForeignWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_CompactJson_NewJsonInputAndIsIndentedJson_ForeignWindowFocused_CompactConversionEnabled()
-        {
-            string inputJson = convertToIndentedJson(validInput);
-
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
-            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(true);
-
-            // Give
-            string expectedJson = convertToCompactJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenForeignWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndIsIndentedJson_ForeignWindowFocused_CompactConversionDisabled()
-        {
-            string inputJson = convertToIndentedJson(validInput);
-
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
-            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
-            configuration.Setup(o => o.CompactConversionEnabled).Returns(false);
-
-            // Give
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenForeignWindowFocused();
-        }
-
-        [TestMethod]
-        public void GetFormattedJsonAndSetToClipboard_IndentedJson_NewJsonInputAndNeitherIndentedFormatNorCompactFormat_ForeignWindowFocused()
-        {
-            string inputJson = convertToCompactJson(validInput).Replace(":", "   :  \r\n");
-            
-            // Mock
-            windowManager.Setup(o => o.IsMainWindowFocused()).Returns(false);
-            clipboardManager.Setup(o => o.GetText()).Returns(inputJson);
-
-            // Give
-            string expectedJson = convertToIndentedJson(validInput);
-
-            // When
-            EditorModel model = new EditorModel(configuration.Object, windowManager.Object, keyboardManager.Object, clipboardManager.Object, hookManager.Object);
-            model.Text = inputJson;
-
-            // Then
-            Assert.AreEqual(expectedJson, model.GetFormattedJsonAndSetToClipboard());
-            clipboardManager.Verify(o => o.SetText(expectedJson));
-            AssertionsWhenForeignWindowFocused();
+            Assert.ThrowsException<InvalidJsonException>(model.GetCompactJsonAndSetToClipboard);
+            clipboardManager.Verify(o => o.SetText(It.IsAny<string>()), Times.Never);
         }
     }
 }

@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace JsonEditor
 {
     public class HookManager
     {
-        private KeyboardHook m_conversionHotKey;
-        private EventHandler<KeyPressedEventArgs> m_conversionHotKeyHandler;
+        private KeyboardHook m_indentedFormattingHotKey;
+        private EventHandler<KeyPressedEventArgs> m_indentedFormattingHotKeyHandler;
+        private KeyboardHook m_compactFormattingHotKey;
+        private EventHandler<KeyPressedEventArgs> m_compactFormattingHotKeyHandler;
         private readonly Configuration m_configuration;
         
         public HookManager()
@@ -17,21 +20,37 @@ namespace JsonEditor
             m_configuration.ConfigurationUpdatedHandler += ConfigurationUpdatedHandler;
         }
 
-        virtual public void SetConversionHotKeyHandler(EventHandler<KeyPressedEventArgs> handler)
+        virtual public void SetConversionHotKeyHandler(
+            EventHandler<KeyPressedEventArgs> indentedFormattingHotKeyHandler,
+            EventHandler<KeyPressedEventArgs> compactFormattingHotKeyHandler
+        )
         {
-            m_conversionHotKeyHandler = handler;
+            m_indentedFormattingHotKeyHandler = indentedFormattingHotKeyHandler;
+            m_compactFormattingHotKeyHandler = compactFormattingHotKeyHandler;
         }
 
         virtual public void UpdateHook()
         {
-            if (m_conversionHotKey != null)
-            {
-                m_conversionHotKey.Dispose();
-            }
-            m_conversionHotKey = new KeyboardHook();
-            m_conversionHotKey.RegisterHotKey(
+            UpdatingHook(ref m_indentedFormattingHotKey, m_indentedFormattingHotKeyHandler,
                 m_configuration.IndentedFormattingConversionHotKeyModifierKey, m_configuration.IndentedFormattingConversionHotKeyMainKey);
-            m_conversionHotKey.KeyPressed += m_conversionHotKeyHandler;
+            UpdatingHook(ref m_compactFormattingHotKey, m_compactFormattingHotKeyHandler,
+                m_configuration.CompactFormattingConversionHotKeyModifierKey, m_configuration.CompactFormattingConversionHotKeyMainKey);
+        }
+
+        private void UpdatingHook(ref KeyboardHook hook, EventHandler<KeyPressedEventArgs> handler, KeyboardHook.ModifierKeys modifierKeys, Keys mainKeys)
+        {
+            if (modifierKeys == KeyboardHook.ModifierKeys.None || mainKeys == Keys.None)
+            {
+                return;
+            }
+
+            if (hook != null)
+            {
+                hook.Dispose();
+            }
+            hook = new KeyboardHook();
+            hook.RegisterHotKey(modifierKeys, mainKeys);
+            hook.KeyPressed += handler;
         }
 
         public void ConfigurationUpdatedHandler(object sender, ConfigurationUpdatedEventArgs e)

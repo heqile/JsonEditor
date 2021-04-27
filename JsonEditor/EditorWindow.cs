@@ -15,7 +15,10 @@ namespace JsonEditor
 
             m_model = model;
             TextComponent.DataBindings.Add("Text", m_model, "Text", true, DataSourceUpdateMode.OnPropertyChanged);
-            m_model.SetConversionHotKeyHandlerAndUpdateHook(new EventHandler<KeyPressedEventArgs>(JsonHook_KeyPressed));
+            m_model.SetHotKeyHandlerAndUpdateHook(
+                new EventHandler<KeyPressedEventArgs>(JsonHook_IndentedFormatting_KeyPressed),
+                new EventHandler<KeyPressedEventArgs>(JsonHook_CompactFormatting_KeyPressed)
+            );
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -55,11 +58,29 @@ namespace JsonEditor
             WindowState = FormWindowState.Minimized;
         }
 
-        private void JsonHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        private void JsonHook_IndentedFormatting_KeyPressed(object sender, KeyPressedEventArgs e)
         {
             try
             {
-                TextComponent.Text = m_model.GetFormattedJsonAndSetToClipboard();
+                TextComponent.Text = m_model.GetIndentedJsonAndSetToClipboard();
+            }
+            catch (Exception exc)
+            {
+                DisplayNotifierBallonTop(exc.Message);
+                return;
+            }
+
+            if (m_configuration.DisplaySuccessNotificationEnabled)
+            {
+                DisplayNotifierBallonTop("JSON is valid.");
+            }
+        }
+
+        private void JsonHook_CompactFormatting_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            try
+            {
+                TextComponent.Text = m_model.GetCompactJsonAndSetToClipboard();
             }
             catch (Exception exc)
             {

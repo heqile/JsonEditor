@@ -27,13 +27,16 @@ namespace JsonEditor
             get { return m_content; }
         }
 
-        public void SetConversionHotKeyHandlerAndUpdateHook(EventHandler<KeyPressedEventArgs> eventHandler)
+        public void SetHotKeyHandlerAndUpdateHook(
+            EventHandler<KeyPressedEventArgs> indentedFormattingHotKeyHandler,
+            EventHandler<KeyPressedEventArgs> compactFormattingHotKeyHandler
+        )
         {
-            m_hookManager.SetConversionHotKeyHandler(eventHandler);
+            m_hookManager.SetConversionHotKeyHandler(indentedFormattingHotKeyHandler, compactFormattingHotKeyHandler);
             m_hookManager.UpdateHook();
         }
 
-        public string GetFormattedJsonAndSetToClipboard()
+        public string GetIndentedJsonAndSetToClipboard()
         {
             bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
             if (isForeignWindowFocused)
@@ -41,7 +44,8 @@ namespace JsonEditor
                 m_content = GetTextFromClipboard();
             }
 
-            string formattedJson = FormatJson();
+            m_jsonFormatter = new JsonFormatter(m_content);
+            string formattedJson = m_jsonFormatter.GetIndentedJson();
             m_clipboardManager.SetText(formattedJson);
 
             if (isForeignWindowFocused)
@@ -52,19 +56,23 @@ namespace JsonEditor
             return formattedJson;
         }
 
-        public string GetIndentedJsonAndSetToClipboard()
-        {
-            m_jsonFormatter = new JsonFormatter(m_content);
-            string formattedJson = m_jsonFormatter.GetIndentedJson();
-            m_clipboardManager.SetText(formattedJson);
-            return formattedJson;
-        }
-
         public string GetCompactJsonAndSetToClipboard()
         {
+            bool isForeignWindowFocused = !m_windowManager.IsMainWindowFocused();
+            if (isForeignWindowFocused)
+            {
+                m_content = GetTextFromClipboard();
+            }
+
             m_jsonFormatter = new JsonFormatter(m_content);
             string formattedJson = m_jsonFormatter.GetCompactJson();
             m_clipboardManager.SetText(formattedJson);
+
+            if (isForeignWindowFocused)
+            {
+                m_keyboardManager.SendPasteCommand();
+            }
+
             return formattedJson;
         }
 
@@ -73,52 +81,6 @@ namespace JsonEditor
             m_windowManager.SetFocusedWindowForeground();
             m_keyboardManager.SendCopyCommand();
             return m_clipboardManager.GetText();
-        }
-
-        private string FormatJson()
-        {
-            string formattedJson = GetFormattedJsonIfContentIsKnown();
-            if (!string.IsNullOrEmpty(formattedJson))
-            {
-                return formattedJson;
-            }
-
-            m_jsonFormatter = new JsonFormatter(m_content);
-
-            formattedJson = GetFormattedJsonIfContentIsKnown();
-            if (!string.IsNullOrEmpty(formattedJson))
-            {
-                return formattedJson;
-            }
-            return m_jsonFormatter.GetIndentedJson();
-        }
-
-        private string GetFormattedJsonIfContentIsKnown()
-        {
-            if (m_jsonFormatter is null)
-            {
-                return string.Empty;
-            }
-
-            if (m_content == m_jsonFormatter.GetCompactJson())
-            {
-                return m_jsonFormatter.GetIndentedJson();
-            }
-
-            bool notIntendedJson = m_content != m_jsonFormatter.GetIndentedJson();
-            if (notIntendedJson)
-            {
-                return string.Empty;
-            }
-
-            if (m_configuration.CompactConversionEnabled)
-            {
-                return m_jsonFormatter.GetCompactJson();
-            }
-            else
-            {
-                return m_content;
-            }
         }
     }
 }
