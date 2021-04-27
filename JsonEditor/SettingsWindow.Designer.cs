@@ -33,24 +33,26 @@ namespace JsonEditor
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsWindow));
             this.SaveButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
-            this.HotKeyBindingLabel = new System.Windows.Forms.Label();
-            this.ModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
-            this.MainKeyBindingTextBox = new System.Windows.Forms.TextBox();
-            this.HotKeyBindingPlusLabel = new System.Windows.Forms.Label();
+            this.IndentedFomattingKeyBindingLabel = new System.Windows.Forms.Label();
+            this.IndentedFormattingModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
+            this.IndentedFormattingMainKeyBindingTextBox = new System.Windows.Forms.TextBox();
+            this.IndentedFormattingKeyBindingPlusLabel = new System.Windows.Forms.Label();
             this.TimeWaitingMs = new System.Windows.Forms.TextBox();
             this.TimeWaitingLabel = new System.Windows.Forms.Label();
-            this.EnableCompactConversionLabel = new System.Windows.Forms.Label();
-            this.CompactConversionEnabled = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.DisplaySuccessNotificationEnabled = new System.Windows.Forms.CheckBox();
             this.DisplaySuccessNotificationLabel = new System.Windows.Forms.Label();
+            this.CompactFormattingKeyBindingPlusLabel = new System.Windows.Forms.Label();
+            this.CompactFormattingMainKeyBindingTextBox = new System.Windows.Forms.TextBox();
+            this.CompactFormattingModifierKeyBindingTextBox = new System.Windows.Forms.TextBox();
+            this.CompactFomattingKeyBindingLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // SaveButton
             // 
             this.SaveButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.SaveButton.Location = new System.Drawing.Point(248, 199);
+            this.SaveButton.Location = new System.Drawing.Point(300, 194);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(91, 27);
             this.SaveButton.TabIndex = 0;
@@ -61,7 +63,7 @@ namespace JsonEditor
             // CancelButton
             // 
             this.CancelButton.Font = new System.Drawing.Font("Leelawadee UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.CancelButton.Location = new System.Drawing.Point(360, 199);
+            this.CancelButton.Location = new System.Drawing.Point(412, 194);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(91, 27);
             this.CancelButton.TabIndex = 0;
@@ -69,53 +71,53 @@ namespace JsonEditor
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
-            // HotKeyBindingLabel
+            // IndentedFomattingKeyBindingLabel
             // 
-            this.HotKeyBindingLabel.AutoSize = true;
-            this.HotKeyBindingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.HotKeyBindingLabel.Location = new System.Drawing.Point(25, 29);
-            this.HotKeyBindingLabel.Name = "HotKeyBindingLabel";
-            this.HotKeyBindingLabel.Size = new System.Drawing.Size(124, 21);
-            this.HotKeyBindingLabel.TabIndex = 1;
-            this.HotKeyBindingLabel.Text = "HotKey binding :";
-            this.HotKeyBindingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.IndentedFomattingKeyBindingLabel.AutoSize = true;
+            this.IndentedFomattingKeyBindingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.IndentedFomattingKeyBindingLabel.Location = new System.Drawing.Point(25, 29);
+            this.IndentedFomattingKeyBindingLabel.Name = "IndentedFomattingKeyBindingLabel";
+            this.IndentedFomattingKeyBindingLabel.Size = new System.Drawing.Size(241, 21);
+            this.IndentedFomattingKeyBindingLabel.TabIndex = 1;
+            this.IndentedFomattingKeyBindingLabel.Text = "Indented formatting key binding :";
+            this.IndentedFomattingKeyBindingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // ModifierKeyBindingTextBox
+            // IndentedFormattingModifierKeyBindingTextBox
             // 
-            this.ModifierKeyBindingTextBox.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ModifierKeyBindingTextBox.Location = new System.Drawing.Point(204, 29);
-            this.ModifierKeyBindingTextBox.Name = "ModifierKeyBindingTextBox";
-            this.ModifierKeyBindingTextBox.ReadOnly = true;
-            this.ModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 25);
-            this.ModifierKeyBindingTextBox.TabIndex = 2;
-            this.ModifierKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ModifierKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModifierKeyBindingTextBox_KeyDown);
+            this.IndentedFormattingModifierKeyBindingTextBox.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.IndentedFormattingModifierKeyBindingTextBox.Location = new System.Drawing.Point(271, 29);
+            this.IndentedFormattingModifierKeyBindingTextBox.Name = "IndentedFormattingModifierKeyBindingTextBox";
+            this.IndentedFormattingModifierKeyBindingTextBox.ReadOnly = true;
+            this.IndentedFormattingModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 25);
+            this.IndentedFormattingModifierKeyBindingTextBox.TabIndex = 2;
+            this.IndentedFormattingModifierKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.IndentedFormattingModifierKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ModifierKeyBindingTextBox_KeyDown);
             // 
-            // MainKeyBindingTextBox
+            // IndentedFormattingMainKeyBindingTextBox
             // 
-            this.MainKeyBindingTextBox.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.MainKeyBindingTextBox.Location = new System.Drawing.Point(381, 29);
-            this.MainKeyBindingTextBox.Name = "MainKeyBindingTextBox";
-            this.MainKeyBindingTextBox.ReadOnly = true;
-            this.MainKeyBindingTextBox.Size = new System.Drawing.Size(79, 25);
-            this.MainKeyBindingTextBox.TabIndex = 3;
-            this.MainKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.MainKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainKeyBindingTextBox_KeyDown);
+            this.IndentedFormattingMainKeyBindingTextBox.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.IndentedFormattingMainKeyBindingTextBox.Location = new System.Drawing.Point(424, 29);
+            this.IndentedFormattingMainKeyBindingTextBox.Name = "IndentedFormattingMainKeyBindingTextBox";
+            this.IndentedFormattingMainKeyBindingTextBox.ReadOnly = true;
+            this.IndentedFormattingMainKeyBindingTextBox.Size = new System.Drawing.Size(79, 25);
+            this.IndentedFormattingMainKeyBindingTextBox.TabIndex = 3;
+            this.IndentedFormattingMainKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.IndentedFormattingMainKeyBindingTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainKeyBindingTextBox_KeyDown);
             // 
-            // HotKeyBindingPlusLabel
+            // IndentedFormattingKeyBindingPlusLabel
             // 
-            this.HotKeyBindingPlusLabel.AutoSize = true;
-            this.HotKeyBindingPlusLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.HotKeyBindingPlusLabel.Location = new System.Drawing.Point(344, 30);
-            this.HotKeyBindingPlusLabel.Name = "HotKeyBindingPlusLabel";
-            this.HotKeyBindingPlusLabel.Size = new System.Drawing.Size(21, 21);
-            this.HotKeyBindingPlusLabel.TabIndex = 4;
-            this.HotKeyBindingPlusLabel.Text = "+";
+            this.IndentedFormattingKeyBindingPlusLabel.AutoSize = true;
+            this.IndentedFormattingKeyBindingPlusLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.IndentedFormattingKeyBindingPlusLabel.Location = new System.Drawing.Point(400, 30);
+            this.IndentedFormattingKeyBindingPlusLabel.Name = "IndentedFormattingKeyBindingPlusLabel";
+            this.IndentedFormattingKeyBindingPlusLabel.Size = new System.Drawing.Size(21, 21);
+            this.IndentedFormattingKeyBindingPlusLabel.TabIndex = 4;
+            this.IndentedFormattingKeyBindingPlusLabel.Text = "+";
             // 
             // TimeWaitingMs
             // 
             this.TimeWaitingMs.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TimeWaitingMs.Location = new System.Drawing.Point(360, 71);
+            this.TimeWaitingMs.Location = new System.Drawing.Point(404, 110);
             this.TimeWaitingMs.Name = "TimeWaitingMs";
             this.TimeWaitingMs.Size = new System.Drawing.Size(94, 25);
             this.TimeWaitingMs.TabIndex = 6;
@@ -126,35 +128,12 @@ namespace JsonEditor
             // 
             this.TimeWaitingLabel.AutoSize = true;
             this.TimeWaitingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.TimeWaitingLabel.Location = new System.Drawing.Point(25, 71);
+            this.TimeWaitingLabel.Location = new System.Drawing.Point(25, 110);
             this.TimeWaitingLabel.Name = "TimeWaitingLabel";
             this.TimeWaitingLabel.Size = new System.Drawing.Size(325, 21);
             this.TimeWaitingLabel.TabIndex = 5;
             this.TimeWaitingLabel.Text = "Time to wait window ready before copy (ms) :";
             this.TimeWaitingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // EnableCompactConversionLabel
-            // 
-            this.EnableCompactConversionLabel.AutoSize = true;
-            this.EnableCompactConversionLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.EnableCompactConversionLabel.Location = new System.Drawing.Point(25, 112);
-            this.EnableCompactConversionLabel.Name = "EnableCompactConversionLabel";
-            this.EnableCompactConversionLabel.Size = new System.Drawing.Size(192, 21);
-            this.EnableCompactConversionLabel.TabIndex = 7;
-            this.EnableCompactConversionLabel.Text = "Compact json conversion :";
-            this.EnableCompactConversionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // CompactConversionEnabled
-            // 
-            this.CompactConversionEnabled.AutoSize = true;
-            this.CompactConversionEnabled.Font = new System.Drawing.Font("Leelawadee UI", 12F);
-            this.CompactConversionEnabled.Location = new System.Drawing.Point(281, 111);
-            this.CompactConversionEnabled.Name = "CompactConversionEnabled";
-            this.CompactConversionEnabled.Size = new System.Drawing.Size(84, 25);
-            this.CompactConversionEnabled.TabIndex = 8;
-            this.CompactConversionEnabled.Text = "Enabled";
-            this.CompactConversionEnabled.UseVisualStyleBackColor = true;
-            this.CompactConversionEnabled.CheckedChanged += new System.EventHandler(this.CompactConversionEnabled_CheckedChanged);
             // 
             // errorProvider1
             // 
@@ -164,7 +143,7 @@ namespace JsonEditor
             // 
             this.DisplaySuccessNotificationEnabled.AutoSize = true;
             this.DisplaySuccessNotificationEnabled.Font = new System.Drawing.Font("Leelawadee UI", 12F);
-            this.DisplaySuccessNotificationEnabled.Location = new System.Drawing.Point(281, 150);
+            this.DisplaySuccessNotificationEnabled.Location = new System.Drawing.Point(367, 151);
             this.DisplaySuccessNotificationEnabled.Name = "DisplaySuccessNotificationEnabled";
             this.DisplaySuccessNotificationEnabled.Size = new System.Drawing.Size(84, 25);
             this.DisplaySuccessNotificationEnabled.TabIndex = 10;
@@ -176,28 +155,71 @@ namespace JsonEditor
             // 
             this.DisplaySuccessNotificationLabel.AutoSize = true;
             this.DisplaySuccessNotificationLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.DisplaySuccessNotificationLabel.Location = new System.Drawing.Point(25, 151);
+            this.DisplaySuccessNotificationLabel.Location = new System.Drawing.Point(25, 152);
             this.DisplaySuccessNotificationLabel.Name = "DisplaySuccessNotificationLabel";
-            this.DisplaySuccessNotificationLabel.Size = new System.Drawing.Size(126, 17);
+            this.DisplaySuccessNotificationLabel.Size = new System.Drawing.Size(158, 21);
             this.DisplaySuccessNotificationLabel.TabIndex = 9;
             this.DisplaySuccessNotificationLabel.Text = "Notify if json is valid :";
             this.DisplaySuccessNotificationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // CompactFormattingKeyBindingPlusLabel
+            // 
+            this.CompactFormattingKeyBindingPlusLabel.AutoSize = true;
+            this.CompactFormattingKeyBindingPlusLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CompactFormattingKeyBindingPlusLabel.Location = new System.Drawing.Point(400, 69);
+            this.CompactFormattingKeyBindingPlusLabel.Name = "CompactFormattingKeyBindingPlusLabel";
+            this.CompactFormattingKeyBindingPlusLabel.Size = new System.Drawing.Size(21, 21);
+            this.CompactFormattingKeyBindingPlusLabel.TabIndex = 14;
+            this.CompactFormattingKeyBindingPlusLabel.Text = "+";
+            // 
+            // CompactFormattingMainKeyBindingTextBox
+            // 
+            this.CompactFormattingMainKeyBindingTextBox.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CompactFormattingMainKeyBindingTextBox.Location = new System.Drawing.Point(424, 69);
+            this.CompactFormattingMainKeyBindingTextBox.Name = "CompactFormattingMainKeyBindingTextBox";
+            this.CompactFormattingMainKeyBindingTextBox.ReadOnly = true;
+            this.CompactFormattingMainKeyBindingTextBox.Size = new System.Drawing.Size(79, 25);
+            this.CompactFormattingMainKeyBindingTextBox.TabIndex = 13;
+            this.CompactFormattingMainKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CompactFormattingModifierKeyBindingTextBox
+            // 
+            this.CompactFormattingModifierKeyBindingTextBox.Font = new System.Drawing.Font("Leelawadee UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CompactFormattingModifierKeyBindingTextBox.Location = new System.Drawing.Point(271, 69);
+            this.CompactFormattingModifierKeyBindingTextBox.Name = "CompactFormattingModifierKeyBindingTextBox";
+            this.CompactFormattingModifierKeyBindingTextBox.ReadOnly = true;
+            this.CompactFormattingModifierKeyBindingTextBox.Size = new System.Drawing.Size(126, 25);
+            this.CompactFormattingModifierKeyBindingTextBox.TabIndex = 12;
+            this.CompactFormattingModifierKeyBindingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CompactFomattingKeyBindingLabel
+            // 
+            this.CompactFomattingKeyBindingLabel.AutoSize = true;
+            this.CompactFomattingKeyBindingLabel.Font = new System.Drawing.Font("Leelawadee UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.CompactFomattingKeyBindingLabel.Location = new System.Drawing.Point(26, 69);
+            this.CompactFomattingKeyBindingLabel.Name = "CompactFomattingKeyBindingLabel";
+            this.CompactFomattingKeyBindingLabel.Size = new System.Drawing.Size(242, 21);
+            this.CompactFomattingKeyBindingLabel.TabIndex = 11;
+            this.CompactFomattingKeyBindingLabel.Text = "Compact formatting key binding :";
+            this.CompactFomattingKeyBindingLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SettingsWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 238);
+            this.ClientSize = new System.Drawing.Size(541, 235);
+            this.Controls.Add(this.CompactFormattingKeyBindingPlusLabel);
+            this.Controls.Add(this.CompactFormattingMainKeyBindingTextBox);
+            this.Controls.Add(this.CompactFormattingModifierKeyBindingTextBox);
+            this.Controls.Add(this.CompactFomattingKeyBindingLabel);
             this.Controls.Add(this.DisplaySuccessNotificationEnabled);
             this.Controls.Add(this.DisplaySuccessNotificationLabel);
-            this.Controls.Add(this.CompactConversionEnabled);
-            this.Controls.Add(this.EnableCompactConversionLabel);
             this.Controls.Add(this.TimeWaitingMs);
             this.Controls.Add(this.TimeWaitingLabel);
-            this.Controls.Add(this.HotKeyBindingPlusLabel);
-            this.Controls.Add(this.MainKeyBindingTextBox);
-            this.Controls.Add(this.ModifierKeyBindingTextBox);
-            this.Controls.Add(this.HotKeyBindingLabel);
+            this.Controls.Add(this.IndentedFormattingKeyBindingPlusLabel);
+            this.Controls.Add(this.IndentedFormattingMainKeyBindingTextBox);
+            this.Controls.Add(this.IndentedFormattingModifierKeyBindingTextBox);
+            this.Controls.Add(this.IndentedFomattingKeyBindingLabel);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.SaveButton);
             this.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -218,16 +240,18 @@ namespace JsonEditor
 
         private System.Windows.Forms.Button SaveButton;
         private System.Windows.Forms.Button CancelButton;
-        private System.Windows.Forms.Label HotKeyBindingLabel;
-        private System.Windows.Forms.TextBox ModifierKeyBindingTextBox;
-        private System.Windows.Forms.TextBox MainKeyBindingTextBox;
-        private System.Windows.Forms.Label HotKeyBindingPlusLabel;
+        private System.Windows.Forms.Label IndentedFomattingKeyBindingLabel;
+        private System.Windows.Forms.TextBox IndentedFormattingModifierKeyBindingTextBox;
+        private System.Windows.Forms.TextBox IndentedFormattingMainKeyBindingTextBox;
+        private System.Windows.Forms.Label IndentedFormattingKeyBindingPlusLabel;
         private System.Windows.Forms.TextBox TimeWaitingMs;
         private System.Windows.Forms.Label TimeWaitingLabel;
-        private System.Windows.Forms.Label EnableCompactConversionLabel;
-        private System.Windows.Forms.CheckBox CompactConversionEnabled;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.CheckBox DisplaySuccessNotificationEnabled;
         private System.Windows.Forms.Label DisplaySuccessNotificationLabel;
+        private System.Windows.Forms.Label CompactFormattingKeyBindingPlusLabel;
+        private System.Windows.Forms.TextBox CompactFormattingMainKeyBindingTextBox;
+        private System.Windows.Forms.TextBox CompactFormattingModifierKeyBindingTextBox;
+        private System.Windows.Forms.Label CompactFomattingKeyBindingLabel;
     }
 }

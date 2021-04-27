@@ -17,8 +17,8 @@ namespace JsonEditor
         {
             InitializeComponent();
             m_configuration = configuration;
-            m_modifierKeys = m_configuration.ConversionHotKeyModifierKey;
-            m_mainKeys = m_configuration.ConversionHotKeyMainKey;
+            m_modifierKeys = m_configuration.IndentedFormattingConversionHotKeyModifierKey;
+            m_mainKeys = m_configuration.IndentedFormattingConversionHotKeyMainKey;
             m_compactConversionEnabled = m_configuration.CompactConversionEnabled;
             m_displaySuccessMessageEnabled = m_configuration.DisplaySuccessNotificationEnabled;
             m_waitWindowReadyMs = m_configuration.WaitWindowReadyMs;
@@ -27,9 +27,8 @@ namespace JsonEditor
 
         private void SettingsWindow_Load(object sender, EventArgs e)
         {
-            ModifierKeyBindingTextBox.Text = m_modifierKeys.ToString();
-            MainKeyBindingTextBox.Text = m_mainKeys.ToString();
-            CompactConversionEnabled.Checked = m_compactConversionEnabled;
+            IndentedFormattingModifierKeyBindingTextBox.Text = m_modifierKeys.ToString();
+            IndentedFormattingMainKeyBindingTextBox.Text = m_mainKeys.ToString();
             DisplaySuccessNotificationEnabled.Checked = m_displaySuccessMessageEnabled;
             TimeWaitingMs.Text = m_waitWindowReadyMs.ToString();
         }
@@ -40,7 +39,7 @@ namespace JsonEditor
             if (isModifierKeys)
             {
                 Enum.TryParse(e.Modifiers.ToString(), out m_modifierKeys);
-                ModifierKeyBindingTextBox.Text = m_modifierKeys.ToString();
+                IndentedFormattingModifierKeyBindingTextBox.Text = m_modifierKeys.ToString();
             }
             e.SuppressKeyPress = true;
             e.Handled = true;
@@ -48,8 +47,8 @@ namespace JsonEditor
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            m_configuration.ConversionHotKeyModifierKey = m_modifierKeys;
-            m_configuration.ConversionHotKeyMainKey = m_mainKeys;
+            m_configuration.IndentedFormattingConversionHotKeyModifierKey = m_modifierKeys;
+            m_configuration.IndentedFormattingConversionHotKeyMainKey = m_mainKeys;
             m_configuration.CompactConversionEnabled = m_compactConversionEnabled;
             m_configuration.DisplaySuccessNotificationEnabled = m_displaySuccessMessageEnabled;
             m_configuration.WaitWindowReadyMs = m_waitWindowReadyMs;
@@ -71,7 +70,7 @@ namespace JsonEditor
             if (!isModifierKeys)
             {
                 m_mainKeys = e.KeyData;
-                MainKeyBindingTextBox.Text = m_mainKeys.ToString();
+                IndentedFormattingMainKeyBindingTextBox.Text = m_mainKeys.ToString();
             }
             e.SuppressKeyPress = true;
             e.Handled = true;
@@ -80,11 +79,6 @@ namespace JsonEditor
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Dispose();
-        }
-
-        private void CompactConversionEnabled_CheckedChanged(object sender, EventArgs e)
-        {
-            m_compactConversionEnabled = CompactConversionEnabled.Checked;
         }
 
         private void TimeWaitingMs_TextChanged(object sender, EventArgs e)
