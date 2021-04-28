@@ -56,6 +56,7 @@ namespace JsonEditor
         {
             Notifier.Visible = true;
             WindowState = FormWindowState.Minimized;
+            Hide();
         }
 
         private void JsonHook_IndentedFormatting_KeyPressed(object sender, KeyPressedEventArgs e)
